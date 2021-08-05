@@ -4,7 +4,7 @@ var indexSectionsWithContent =
   1: "ce",
   2: "celprst",
   3: "cefmps",
-  4: "_acdipuw",
+  4: "_acdimpuw",
   5: "acdhps",
   6: "s"
 };
