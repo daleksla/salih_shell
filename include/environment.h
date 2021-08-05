@@ -1,3 +1,7 @@
+#ifndef ENVIRONMENT_H
+#define ENVIRONMENT_H
+#pragma once
+
 /** @brief Declarations relating to initialisation & modification of environment
   * @author Salih Ahmed
   * @date 2 Aug 2021 **/
@@ -20,3 +24,5 @@ void environment_init(Environment*) ;
 /** Deinitialises environment structure
   * @param pointer to Environment struct variable **/ 
 void environment_fini(Environment*) ;
+
+#endif // ENVIRONMENT_H

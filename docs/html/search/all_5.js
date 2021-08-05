@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['info_5farch_14',['info_arch',['../d9/d4b/CMakeCCompilerId_8c.html#a59647e99d304ed33b15cb284c27ed391',1,'CMakeCCompilerId.c']]],
-  ['info_5fcompiler_15',['info_compiler',['../d9/d4b/CMakeCCompilerId_8c.html#a4b0efeb7a5d59313986b3a0390f050f6',1,'CMakeCCompilerId.c']]],
-  ['info_5flanguage_5fdialect_5fdefault_16',['info_language_dialect_default',['../d9/d4b/CMakeCCompilerId_8c.html#a1ce162bad2fe6966ac8b33cc19e120b8',1,'CMakeCCompilerId.c']]],
-  ['info_5fplatform_17',['info_platform',['../d9/d4b/CMakeCCompilerId_8c.html#a2321403dee54ee23f0c2fa849c60f7d4',1,'CMakeCCompilerId.c']]]
+  ['find_5ftext_21',['find_text',['../d5/d36/parser_8h.html#a3a771f9dce444a86b9395e61fb344495',1,'find_text(const char *, const size_t):&#160;parser.c'],['../d2/d72/parser_8c.html#aa83b8a23104415a5a76f774a03c198ec',1,'find_text(const char *input, const size_t size):&#160;parser.c']]],
+  ['find_5fwhitespace_22',['find_whitespace',['../d5/d36/parser_8h.html#a05d8b46af444d2f5715ac0e43104968f',1,'find_whitespace(const char *, const size_t):&#160;parser.c'],['../d2/d72/parser_8c.html#a12f7fd690876f2456bec70cb5903947e',1,'find_whitespace(const char *input, const size_t size):&#160;parser.c']]]
 ];

@@ -1,14 +1,26 @@
 #include <unistd.h> // working dir, symbolic constants
+#include <sys/wait.h> // wait
 #include <signal.h> // signal handling
 #include <stddef.h> // type aliases
 #include <stdio.h> // IO ops
 #include <stdlib.h> // environmental variables
+#include <string.h> // memset
 
 #include "environment.h" // custom environment setup
+#include "parser.h" // useful functions to help parse string input
+
+char die = 0 ;
 
 /** @brief Source code to manage shell
   * @author Salih Ahmed
   * @date 2 Aug 2021 **/
+
+/** sig_term_function - very basic function to simply set a global variable whenever a termination signal is receieved
+  * allows exit from main loop for deinitialisation of variables etc. before subsequently terminating **/
+void sig_term_function()
+{
+	die = 1 ;
+}
 
 /** main control code
   * @param int correlating to number to arguments
@@ -18,15 +30,59 @@ int main(int, char**) ;
 
 int main(int argc, char** argv)
 {
-	// variable setup(s) & config
+	/* variable setup(s) & config */
 	Environment env ;
+	CmdStore cmd_store ;
+	
 	environment_init(&env) ;
+	cmd_store_init(&cmd_store) ;
+	
+	/* Signal catchers, exits main functionality and releases memory first */
+	signal(SIGINT, sig_term_function) ;
+	signal(SIGQUIT, sig_term_function) ;
+	
+	/* main functionality */
+	while(!die)
+	{
+		// Initialise variables
+		char buffer[1024] ; // serves as input buffer
+		memset(buffer, EOF, 1024) ;
+		size_t available = 1024 ; // stores available size in buffer for input
+		
+		// Get input		
+		if(!fgets(buffer, available, stdin)) // if read isn't sucessful
+		{				      // and if it fails ...
+			break ;                      // try again
+		}
+		
+		if(!parse(buffer, available, &cmd_store)) // load cmd_store up with parsed data
+		{				           // and if it fails ...
+			break ;                        // restart loop
+		}
 
-	// main functionality
-	printf("Current directory: %s\n", env.WORKING_DIRECTORY) ;
-	printf("Current user: %s\n", env.USER) ;
-	printf("Current path: %s\n", env.PATH) ;
-	//
+		// Execute instructions
+		if(strcmp(cmd_store.cmd, "cd") == 0) // for some ridiculous reason, 0 means true (as in op. success)
+		{
+			printf("%s%s\n", "hail ", cmd_store.args[0]) ; 
+		}
+		else { // ie just execute a regular command, using sh
+			int pid = fork() ;
+			if(pid == 0)
+			{
+ 				execl("/bin/sh", "/bin/sh", "-c", cmd_store.cmd, (char*)NULL) ;
+			}
+			else {
+				wait(NULL) ;
+			}
+		}
+	}
+	// printf("Current directory: %s\n", env.WORKING_DIRECTORY) ;
+	// printf("Current user: %s\n", env.USER) ;
+	// printf("Current path: %s\n", env.PATH) ;
+	
+	// EOP
+	environment_fini(&env) ;
+	cmd_store_fini(&cmd_store) ;
 	return 0 ;
 }
   

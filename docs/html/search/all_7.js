@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['main_19',['main',['../d9/d4b/CMakeCCompilerId_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;CMakeCCompilerId.c'],['../d9/d97/source_8c.html#a2c3f6775325c30275d11c6abee2db6a0',1,'main(int, char **):&#160;source.c']]]
+  ['info_5farch_24',['info_arch',['../d9/d4b/CMakeCCompilerId_8c.html#a59647e99d304ed33b15cb284c27ed391',1,'CMakeCCompilerId.c']]],
+  ['info_5fcompiler_25',['info_compiler',['../d9/d4b/CMakeCCompilerId_8c.html#a4b0efeb7a5d59313986b3a0390f050f6',1,'CMakeCCompilerId.c']]],
+  ['info_5flanguage_5fdialect_5fdefault_26',['info_language_dialect_default',['../d9/d4b/CMakeCCompilerId_8c.html#a1ce162bad2fe6966ac8b33cc19e120b8',1,'CMakeCCompilerId.c']]],
+  ['info_5fplatform_27',['info_platform',['../d9/d4b/CMakeCCompilerId_8c.html#a2321403dee54ee23f0c2fa849c60f7d4',1,'CMakeCCompilerId.c']]]
 ];
