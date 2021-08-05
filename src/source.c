@@ -49,7 +49,8 @@ int main(int argc, char** argv)
 		memset(buffer, EOF, 1024) ;
 		size_t available = 1024 ; // stores available size in buffer for input
 		
-		// Get input		
+		// Get input
+		printf("%s%s:%s%s$ ", "\e[1;45m", env.USER, env.WORKING_DIRECTORY, "\e[0m") ;	
 		if(!fgets(buffer, available, stdin)) // if read isn't sucessful
 		{				      // and if it fails ...
 			break ;                      // try again
@@ -63,13 +64,21 @@ int main(int argc, char** argv)
 		// Execute instructions
 		if(strcmp(cmd_store.cmd, "cd") == 0) // for some ridiculous reason, 0 means true (as in op. success)
 		{
-			printf("%s%s\n", "hail ", cmd_store.args[0]) ; 
+			if(!change_directory(&env, cmd_store.args[0]))
+			{
+				printf("%s\n", "Invalid directory!") ;
+			}
+		}
+		if(strcmp(cmd_store.cmd, "quit") == 0) // for some ridiculous reason, 0 means true (as in op. success)
+		{
+			printf("%s%s%s", "\e[1;31m", "Exiting...", "\e[0m") ; 
+			die = 1 ;
 		}
 		else { // ie just execute a regular command, using sh
 			int pid = fork() ;
 			if(pid == 0)
 			{
- 				execl("/bin/sh", "/bin/sh", "-c", cmd_store.cmd, (char*)NULL) ;
+ 				execl("/bin/sh", "/bin/sh", "-c", cmd_store.cmd, cmd_store.args, (char*)NULL) ;
 			}
 			else {
 				wait(NULL) ;
@@ -81,6 +90,7 @@ int main(int argc, char** argv)
 	// printf("Current path: %s\n", env.PATH) ;
 	
 	// EOP
+	printf("%c", '\n') ;
 	environment_fini(&env) ;
 	cmd_store_fini(&cmd_store) ;
 	return 0 ;

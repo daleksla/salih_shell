@@ -15,11 +15,19 @@ typedef struct {
 	
 	char* WORKING_DIRECTORY ;
 	
+	size_t max_size_ ;
+	
 } Environment ;
 
 /** Initialises environment structure
   * @param pointer to Environment struct variable **/ 
 void environment_init(Environment*) ;
+
+/** change directory
+  * @param pointer to Environment struct variable 
+  * @param c-string to new desired path 
+  * @return int acting as boolean as to whether operation was sucessful or not **/ 
+int change_directory(Environment*, const char*) ;
 
 /** Deinitialises environment structure
   * @param pointer to Environment struct variable **/ 
