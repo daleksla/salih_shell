@@ -44,6 +44,8 @@ int main(int argc, char** argv)
 	/* main functionality */
 	while(!die)
 	{
+		cmd_store_refresh(&cmd_store) ;
+	
 		// Initialise variables
 		char buffer[1024] ; // serves as input buffer
 		memset(buffer, EOF, 1024) ;
@@ -62,14 +64,14 @@ int main(int argc, char** argv)
 		}
 
 		// Execute instructions
-		if(strcmp(cmd_store.cmd, "cd") == 0) // for some ridiculous reason, 0 means true (as in op. success)
+		if(strcmp(cmd_store.args[0], "cd") == 0) // for some ridiculous reason, 0 means true (as in op. success)
 		{
-			if(!change_directory(&env, cmd_store.args[0]))
+			if(!change_directory(&env, cmd_store.args[1]))
 			{
 				printf("%s\n", "Invalid directory!") ;
 			}
 		}
-		if(strcmp(cmd_store.cmd, "quit") == 0) // for some ridiculous reason, 0 means true (as in op. success)
+		else if(strcmp(cmd_store.args[0], "quit") == 0) // for some ridiculous reason, 0 means true (as in op. success)
 		{
 			printf("%s%s%s", "\e[1;31m", "Exiting...", "\e[0m") ; 
 			die = 1 ;
@@ -78,7 +80,14 @@ int main(int argc, char** argv)
 			int pid = fork() ;
 			if(pid == 0)
 			{
- 				execl("/bin/sh", "/bin/sh", "-c", cmd_store.cmd, cmd_store.args, (char*)NULL) ;
+ 				if(cmd_store.arg_count == 0)
+ 				{
+ 					cmd_store.args[1] = "." ;
+ 					execvp(cmd_store.args[0], cmd_store.args+1) ;
+ 				}
+ 				else {
+ 					execvp(cmd_store.args[0], cmd_store.args+1) ;
+ 				}
 			}
 			else {
 				wait(NULL) ;

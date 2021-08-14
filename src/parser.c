@@ -10,9 +10,13 @@
   
 void cmd_store_init(CmdStore* cmd_store)
 {
-	cmd_store->cmd = NULL ;
 	cmd_store->_size = 256 ;
 	cmd_store->args = malloc(sizeof(char*) * cmd_store->_size) ; // list of max 256 char pointers
+	cmd_store->arg_count = 0 ;
+}
+
+void cmd_store_refresh(CmdStore* cmd_store)
+{
 	cmd_store->arg_count = 0 ;
 }
   
@@ -24,8 +28,8 @@ int parse(char* buffer, size_t available, CmdStore* cmd_store)
 		return 0 ; // indicate failure
 
 	// if text was found
-	cmd_store->cmd = i ; // save it as main command, since it's our first bit of text found
-	available -= cmd_store->cmd - buffer ; // calculate number of bytes left in buffer
+	cmd_store->args[cmd_store->arg_count] = i ; // save it as main command, since it's our first bit of text found
+	available -= i - buffer ; // calculate number of bytes left in buffer
 	i = find_whitespace(i, available) ; // find next gap 
 	*i = '\0' ; // place null terminator at first whitespace to create a valid c-string
 	
@@ -44,7 +48,7 @@ int parse(char* buffer, size_t available, CmdStore* cmd_store)
 			
 		// if we do find text	
 		++cmd_store->arg_count ;			
-		cmd_store->args[cmd_store->arg_count-1] = i ; // save it as an argument
+		cmd_store->args[cmd_store->arg_count] = i ; // save it as an argument
 		available -= i - buffer ; // calculate what remains of the buffer using the pointers			
 		i = find_whitespace(i, available) ; // first find next gap
 		*i = '\0' ; // replace whitespace with null termination char to create a valid c-string
@@ -79,5 +83,7 @@ char* find_whitespace(const char* input, const size_t size)
 void cmd_store_fini(CmdStore* cmd_store)
 {
 	free(cmd_store->args) ;
+	cmd_store->args = NULL ;
+	cmd_store->_size = 0 ;
 	cmd_store->arg_count = 0 ;
 }

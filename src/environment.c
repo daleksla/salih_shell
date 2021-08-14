@@ -31,7 +31,7 @@ int change_directory(Environment* env, const char* path)
 	}
 	
 	size_t n = pathconf(".", _PC_PATH_MAX) ;
-	// size_t n = strlen(path) ;
+
 	if(env->max_size_ > n)
 	{
 		env->WORKING_DIRECTORY = realloc(env->WORKING_DIRECTORY, n) ;
@@ -51,6 +51,10 @@ int change_directory(Environment* env, const char* path)
 } 
 
 void environment_fini(Environment* env)
-{
+{	
+	env->PATH = NULL ;
+	env->USER = NULL ;
 	free((void*)env->WORKING_DIRECTORY) ;
+	env->WORKING_DIRECTORY = NULL ;
+	env->max_size_ = 0 ;
 }

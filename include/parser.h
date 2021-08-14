@@ -11,8 +11,6 @@
 typedef struct {
 	/** Struct storing parsed information from input, such as main command, arguments etc. **/
 	
-	char* cmd ;
-	
 	char** args ;
 
 	size_t _size ; // allocated size of args, just double up each time
@@ -24,6 +22,10 @@ typedef struct {
 /** Initialises CmdStore structure
   * @param pointer to CmdStore struct variable **/ 
 void cmd_store_init(CmdStore*) ;
+
+/** Resets CmdStore structure
+  * @param pointer to CmdStore struct variable **/ 
+void cmd_store_refresh(CmdStore*) ;
 
 /** parse scans user input and splits relevant info it into commands, arguments etc.
   * @param pointer to input buffer

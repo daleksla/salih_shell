@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['die_74',['die',['../d9/d97/source_8c.html#af78de815cc9d86f2ca75550df37ea1ec',1,'source.c']]]
+  ['info_5farch_77',['info_arch',['../d9/d4b/CMakeCCompilerId_8c.html#a59647e99d304ed33b15cb284c27ed391',1,'CMakeCCompilerId.c']]],
+  ['info_5fcompiler_78',['info_compiler',['../d9/d4b/CMakeCCompilerId_8c.html#a4b0efeb7a5d59313986b3a0390f050f6',1,'CMakeCCompilerId.c']]],
+  ['info_5flanguage_5fdialect_5fdefault_79',['info_language_dialect_default',['../d9/d4b/CMakeCCompilerId_8c.html#a1ce162bad2fe6966ac8b33cc19e120b8',1,'CMakeCCompilerId.c']]],
+  ['info_5fplatform_80',['info_platform',['../d9/d4b/CMakeCCompilerId_8c.html#a2321403dee54ee23f0c2fa849c60f7d4',1,'CMakeCCompilerId.c']]]
 ];
