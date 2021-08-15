@@ -74,49 +74,16 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a9cfcbc44eb19b3d9af1e81aef5680ef5"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d3c/structEnvironment.html#a9cfcbc44eb19b3d9af1e81aef5680ef5">max_size_</a></td></tr>
-<tr class="separator:a9cfcbc44eb19b3d9af1e81aef5680ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43c2b479f499803773d783c46b5ac2b2"><td class="memItemLeft" align="right" valign="top">char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d3c/structEnvironment.html#a43c2b479f499803773d783c46b5ac2b2">PATH</a></td></tr>
-<tr class="separator:a43c2b479f499803773d783c46b5ac2b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a900c8e5b5837330ce0508bb81f25879c"><td class="memItemLeft" align="right" valign="top">char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d3c/structEnvironment.html#a900c8e5b5837330ce0508bb81f25879c">USER</a></td></tr>
 <tr class="separator:a900c8e5b5837330ce0508bb81f25879c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd7b22302966f31fe0a893324c0a89e9"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d3c/structEnvironment.html#acd7b22302966f31fe0a893324c0a89e9">WORKING_DIRECTORY</a></td></tr>
-<tr class="separator:acd7b22302966f31fe0a893324c0a89e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad123d0f0e67e433467fa8d4944d396dc"><td class="memItemLeft" align="right" valign="top">char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d3c/structEnvironment.html#ad123d0f0e67e433467fa8d4944d396dc">WORKING_DIRECTORY</a></td></tr>
+<tr class="separator:ad123d0f0e67e433467fa8d4944d396dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Declarations relating to initialisation &amp; modification of environment. </p>
 <dl class="section author"><dt>Author</dt><dd>Salih Ahmed </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2 Aug 2021 </dd></dl>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a9cfcbc44eb19b3d9af1e81aef5680ef5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cfcbc44eb19b3d9af1e81aef5680ef5">&#9670;&nbsp;</a></span>max_size_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t Environment::max_size_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a43c2b479f499803773d783c46b5ac2b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43c2b479f499803773d783c46b5ac2b2">&#9670;&nbsp;</a></span>PATH</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">char const* Environment::PATH</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Struct containing essential environment information Note: requires full initialisation using <code>environment_init</code> &amp; deinitialisation using <code>environment_fini</code> </p>
-
-</div>
-</div>
 <a id="a900c8e5b5837330ce0508bb81f25879c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a900c8e5b5837330ce0508bb81f25879c">&#9670;&nbsp;</a></span>USER</h2>
 
@@ -128,17 +95,18 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Struct containing essential environment information Note: requires full initialisation using <code>environment_init</code> &amp; deinitialisation using <code>environment_fini</code> </p>
 
 </div>
 </div>
-<a id="acd7b22302966f31fe0a893324c0a89e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd7b22302966f31fe0a893324c0a89e9">&#9670;&nbsp;</a></span>WORKING_DIRECTORY</h2>
+<a id="ad123d0f0e67e433467fa8d4944d396dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad123d0f0e67e433467fa8d4944d396dc">&#9670;&nbsp;</a></span>WORKING_DIRECTORY</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* Environment::WORKING_DIRECTORY</td>
+          <td class="memname">char const* Environment::WORKING_DIRECTORY</td>
         </tr>
       </table>
 </div><div class="memdoc">

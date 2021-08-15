@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['foreground_134',['foreground',['../d7/d9d/structDisplaySettings.html#a83e740d9b9df06ad41609542df98d98e',1,'DisplaySettings']]]
+  ['user_139',['USER',['../d0/d3c/structEnvironment.html#a900c8e5b5837330ce0508bb81f25879c',1,'Environment']]]
 ];

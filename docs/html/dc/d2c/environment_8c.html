@@ -67,6 +67,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">environment.c File Reference</div>  </div>
@@ -93,6 +94,11 @@ Include dependency graph for environment.c:</div>
 </map>
 </div>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a369266c24eacffb87046522897a570d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2c/environment_8c.html#a369266c24eacffb87046522897a570d5">_GNU_SOURCE</a></td></tr>
+<tr class="separator:a369266c24eacffb87046522897a570d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2d9f3c21726629c2166ab416ed5fb671"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2c/environment_8c.html#a2d9f3c21726629c2166ab416ed5fb671">change_directory</a> (<a class="el" href="../../d0/d3c/structEnvironment.html">Environment</a> *env, const char *path)</td></tr>
@@ -102,6 +108,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a47c6ca05c0782a8c3174d6325c992645"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2c/environment_8c.html#a47c6ca05c0782a8c3174d6325c992645">environment_init</a> (<a class="el" href="../../d0/d3c/structEnvironment.html">Environment</a> *env)</td></tr>
 <tr class="separator:a47c6ca05c0782a8c3174d6325c992645"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a369266c24eacffb87046522897a570d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a369266c24eacffb87046522897a570d5">&#9670;&nbsp;</a></span>_GNU_SOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define _GNU_SOURCE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a2d9f3c21726629c2166ab416ed5fb671"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2d9f3c21726629c2166ab416ed5fb671">&#9670;&nbsp;</a></span>change_directory()</h2>
@@ -131,7 +152,7 @@ Functions</h2></td></tr>
 <p>change directory </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d0/d3c/structEnvironment.html" title="Declarations relating to initialisation &amp; modification of environment.">Environment</a> struct variable </td></tr>
-    <tr><td class="paramname">c-string</td><td>to new desired path </td></tr>
+    <tr><td class="paramname">const</td><td>char* c-string to new desired path </td></tr>
   </table>
   </dd>
 </dl>

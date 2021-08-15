@@ -9,13 +9,10 @@
 typedef struct {
 	/** Struct containing essential environment information
 	  * Note: requires full initialisation using `environment_init` & deinitialisation using `environment_fini` **/
-	char const* PATH ;
 	
 	char const* USER ;
 	
-	char* WORKING_DIRECTORY ;
-	
-	size_t max_size_ ;
+	char const* WORKING_DIRECTORY ;
 	
 } Environment ;
 

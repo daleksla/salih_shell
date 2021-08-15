@@ -1,4 +1,5 @@
-#include <unistd.h> // working dir, symbolic constants
+#define _GNU_SOURCE
+#include <unistd.h> // working dir, symbolic constants, exec*
 #include <sys/wait.h> // wait
 #include <signal.h> // signal handling
 #include <stddef.h> // type aliases
@@ -17,10 +18,11 @@
 /** main control code
   * @param int correlating to number to arguments
   * @param arguments themselves
+  * @param environmental variables
   * @return int as exit code **/
-int main(int, char**) ;
+int main(int, char**, char**) ;
 
-int main(int argc, char** argv)
+int main(int argc, char** argv, char** envp)
 {
 	/* variable setup(s) & config */
 	Environment env ;
@@ -45,6 +47,7 @@ int main(int argc, char** argv)
 		reset_display() ;
 		printf("%s", "$ ") ;
 		
+		// Parse input
 		if(!fgets(buffer, available, stdin)) // if read isn't sucessful
 		{				      // and if it fails ...
 			break ;                      // try again
@@ -52,45 +55,63 @@ int main(int argc, char** argv)
 		
 		if(!parse(buffer, available, &cmd_store)) // load cmd_store up with parsed data
 		{				           // and if it fails ...
-			break ;                        // restart loop
+			continue ;                        // restart loop
 		}
 
 		// Execute instructions
-		if(strcmp(cmd_store.args[0], "cd") == 0) // for some ridiculous reason, 0 means true (as in op. success)
+		if(strcmp(cmd_store.args[0], "cd") == 0)
 		{
-			if(!change_directory(&env, cmd_store.args[1]))
+		
+			if(cmd_store.arg_count > 1)
+			{
+				printf("%s\n", "Too many arguments provided!") ;
+			}
+			else if(!change_directory(&env, cmd_store.args[1]))
 			{
 				printf("%s\n", "Invalid directory!") ;
 			}
+			
 		}
-		else if(strcmp(cmd_store.args[0], "quit") == 0) // for some ridiculous reason, 0 means true (as in op. success)
+		else if(strcmp(cmd_store.args[0], "echo") == 0)
 		{
-			break ;
+		
+			for(size_t i = 0 ; i < cmd_store.arg_count ; ++i)
+			{
+				printf("%s", cmd_store.args[i+1]) ;
+			}
+			
+			printf("%c", '\n') ; // flush buffer, end w newline
+			
+		}
+		else if(strcmp(cmd_store.args[0], "quit") == 0)
+		{
+		
+			break ; // quit loop, EOP
+			
 		}
 		else { // ie just execute a regular command
+		
 			int pid = fork() ;
 			if(pid == 0)
 			{
- 				if(cmd_store.arg_count == 0) // gnu utils require explicit parameter.
- 							      // just pass '.' which is implicitly passed in other shell if no oher args were given
+ 				if(execvpe(cmd_store.args[0], cmd_store.args+1, envp) == -1)
  				{
- 					cmd_store.args[1] = "." ;
- 					++cmd_store.arg_count ;
+ 					printf("%s%s%s\n", "Command `", cmd_store.args[0], "` could not be executed!") ;
+ 					kill(getpid(), SIGTERM) ; // since process couldn't be taken over by executable, kill it manually 					
+ 					// may want to implement a 'did you mean?' feature
  				}
- 				execvp(cmd_store.args[0], cmd_store.args+1) ;
 			}
 			else {
 				wait(NULL) ;
 			}
+			
 		}
 	}
-	// printf("Current directory: %s\n", env.WORKING_DIRECTORY) ;
-	// printf("Current user: %s\n", env.USER) ;
-	// printf("Current path: %s\n", env.PATH) ;
 	
-	// EOP
+	/* EndOfProgram */
+	reset_display() ;
 	printf("%c", '\n') ;
-	printf("%s%s%s\n", "\e[1;31m", "Exiting...", "\e[0m") ; 
+	
 	environment_fini(&env) ;
 	cmd_store_fini(&cmd_store) ;
 	return 0 ;
