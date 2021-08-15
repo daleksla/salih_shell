@@ -8,19 +8,11 @@
 
 #include "environment.h" // custom environment setup
 #include "parser.h" // useful functions to help parse string input
-
-char die = 0 ;
+#include "display.h" // functions, enums and typedef's to control how text is displayed
 
 /** @brief Source code to manage shell
   * @author Salih Ahmed
   * @date 2 Aug 2021 **/
-
-/** sig_term_function - very basic function to simply set a global variable whenever a termination signal is receieved
-  * allows exit from main loop for deinitialisation of variables etc. before subsequently terminating **/
-void sig_term_function()
-{
-	die = 1 ;
-}
 
 /** main control code
   * @param int correlating to number to arguments
@@ -37,12 +29,8 @@ int main(int argc, char** argv)
 	environment_init(&env) ;
 	cmd_store_init(&cmd_store) ;
 	
-	/* Signal catchers, exits main functionality and releases memory first */
-	signal(SIGINT, sig_term_function) ;
-	signal(SIGQUIT, sig_term_function) ;
-	
 	/* main functionality */
-	while(!die)
+	while(1)
 	{
 		cmd_store_refresh(&cmd_store) ;
 	
@@ -52,7 +40,11 @@ int main(int argc, char** argv)
 		size_t available = 1024 ; // stores available size in buffer for input
 		
 		// Get input
-		printf("%s%s:%s%s$ ", "\e[1;45m", env.USER, env.WORKING_DIRECTORY, "\e[0m") ;	
+		set_display(texture_bold, foreground_white, background_magenta) ;
+		printf("%s%s%s", env.USER, ":", env.WORKING_DIRECTORY) ;
+		reset_display() ;
+		printf("%s", "$ ") ;
+		
 		if(!fgets(buffer, available, stdin)) // if read isn't sucessful
 		{				      // and if it fails ...
 			break ;                      // try again
@@ -73,21 +65,19 @@ int main(int argc, char** argv)
 		}
 		else if(strcmp(cmd_store.args[0], "quit") == 0) // for some ridiculous reason, 0 means true (as in op. success)
 		{
-			printf("%s%s%s", "\e[1;31m", "Exiting...", "\e[0m") ; 
-			die = 1 ;
+			break ;
 		}
-		else { // ie just execute a regular command, using sh
+		else { // ie just execute a regular command
 			int pid = fork() ;
 			if(pid == 0)
 			{
- 				if(cmd_store.arg_count == 0)
+ 				if(cmd_store.arg_count == 0) // gnu utils require explicit parameter.
+ 							      // just pass '.' which is implicitly passed in other shell if no oher args were given
  				{
  					cmd_store.args[1] = "." ;
- 					execvp(cmd_store.args[0], cmd_store.args+1) ;
+ 					++cmd_store.arg_count ;
  				}
- 				else {
- 					execvp(cmd_store.args[0], cmd_store.args+1) ;
- 				}
+ 				execvp(cmd_store.args[0], cmd_store.args+1) ;
 			}
 			else {
 				wait(NULL) ;
@@ -100,6 +90,7 @@ int main(int argc, char** argv)
 	
 	// EOP
 	printf("%c", '\n') ;
+	printf("%s%s%s\n", "\e[1;31m", "Exiting...", "\e[0m") ; 
 	environment_fini(&env) ;
 	cmd_store_fini(&cmd_store) ;
 	return 0 ;

@@ -25,7 +25,7 @@ void environment_init(Environment*) ;
 
 /** change directory
   * @param pointer to Environment struct variable 
-  * @param c-string to new desired path 
+  * @param const char* c-string to new desired path 
   * @return int acting as boolean as to whether operation was sucessful or not **/ 
 int change_directory(Environment*, const char*) ;
 

@@ -1,15 +1,21 @@
 var searchData=
 [
-  ['c_5fdialect_4',['C_DIALECT',['../d9/d4b/CMakeCCompilerId_8c.html#a07f8e5783674099cd7f5110e22a78cdb',1,'CMakeCCompilerId.c']]],
-  ['change_5fdirectory_5',['change_directory',['../de/d26/environment_8h.html#ae817215a3bd2e29539223dd83412d052',1,'change_directory(Environment *, const char *):&#160;environment.c'],['../dc/d2c/environment_8c.html#a2d9f3c21726629c2166ab416ed5fb671',1,'change_directory(Environment *env, const char *path):&#160;environment.c']]],
-  ['cmake_5fminimum_5frequired_6',['cmake_minimum_required',['../da/d9e/CMakeLists_8txt.html#a046c6377401183d4f764a600766fdfde',1,'CMakeLists.txt']]],
-  ['cmakecache_2etxt_7',['CMakeCache.txt',['../de/dbe/CMakeCache_8txt.html',1,'']]],
-  ['cmakeccompilerid_2ec_8',['CMakeCCompilerId.c',['../d9/d4b/CMakeCCompilerId_8c.html',1,'']]],
-  ['cmakelists_2etxt_9',['CMakeLists.txt',['../da/d9e/CMakeLists_8txt.html',1,'']]],
-  ['cmd_5fstore_5ffini_10',['cmd_store_fini',['../d5/d36/parser_8h.html#a57ebf438cacd63cbbf88c267f4cd1d9a',1,'cmd_store_fini(CmdStore *):&#160;parser.c'],['../d2/d72/parser_8c.html#ac565ef3b4fd1339886712ad6aa5e69c6',1,'cmd_store_fini(CmdStore *cmd_store):&#160;parser.c']]],
-  ['cmd_5fstore_5finit_11',['cmd_store_init',['../d5/d36/parser_8h.html#aa13551b4f4b2c9e84c177250f75ed175',1,'cmd_store_init(CmdStore *):&#160;parser.c'],['../d2/d72/parser_8c.html#a6f83873cdc77fa4ced1ccd6bfde648d9',1,'cmd_store_init(CmdStore *cmd_store):&#160;parser.c']]],
-  ['cmd_5fstore_5frefresh_12',['cmd_store_refresh',['../d5/d36/parser_8h.html#aacd1e5ad37a34ca63cb71b3505f86155',1,'cmd_store_refresh(CmdStore *):&#160;parser.c'],['../d2/d72/parser_8c.html#a7515dbd9eaea8ac3bc8c75126d0a1676',1,'cmd_store_refresh(CmdStore *cmd_store):&#160;parser.c']]],
-  ['cmdstore_13',['CmdStore',['../d5/d57/structCmdStore.html',1,'']]],
-  ['compiler_5fid_14',['COMPILER_ID',['../d9/d4b/CMakeCCompilerId_8c.html#a81dee0709ded976b2e0319239f72d174',1,'CMakeCCompilerId.c']]],
-  ['count_2etxt_15',['count.txt',['../dc/daf/count_8txt.html',1,'']]]
+  ['background_4',['background',['../d7/d9d/structDisplaySettings.html#aa958868261b0661bce8321843aad3d43',1,'DisplaySettings']]],
+  ['background_5fblack_5',['background_black',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a64630f5ba71aab6f7786bb138e277d27',1,'display.h']]],
+  ['background_5fblue_6',['background_blue',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228abff59957053e476a8e17a2d79ab11792',1,'display.h']]],
+  ['background_5fcyan_7',['background_cyan',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a21a94de70955115e4ce71a74844fed45',1,'display.h']]],
+  ['background_5fdark_5fgrey_8',['background_dark_grey',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a2cb381defca7433d6d45f87cfdf28af6',1,'display.h']]],
+  ['background_5fgreen_9',['background_green',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228afe5c53a7b1e38e74de65196073be15c9',1,'display.h']]],
+  ['background_5flight_5fblue_10',['background_light_blue',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228adcecb9cb400b07b95b338d61da3e7786',1,'display.h']]],
+  ['background_5flight_5fcyan_11',['background_light_cyan',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228acbcc1f98de49c87d0547db39232e3999',1,'display.h']]],
+  ['background_5flight_5fgreen_12',['background_light_green',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a238816bacf7f2c15ce3237012b4f8097',1,'display.h']]],
+  ['background_5flight_5fgrey_13',['background_light_grey',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a3282efec7893c955141eea126307cb86',1,'display.h']]],
+  ['background_5flight_5fmagenta_14',['background_light_magenta',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a910046c7959b7d2b7679b2a58055a750',1,'display.h']]],
+  ['background_5flight_5fred_15',['background_light_red',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a7cbc34a445d8a11edc9687d6469fecd2',1,'display.h']]],
+  ['background_5flight_5fyellow_16',['background_light_yellow',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a8c264266da5aff5175a234e094e3ffc3',1,'display.h']]],
+  ['background_5fmagenta_17',['background_magenta',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a547d03f46257406d9133be29d647d934',1,'display.h']]],
+  ['background_5fred_18',['background_red',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a2a51d78336a3dc6e2842a4865a3ec885',1,'display.h']]],
+  ['background_5ft_19',['background_t',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228',1,'background_t():&#160;display.h'],['../d4/d68/display_8h.html#a371526c04350d19b08af967f7a244b2a',1,'background_t():&#160;display.h']]],
+  ['background_5fwhite_20',['background_white',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a6bd419b9740c2e79cfa4c7d19fba2f01',1,'display.h']]],
+  ['background_5fyellow_21',['background_yellow',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a9dd454653fbd881bf73c4722faa0d19c',1,'display.h']]]
 ];

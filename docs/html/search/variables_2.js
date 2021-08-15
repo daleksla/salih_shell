@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['die_76',['die',['../d9/d97/source_8c.html#af78de815cc9d86f2ca75550df37ea1ec',1,'source.c']]]
+  ['background_133',['background',['../d7/d9d/structDisplaySettings.html#aa958868261b0661bce8321843aad3d43',1,'DisplaySettings']]]
 ];

@@ -29,7 +29,7 @@ void cmd_store_refresh(CmdStore*) ;
 
 /** parse scans user input and splits relevant info it into commands, arguments etc.
   * @param pointer to input buffer
-  * @param size_t of input buffer
+  * @param const size_t of input buffer
   * @param pointer to CmdStore struct variable to load with information 
   * @return int acting as boolean, to whether operation occured sucessfully **/ 
 int parse(char*, const size_t, CmdStore*) ;

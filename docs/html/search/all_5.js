@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['find_5ftext_23',['find_text',['../d5/d36/parser_8h.html#a3a771f9dce444a86b9395e61fb344495',1,'find_text(const char *, const size_t):&#160;parser.c'],['../d2/d72/parser_8c.html#aa83b8a23104415a5a76f774a03c198ec',1,'find_text(const char *input, const size_t size):&#160;parser.c']]],
-  ['find_5fwhitespace_24',['find_whitespace',['../d5/d36/parser_8h.html#a05d8b46af444d2f5715ac0e43104968f',1,'find_whitespace(const char *, const size_t):&#160;parser.c'],['../d2/d72/parser_8c.html#a12f7fd690876f2456bec70cb5903947e',1,'find_whitespace(const char *input, const size_t size):&#160;parser.c']]]
+  ['environment_37',['Environment',['../d0/d3c/structEnvironment.html',1,'']]],
+  ['environment_2ec_38',['environment.c',['../dc/d2c/environment_8c.html',1,'']]],
+  ['environment_2eh_39',['environment.h',['../de/d26/environment_8h.html',1,'']]],
+  ['environment_5ffini_40',['environment_fini',['../de/d26/environment_8h.html#adbd0cf07330c8644ca2c562bfa18c3c7',1,'environment_fini(Environment *):&#160;environment.c'],['../dc/d2c/environment_8c.html#a2a2f3e193138698f6d171d2ad702b68e',1,'environment_fini(Environment *env):&#160;environment.c']]],
+  ['environment_5finit_41',['environment_init',['../de/d26/environment_8h.html#aae8f4745cd018e34efdf760c70d5de26',1,'environment_init(Environment *):&#160;environment.c'],['../dc/d2c/environment_8c.html#a47c6ca05c0782a8c3174d6325c992645',1,'environment_init(Environment *env):&#160;environment.c']]]
 ];

@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['parse_33',['parse',['../d5/d36/parser_8h.html#a4d748e622caa40b26f22fde5b2bc73a9',1,'parse(char *, const size_t, CmdStore *):&#160;parser.c'],['../d2/d72/parser_8c.html#acf8ebe366eb5ae2c1c22a94215b03ad5',1,'parse(char *buffer, size_t available, CmdStore *cmd_store):&#160;parser.c']]],
-  ['parser_2ec_34',['parser.c',['../d2/d72/parser_8c.html',1,'']]],
-  ['parser_2eh_35',['parser.h',['../d5/d36/parser_8h.html',1,'']]],
-  ['path_36',['PATH',['../d0/d3c/structEnvironment.html#a43c2b479f499803773d783c46b5ac2b2',1,'Environment']]],
-  ['platform_5fid_37',['PLATFORM_ID',['../d9/d4b/CMakeCCompilerId_8c.html#adbc5372f40838899018fadbc89bd588b',1,'CMakeCCompilerId.c']]]
+  ['main_68',['main',['../d9/d4b/CMakeCCompilerId_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;CMakeCCompilerId.c'],['../d9/d97/source_8c.html#a2c3f6775325c30275d11c6abee2db6a0',1,'main(int, char **):&#160;source.c']]],
+  ['max_5fsize_5f_69',['max_size_',['../d0/d3c/structEnvironment.html#a9cfcbc44eb19b3d9af1e81aef5680ef5',1,'Environment']]]
 ];
