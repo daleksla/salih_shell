@@ -1,6 +1,7 @@
 #include <stddef.h> // type aliases
 #include <stdio.h> // EOF
 #include <stdlib.h> // malloc, free
+#include <string.h> // strcmp
 
 #include "parser.h"
 
@@ -8,19 +9,19 @@
   * @author Salih Ahmed
   * @date 3 Aug 2021 **/
   
-void cmd_store_init(CmdStore* cmd_store)
+void word_store_init(WordStore* word_store)
 {
-	cmd_store->_size = 256 ;
-	cmd_store->args = malloc(sizeof(char*) * cmd_store->_size) ; // list of max 256 char pointers
-	cmd_store->arg_count = 0 ;
+	word_store->_size = 25 ;
+	word_store->words = malloc(sizeof(char*) * word_store->_size) ; // list of max 256 char pointers
+	word_store->word_count = 0 ;
 }
 
-void cmd_store_refresh(CmdStore* cmd_store)
+void word_store_refresh(WordStore* word_store)
 {
-	cmd_store->arg_count = 0 ;
+	word_store->word_count = 0 ;
 }
   
-int parse(char* buffer, size_t available, CmdStore* cmd_store)
+int parse(char* buffer, size_t available, WordStore* word_store)
 {		
 	char* i = find_text(buffer, available) ;
 	
@@ -28,12 +29,12 @@ int parse(char* buffer, size_t available, CmdStore* cmd_store)
 		return 0 ; // indicate failure
 
 	// if text was found
-	cmd_store->args[cmd_store->arg_count] = i ; // save it as main command, since it's our first bit of text found
+	word_store->words[word_store->word_count] = i ; // save it as main command, since it's our first bit of text found
 	available -= i - buffer ; // calculate number of bytes left in buffer
 	i = find_whitespace(i, available) ; // find next gap 
 	*i = '\0' ; // place null terminator at first whitespace to create a valid c-string
 	
-	//printf("cmd: %sEND\n", cmd_store->cmd) ;
+	//printf("cmd: %sEND\n", word_store->cmd) ;
 	
 	available -= i - buffer ;
 	// Now let's find arguments (if any)
@@ -47,14 +48,14 @@ int parse(char* buffer, size_t available, CmdStore* cmd_store)
 			break ; // then stop searching for them
 			
 		// if we do find text	
-		++cmd_store->arg_count ;			
-		cmd_store->args[cmd_store->arg_count] = i ; // save it as an argument
+		++word_store->word_count ;			
+		word_store->words[word_store->word_count] = i ; // save it as an argument
 		available -= i - buffer ; // calculate what remains of the buffer using the pointers			
 		i = find_whitespace(i, available) ; // first find next gap
 		*i = '\0' ; // replace whitespace with null termination char to create a valid c-string
 		available -= i - buffer ; // calculate what remains of the buffer using the positioned pointers
 		
-		//printf("Arg#%ld: %sEND\n", cmd_store->arg_count, cmd_store->args[cmd_store->arg_count]) ;
+		//printf("Arg#%ld: %sEND\n", word_store->word_count, word_store->words[word_store->word_count]) ;
 	}
 	
 	return 1 ; // indicate success
@@ -80,10 +81,70 @@ char* find_whitespace(const char* input, const size_t size)
 	return NULL ;
 }
 
-void cmd_store_fini(CmdStore* cmd_store)
+void word_store_fini(WordStore* word_store)
 {
-	free(cmd_store->args) ;
-	cmd_store->args = NULL ;
-	cmd_store->_size = 0 ;
-	cmd_store->arg_count = 0 ;
+	free(word_store->words) ;
+	word_store->words = NULL ;
+	word_store->_size = 0 ;
+	word_store->word_count = 0 ;
+}
+
+void variable_store_init(VariableStore* variable_store)
+{
+	variable_store->_size = 25 ;
+	variable_store->variables = malloc(sizeof(Variable) * variable_store->_size) ; // list of max 256 char pointers
+	variable_store->variable_count = 0 ;
+}  
+
+Variable* find_variable(const char* var_name, const VariableStore* variable_store)
+{
+	for(size_t i = 0 ; i < variable_store->variable_count ; ++i)
+	{
+		if(strcmp(var_name, variable_store->variables[i].identifier) == 0)
+		{
+			return &variable_store->variables[i] ;
+		}
+	}
+	return NULL ;
+}
+
+int store_variable(const char* var_name, const void* data, const char data_type, VariableStore* variable_store)
+{
+	Variable* variable = find_variable(var_name, (const VariableStore*)variable_store) ;
+	if(variable == NULL) // if variable with a given name hasn't been created, create it
+	{
+		++variable_store->variable_count ;
+		variable = variable_store->variables + (variable_store->variable_count - 1) ;
+		if(strlen(var_name) > 64) // if desired variable name is too long
+		{
+			return 1 ;
+		}
+		printf("Creating variable w name: %s\n", var_name) ;
+		strcpy(variable->identifier, var_name) ;
+	}
+	// if variable wasn't created, it has been located now. if it existed, we already have it
+	// now just update values (and datatype if needed)
+	if(data_type == 's')
+	{
+		strcpy(variable->value, (char*)data) ;
+	}
+	else if(data_type == 'i')
+	{
+		*(int*)variable->value = *(int*)data ;
+		printf("INRETCODE: %d\n", *(int*)data) ;
+	}
+	else if(data_type == 'd')
+	{
+		*(double*)variable->value = *(double*)data ;
+	}
+	variable->type = data_type ;		
+	return 0 ; // sucessful operation
+}
+
+void variable_store_fini(VariableStore* variable_store)
+{
+	free(variable_store->variables) ;
+	variable_store->variables = NULL ;
+	variable_store->_size = 0 ;
+	variable_store->variable_count = 0 ;
 }

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_5fsize_132',['_size',['../d5/d57/structCmdStore.html#a898f69fcd2af1e8e6246cb1e7ee1558b',1,'CmdStore']]]
+  ['_5fsize_146',['_size',['../d6/d38/structWordStore.html#a251b92cc1b0b6475c03d65bd86a84a53',1,'WordStore::_size()'],['../df/d55/structVariableStore.html#aaff1af61930f90c8ae0f0b945e6daa55',1,'VariableStore::_size()']]]
 ];

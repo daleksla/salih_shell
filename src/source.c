@@ -26,15 +26,17 @@ int main(int argc, char** argv, char** envp)
 {
 	/* variable setup(s) & config */
 	Environment env ;
-	CmdStore cmd_store ;
+	WordStore word_store ;
+	VariableStore variable_store ;
 	
 	environment_init(&env) ;
-	cmd_store_init(&cmd_store) ;
+	word_store_init(&word_store) ;
+	variable_store_init(&variable_store) ;
 	
 	/* main functionality */
 	while(1)
 	{
-		cmd_store_refresh(&cmd_store) ;
+		word_store_refresh(&word_store) ;
 	
 		// Initialise variables
 		char buffer[1024] ; // serves as input buffer
@@ -53,67 +55,78 @@ int main(int argc, char** argv, char** envp)
 			break ;                      // try again
 		}
 		
-		if(!parse(buffer, available, &cmd_store)) // load cmd_store up with parsed data
+		if(!parse(buffer, available, &word_store)) // load word_store up with parsed data
 		{				           // and if it fails ...
 			continue ;                        // restart loop
 		}
 
 		// Execute instructions
-		if(strcmp(cmd_store.args[0], "cd") == 0)
-		{
-		
-			if(cmd_store.arg_count > 1)
+		// first, read through words. scan for keywords. assign enum declaring statement-type
+		// look at visual basic dialect example
+		//if() // scan words, 
+		{ // ie if statement_type == 
+			// check for shell specific commands
+			if(strcmp(word_store.words[0], "cd") == 0)
 			{
-				printf("%s\n", "Too many arguments provided!") ;
+			
+				if(word_store.word_count > 1)
+				{
+					printf("%s\n", "Too many arguments provided!") ;
+				}
+				else if(!change_directory(&env, word_store.words[1]))
+				{
+					printf("%s\n", "Invalid directory!") ;
+				}
+			
 			}
-			else if(!change_directory(&env, cmd_store.args[1]))
+			else if(strcmp(word_store.words[0], "echo") == 0)
 			{
-				printf("%s\n", "Invalid directory!") ;
-			}
 			
-		}
-		else if(strcmp(cmd_store.args[0], "echo") == 0)
-		{
-		
-			for(size_t i = 0 ; i < cmd_store.arg_count ; ++i)
+				for(size_t i = 0 ; i < word_store.word_count ; ++i)
+				{
+					printf("%s", word_store.words[i+1]) ;
+				}
+				
+				printf("%c", '\n') ; // flush buffer, end w newline
+				
+			}
+			else if(strcmp(word_store.words[0], "quit") == 0)
 			{
-				printf("%s", cmd_store.args[i+1]) ;
+			
+				break ; // quit loop, EOP
+				
 			}
+			else { // ie just execute a regular command
 			
-			printf("%c", '\n') ; // flush buffer, end w newline
-			
-		}
-		else if(strcmp(cmd_store.args[0], "quit") == 0)
-		{
-		
-			break ; // quit loop, EOP
-			
-		}
-		else { // ie just execute a regular command
-		
-			int pid = fork() ;
-			if(pid == 0)
-			{
- 				if(execvpe(cmd_store.args[0], cmd_store.args+1, envp) == -1)
- 				{
- 					printf("%s%s%s\n", "Command `", cmd_store.args[0], "` could not be executed!") ;
- 					kill(getpid(), SIGTERM) ; // since process couldn't be taken over by executable, kill it manually 					
- 					// may want to implement a 'did you mean?' feature
- 				}
+				int pid = fork() ;
+				int return_status ;
+				if(pid == 0)
+				{
+ 					if(execvpe(word_store.words[0], word_store.words, envp) == -1)
+ 					{
+ 						printf("%s%s%s\n", "Command `", word_store.words[0], "` could not be executed!") ;
+ 						kill(getpid(), SIGTERM) ; // since process couldn't be taken over by executable, kill it manually 					
+ 						// may want to implement a 'did you mean?' feature
+ 					}
+				}
+				else {
+					wait(&return_status) ;
+					store_variable("?", &return_status, 'i', &variable_store) ;
+					printf("immediate code: %d\n", return_status) ;
+					printf("Return code: %d\n", *(int*)variable_store.variables[0].value) ;
+				}
+
 			}
-			else {
-				wait(NULL) ;
-			}
-			
 		}
+			
 	}
 	
 	/* EndOfProgram */
 	reset_display() ;
-	printf("%c", '\n') ;
-	
+	printf("%c", '\n') ;	
 	environment_fini(&env) ;
-	cmd_store_fini(&cmd_store) ;
+	word_store_fini(&word_store) ;
+	variable_store_fini(&variable_store) ;
 	return 0 ;
 }
   
