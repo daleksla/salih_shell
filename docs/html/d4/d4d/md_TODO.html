@@ -69,15 +69,16 @@ $(function() {
 <div class="textblock"><h1><a class="anchor" id="autotoc_md3"></a>
 to do list</h1>
 <ol type="1">
-<li>Find a way to store variables. Might want to use two arrays - one storing string names, one storing values also as strings &amp; one char storing whether it should be interpretted as a char, int, string, etc. <blockquote class="doxtable">
-<p>e.g. <code>typedef struct { char[63] id, char[1024] val, char type } <a class="el" href="../../d0/dd3/structVariable.html">Variable</a> ;</code> <code>typedef struct { <a class="el" href="../../d0/dd3/structVariable.html">Variable</a> variables[100], size_t var_count } Variables ;</code> </p>
-</blockquote>
-May want to use dynamic memory allocation for latter, start at like 10 and just double up storage if need be.</li>
 <li>store variables which are unwriteable except by the shell to do with command execution: <blockquote class="doxtable">
 <p>ie <code>$#</code> = number of arguments, <code>$@</code> = what parameters were passed, <code>$?</code> = return value of last command </p>
 </blockquote>
 </li>
-<li>Swap in variable names into final command if need be (e.g. <code>echo ${greeting}</code> -&gt; <code>echo "Hello world"</code>)</li>
+<li>If user's argument begins with "", '', `<code>- then consider it, until an ending quotation, as a single argument. Report parsing failure if end char isn't found. add to</code>parse` function</li>
+<li>Swap in variable names into final command if need be (e.g. <code>echo ${greeting}</code> -&gt; <code>echo "Hello world"</code>) <blockquote class="doxtable">
+<p>create a function to go ahead and sub variables with the values behind them, ie go to each word in CmdStore, see if it's preceeded by a $. if it is, and it's a valid variable name, substitute (either point straight to value held by variable, else just copy bytes into buffer (try the first, sounds better)). again, do this in parse function upon encountering words. </p>
+</blockquote>
+</li>
+<li>may want to put all the execution stuff in a seperate function. warrants a seperate file. it'll seem easier if a while loop is being implemented, etc. when it comes to writing the full interpretter. probably call it executer/or/however-the-hell-you-spell-that-word</li>
 <li>Currently, lines are parsed and run, regardless of content. Code will only be run if it's marked as a statement (doesn't contain keyword like <code>if</code> </li>
 </ol>
 </div></div><!-- contents -->

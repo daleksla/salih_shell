@@ -1,7 +1,7 @@
 #include <stddef.h> // type aliases
 #include <stdio.h> // EOF
 #include <stdlib.h> // malloc, free
-#include <string.h> // strcmp
+#include <string.h> // strcmp, memset
 
 #include "parser.h"
 
@@ -13,11 +13,19 @@ void word_store_init(WordStore* word_store)
 {
 	word_store->_size = 25 ;
 	word_store->words = malloc(sizeof(char*) * word_store->_size) ; // list of max 256 char pointers
+	for(size_t i = 0 ; i < word_store->_size ; ++i)
+	{
+		word_store->words[i] = NULL ;
+	}
 	word_store->word_count = 0 ;
 }
 
 void word_store_refresh(WordStore* word_store)
 {
+	for(size_t i = 0 ; i < word_store->word_count ; ++i)
+	{
+		word_store->words[i] = NULL ;
+	}
 	word_store->word_count = 0 ;
 }
   
@@ -45,13 +53,29 @@ int parse(char* buffer, size_t available, WordStore* word_store)
 		if(i == NULL) // if there's no more text (and therefore no arguments left)
 			break ; // then stop searching for them
 			
-		// if we do find text	
+		// if we do find text
 		++word_store->word_count ;			
 		word_store->words[word_store->word_count-1] = i ; // save it as an argument
-		available -= i - buffer ; // calculate what remains of the buffer using the pointers			
-		i = find_whitespace(i, available) ; // first find next gap
-		*i = '\0' ; // replace whitespace with null termination char to create a valid c-string
-		available -= i - buffer ; // calculate what remains of the buffer using the positioned pointers
+		
+		// if quotes are being used, treat from start->end quote as single arg
+		enum { double_quotes = 34, single_quotes = 39, uptick_quotes = 96 } ; // local enum
+		if(*i == double_quotes || *i == single_quotes || *i == uptick_quotes)
+		{
+			char* tmp = i+1 ; // move to next value
+			while(*tmp != *i) // keep going till you see the char again
+			{
+				++tmp ;
+			}
+			i = tmp + 1 ;
+			*i = '\0' ; // replace whitespace with null termination char to create a valid c-string
+			available -= i - buffer ; // calculate what remains of the buffer
+		}
+		else {		
+			available -= i - buffer ; // calculate what remains of the buffer using the pointers			
+			i = find_whitespace(i, available) ; // first find next gap
+			*i = '\0' ; // replace whitespace with null termination char to create a valid c-string
+			available -= i - buffer ; // calculate what remains of the buffer using the positioned pointers
+		}
 	}
 	
 	return 0 ; // indicate success

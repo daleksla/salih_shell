@@ -18,11 +18,10 @@
 /** main control code
   * @param int correlating to number to arguments
   * @param arguments themselves
-  * @param environmental variables
   * @return int as exit code **/
-int main(int, char**, char**) ;
+int main(int, char**) ;
 
-int main(int argc, char** argv, char** envp)
+int main(int argc, char** argv)
 {
 	/* variable setup(s) & config */
 	Environment env ;
@@ -35,7 +34,7 @@ int main(int argc, char** argv, char** envp)
 	variable_store_init(&variable_store) ;
 	int init = 0 ;
 	store_variable("?", (const void*)&init, 'i', &variable_store) ; // store return_status
-	store_variable("@", (const void*)&init, 'i', &variable_store) ; // store pos. arg count
+	store_variable("#", (const void*)&init, 'i', &variable_store) ; // store pos. arg count
 	
 	/* main functionality */
 	while(1)
@@ -90,7 +89,7 @@ int main(int argc, char** argv, char** envp)
 				int pid = fork() ;
 				if(pid == 0)
 				{
- 					if(execvpe(word_store.words[0], word_store.words, envp) == -1)
+ 					if(execvp(word_store.words[0], word_store.words) == -1)
  					{
  						printf("%s%s%s\n", "Command `", word_store.words[0], "` could not be executed!") ;
  						kill(getpid(), SIGTERM) ; // since process couldn't be taken over by executable, kill it manually	
@@ -101,12 +100,12 @@ int main(int argc, char** argv, char** envp)
 					wait(&return_status) ; // saves return status of child process
 				}
 			}
-		}
 		
-		/* set inherent shell variables recording execution information */
-		store_variable("?", (const void*)&return_status, 'i', &variable_store) ; // store return_status
-		int positional_param_count = word_store.word_count - 1 ; // the arg count variable only includes positional parameter counts - ie ignore first word / main command
-		store_variable("@", (const void*)&positional_param_count, 'i', &variable_store) ; // store pos. arg count
+			/* set inherent shell variables recording execution information */
+			store_variable("?", (const void*)&return_status, 'i', &variable_store) ; // store return_status
+			int positional_param_count = word_store.word_count - 1 ; // the arg count variable only includes positional parameter counts - ie ignore first word / main command
+			store_variable("#", (const void*)&positional_param_count, 'i', &variable_store) ; // store pos. arg count
+		}
 	
 	}
 	
