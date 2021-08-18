@@ -55,22 +55,24 @@ int parse(char* buffer, size_t available, WordStore* word_store)
 			
 		// if we do find text
 		++word_store->word_count ;			
-		word_store->words[word_store->word_count-1] = i ; // save it as an argument
-		
+		// check whether its a single word or double worded word
 		// if quotes are being used, treat from start->end quote as single arg
 		enum { double_quotes = 34, single_quotes = 39, uptick_quotes = 96 } ; // local enum
 		if(*i == double_quotes || *i == single_quotes || *i == uptick_quotes)
 		{
-			char* tmp = i+1 ; // move to next value
-			while(*tmp != *i) // keep going till you see the char again
+			const char quotation = *i ; // store quotation mark
+			++i ; // move to next value, since we don't want to read / store quotation 
+			word_store->words[word_store->word_count-1] = i ; // save it as an argument
+			while(*i != quotation) // keep going till you see the char again
 			{
-				++tmp ;
+				++i ;
 			}
-			i = tmp + 1 ;
-			*i = '\0' ; // replace whitespace with null termination char to create a valid c-string
+			*i = '\0' ; // replace end quotation with null termination char to create a valid c-string
+			++i ; // move to next char
 			available -= i - buffer ; // calculate what remains of the buffer
 		}
-		else {		
+		else {	// if it's a single word arg
+			word_store->words[word_store->word_count-1] = i ; // save it as an argument
 			available -= i - buffer ; // calculate what remains of the buffer using the pointers			
 			i = find_whitespace(i, available) ; // first find next gap
 			*i = '\0' ; // replace whitespace with null termination char to create a valid c-string
