@@ -42,21 +42,21 @@ int main(int argc, char** argv)
 		/* Initialise variables & display */
 		word_store_refresh(&word_store) ;
 		int return_status = 0 ; // will be used at end of loop for execution status
-		char buffer[1024] ; // serves as input buffer
-		memset(buffer, EOF, 1024) ;
-		size_t available = 1024 ; // stores available size in buffer for input
+		char buffer[4096] ; // serves as input buffer
+		size_t buffer_size = 4096 ; // stores available size in buffer for input
+		memset(buffer, EOF, buffer_size) ;
 		set_display(texture_bold, foreground_white, background_magenta) ;
 		printf("%s%s%s", env.USER, ":", env.WORKING_DIRECTORY) ;
 		reset_display() ;
 		printf("%s", "$ ") ;
 		
 		/* Get, store & parse input */
-		if(fgets(buffer, available, stdin) == NULL) // if read isn't sucessful / is manually quit
+		if(fgets(buffer, buffer_size, stdin) == NULL) // if read isn't sucessful / is manually quit
 		{
 			break ; // terminate shell
 		}
 
-		parse(buffer, available, &word_store) ; // load word_store up with parsed data
+		parse(buffer, buffer_size, &word_store) ; // load word_store up with parsed data
 
 		/* Execute instructions */
 		if(word_store.word_count >= 1)
@@ -80,7 +80,7 @@ int main(int argc, char** argv)
 			{
 				for(size_t i = 0 ; i < word_store.word_count - 1 ; ++i) // word count includes command 'echo'
 				{
-					printf("%s", word_store.words[i+1]) ;
+					printf("%s ", word_store.words[i+1]) ;					
 				}
 				
 				printf("%c", '\n') ; // flush buffer, end w newline	

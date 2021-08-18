@@ -54,10 +54,11 @@ int parse(char* buffer, size_t available, WordStore* word_store)
 			break ; // then stop searching for them
 			
 		// if we do find text
-		++word_store->word_count ;			
+		++word_store->word_count ; // then we've definitely found an arg, so increment count
+			
 		// check whether its a single word or double worded word
 		// if quotes are being used, treat from start->end quote as single arg
-		enum { double_quotes = 34, single_quotes = 39, uptick_quotes = 96 } ; // local enum
+		enum { double_quotes = 34, single_quotes = 39, uptick_quotes = 96 } ; // local enum w ASCII values
 		if(*i == double_quotes || *i == single_quotes || *i == uptick_quotes)
 		{
 			const char quotation = *i ; // store quotation mark
