@@ -26,21 +26,19 @@ int parse(char* buffer, size_t available, WordStore* word_store)
 	char* i = find_text(buffer, available) ;
 	
 	if(i == NULL) // if no text was found
-		return 0 ; // indicate failure
+		return -1 ; // indicate failure
 
 	// if text was found
-	word_store->words[word_store->word_count] = i ; // save it as main command, since it's our first bit of text found
+	++word_store->word_count ;
+	word_store->words[word_store->word_count-1] = i ; // save it as main command, since it's our first bit of text found
 	available -= i - buffer ; // calculate number of bytes left in buffer
 	i = find_whitespace(i, available) ; // find next gap 
 	*i = '\0' ; // place null terminator at first whitespace to create a valid c-string
 	
-	//printf("cmd: %sEND\n", word_store->cmd) ;
-	
 	available -= i - buffer ;
-	// Now let's find arguments (if any)
-	while(available > 0)
-	// loop is responsible for generating arguments
-	// searches for text, finds first instance of whitespace (therefore end of argument) and adds NULL terminator, then repeats
+
+	while(available > 0) 	// loop is responsible for generating arguments
+				// searches for text, finds first instance of whitespace (therefore end of argument) and adds NULL terminator, then repeats
 	{
 		i = find_text(i, available) ; // now, find next starting point of text
 		
@@ -49,16 +47,14 @@ int parse(char* buffer, size_t available, WordStore* word_store)
 			
 		// if we do find text	
 		++word_store->word_count ;			
-		word_store->words[word_store->word_count] = i ; // save it as an argument
+		word_store->words[word_store->word_count-1] = i ; // save it as an argument
 		available -= i - buffer ; // calculate what remains of the buffer using the pointers			
 		i = find_whitespace(i, available) ; // first find next gap
 		*i = '\0' ; // replace whitespace with null termination char to create a valid c-string
 		available -= i - buffer ; // calculate what remains of the buffer using the positioned pointers
-		
-		//printf("Arg#%ld: %sEND\n", word_store->word_count, word_store->words[word_store->word_count]) ;
 	}
 	
-	return 1 ; // indicate success
+	return 0 ; // indicate success
 }
  
 char* find_text(const char* input, const size_t size)
@@ -117,9 +113,8 @@ int store_variable(const char* var_name, const void* data, const char data_type,
 		variable = variable_store->variables + (variable_store->variable_count - 1) ;
 		if(strlen(var_name) > 64) // if desired variable name is too long
 		{
-			return 1 ;
+			return -1 ;
 		}
-		printf("Creating variable w name: %s\n", var_name) ;
 		strcpy(variable->identifier, var_name) ;
 	}
 	// if variable wasn't created, it has been located now. if it existed, we already have it
@@ -131,7 +126,6 @@ int store_variable(const char* var_name, const void* data, const char data_type,
 	else if(data_type == 'i')
 	{
 		*(int*)variable->value = *(int*)data ;
-		printf("INRETCODE: %d\n", *(int*)data) ;
 	}
 	else if(data_type == 'd')
 	{

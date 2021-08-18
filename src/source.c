@@ -31,94 +31,83 @@ int main(int argc, char** argv, char** envp)
 	
 	environment_init(&env) ;
 	word_store_init(&word_store) ;
+	
 	variable_store_init(&variable_store) ;
+	int init = 0 ;
+	store_variable("?", (const void*)&init, 'i', &variable_store) ; // store return_status
+	store_variable("@", (const void*)&init, 'i', &variable_store) ; // store pos. arg count
 	
 	/* main functionality */
 	while(1)
-	{
+	{	
+		/* Initialise variables & display */
 		word_store_refresh(&word_store) ;
-	
-		// Initialise variables
+		int return_status = 0 ; // will be used at end of loop for execution status
 		char buffer[1024] ; // serves as input buffer
 		memset(buffer, EOF, 1024) ;
 		size_t available = 1024 ; // stores available size in buffer for input
-		
-		// Get input
 		set_display(texture_bold, foreground_white, background_magenta) ;
 		printf("%s%s%s", env.USER, ":", env.WORKING_DIRECTORY) ;
 		reset_display() ;
 		printf("%s", "$ ") ;
 		
-		// Parse input
-		if(!fgets(buffer, available, stdin)) // if read isn't sucessful
-		{				      // and if it fails ...
-			break ;                      // try again
-		}
-		
-		if(!parse(buffer, available, &word_store)) // load word_store up with parsed data
-		{				           // and if it fails ...
-			continue ;                        // restart loop
+		/* Get, store & parse input */
+		if(fgets(buffer, available, stdin) == NULL) // if read isn't sucessful / is manually quit
+		{
+			break ; // terminate shell
 		}
 
-		// Execute instructions
-		// first, read through words. scan for keywords. assign enum declaring statement-type
-		// look at visual basic dialect example
-		//if() // scan words, 
-		{ // ie if statement_type == 
-			// check for shell specific commands
+		parse(buffer, available, &word_store) ; // load word_store up with parsed data
+
+		/* Execute instructions */
+		if(word_store.word_count >= 1)
+		{
 			if(strcmp(word_store.words[0], "cd") == 0)
 			{
-			
-				if(word_store.word_count > 1)
+				if(word_store.word_count > 2)
 				{
 					printf("%s\n", "Too many arguments provided!") ;
+					return_status = -1 ;
 				}
-				else if(!change_directory(&env, word_store.words[1]))
+				
+				return_status = change_directory(&env, word_store.words[1]) ; // will return 0 or -1 depending on success
+				if(return_status != 0)
 				{
 					printf("%s\n", "Invalid directory!") ;
+					// return_status would've already been set to -1, no need to change
 				}
-			
 			}
 			else if(strcmp(word_store.words[0], "echo") == 0)
 			{
-			
-				for(size_t i = 0 ; i < word_store.word_count ; ++i)
+				for(size_t i = 0 ; i < word_store.word_count - 1 ; ++i) // word count includes command 'echo'
 				{
 					printf("%s", word_store.words[i+1]) ;
 				}
 				
-				printf("%c", '\n') ; // flush buffer, end w newline
-				
-			}
-			else if(strcmp(word_store.words[0], "quit") == 0)
-			{
-			
-				break ; // quit loop, EOP
-				
+				printf("%c", '\n') ; // flush buffer, end w newline	
 			}
 			else { // ie just execute a regular command
-			
 				int pid = fork() ;
-				int return_status ;
 				if(pid == 0)
 				{
  					if(execvpe(word_store.words[0], word_store.words, envp) == -1)
  					{
  						printf("%s%s%s\n", "Command `", word_store.words[0], "` could not be executed!") ;
- 						kill(getpid(), SIGTERM) ; // since process couldn't be taken over by executable, kill it manually 					
+ 						kill(getpid(), SIGTERM) ; // since process couldn't be taken over by executable, kill it manually	
  						// may want to implement a 'did you mean?' feature
  					}
 				}
 				else {
-					wait(&return_status) ;
-					store_variable("?", &return_status, 'i', &variable_store) ;
-					printf("immediate code: %d\n", return_status) ;
-					printf("Return code: %d\n", *(int*)variable_store.variables[0].value) ;
+					wait(&return_status) ; // saves return status of child process
 				}
-
 			}
 		}
-			
+		
+		/* set inherent shell variables recording execution information */
+		store_variable("?", (const void*)&return_status, 'i', &variable_store) ; // store return_status
+		int positional_param_count = word_store.word_count - 1 ; // the arg count variable only includes positional parameter counts - ie ignore first word / main command
+		store_variable("@", (const void*)&positional_param_count, 'i', &variable_store) ; // store pos. arg count
+	
 	}
 	
 	/* EndOfProgram */

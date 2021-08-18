@@ -21,11 +21,11 @@ int change_directory(Environment* env, const char* path)
 {
 	if(chdir(path) == -1)
 	{
-		return 0 ;
+		return -1 ;
 	}
 	env->WORKING_DIRECTORY = get_current_dir_name() ;
 		
-	return 1 ;
+	return 0 ;
 } 
 
 void environment_fini(Environment* env)
