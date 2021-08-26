@@ -304,14 +304,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Modifies indicator to data type stored within contents </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pointer</td><td>to a <a class="el" href="../../d0/dd3/structVariable.html">Variable</a> </td></tr>
-    <tr><td class="paramname">char</td><td>holding value s(tring), d(int), f(double) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>exit code (where 0 indicates success)</dd></dl>
 <p>Modifies stored contents of a created variable </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pointer</td><td>to a <a class="el" href="../../d0/dd3/structVariable.html">Variable</a> </td></tr>
@@ -333,13 +325,13 @@ Functions</h2></td></tr>
           <td class="memname">int update_variable_type </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d0/dd3/structVariable.html">Variable</a> *&#160;</td>
-          <td class="paramname"><em>variable</em>, </td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -348,6 +340,14 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Modifies indicator to data type stored within contents </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to a <a class="el" href="../../d0/dd3/structVariable.html">Variable</a> </td></tr>
+    <tr><td class="paramname">const</td><td>char holding value s(tring), d(int), f(double) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>exit code (where 0 indicates success) </dd></dl>
 
 </div>
 </div>

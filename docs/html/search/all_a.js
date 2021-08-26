@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['main_60',['main',['../d9/d4b/CMakeCCompilerId_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;CMakeCCompilerId.c'],['../d9/d97/source_8c.html#a2c3f6775325c30275d11c6abee2db6a0',1,'main(int, char **):&#160;source.c']]]
+  ['parse_59',['parse',['../d5/d36/parser_8h.html#a3d3178c2ca80d6651ff680250e4fb126',1,'parse(char *, const size_t, WordStore *):&#160;parser.c'],['../d2/d72/parser_8c.html#a1cab1dce3eaabda012312c3659cf9a04',1,'parse(char *buffer, size_t available, WordStore *word_store):&#160;parser.c']]],
+  ['parser_2ec_60',['parser.c',['../d2/d72/parser_8c.html',1,'']]],
+  ['parser_2eh_61',['parser.h',['../d5/d36/parser_8h.html',1,'']]],
+  ['platform_5fid_62',['PLATFORM_ID',['../d9/d4b/CMakeCCompilerId_8c.html#adbc5372f40838899018fadbc89bd588b',1,'CMakeCCompilerId.c']]]
 ];

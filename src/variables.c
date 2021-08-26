@@ -1,26 +1,14 @@
 #define _GNU_SOURCE
-#include <unistd.h> // working dir, symbolic constants
 #include <stddef.h> // type aliases
 #include <stdlib.h> // environmental variables, malloc, free
-#include <sys/stat.h>
 #include <string.h> // strlen
 
-#include "environment.h"
+#include "variables.h"
 
-/** @brief Functionality to initialise & modify environment information
+/** @brief Functionality to manage variables
   * @author Salih Ahmed
   * @date 2 Aug 2021 **/
-
-int change_directory(const char* path)
-{
-	if(chdir(path) == -1)
-	{
-		return -1 ;
-	}
-		
-	return 0 ;
-}
-
+  
 void variable_store_init(VariableStore* variable_store)
 {
 	variable_store->_size = 25 ;

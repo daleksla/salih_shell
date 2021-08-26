@@ -1,13 +1,5 @@
 var searchData=
 [
-  ['targetdirectories_2etxt_84',['TargetDirectories.txt',['../d5/dd5/TargetDirectories_8txt.html',1,'']]],
-  ['texture_5fblink_85',['texture_blink',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07a02fb897694f5c1eb6a1e61d7c01d6c96',1,'display.h']]],
-  ['texture_5fbold_86',['texture_bold',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07addf55abf86b6692d7dbe57ab3cfd4f97',1,'display.h']]],
-  ['texture_5fdim_87',['texture_dim',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07a18f98a3dd0d230fd9fce5b9c1dc15ad0',1,'display.h']]],
-  ['texture_5fhidden_88',['texture_hidden',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07ad9e4be568426a9f5c572b0023c582c1e',1,'display.h']]],
-  ['texture_5finvert_89',['texture_invert',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07ac6fc36f7fd0779ad7ad33000b3ece0c9',1,'display.h']]],
-  ['texture_5ft_90',['texture_t',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07',1,'texture_t():&#160;display.h'],['../d4/d68/display_8h.html#aab87d264384d1808fa10810c470d2391',1,'texture_t():&#160;display.h']]],
-  ['texture_5funderline_91',['texture_underline',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07a2612b2483773609c194a5a2631c4b34e',1,'display.h']]],
-  ['todo_2emd_92',['TODO.md',['../dc/d6a/TODO_8md.html',1,'']]],
-  ['type_93',['type',['../d0/dd3/structVariable.html#aeef2cd2fb7af25533ea814a03f652f6c',1,'Variable']]]
+  ['update_5fvariable_5fdata_92',['update_variable_data',['../de/dca/variables_8h.html#abeca1ebe26baabc268576ed25a898605',1,'update_variable_data(Variable *, const void *):&#160;variables.c'],['../d5/de8/variables_8c.html#a5f6011e52fb9d87fd6df7596241c0043',1,'update_variable_data(Variable *variable, const void *data):&#160;variables.c']]],
+  ['update_5fvariable_5ftype_93',['update_variable_type',['../de/dca/variables_8h.html#acc33d561aae2184983594e129fa510f5',1,'update_variable_type(Variable *, const char):&#160;variables.c'],['../d5/de8/variables_8c.html#a5bf1f83aaec016928f18194aba2759b3',1,'update_variable_type(Variable *variable, const char type):&#160;variables.c']]]
 ];

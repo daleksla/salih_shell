@@ -1,18 +1,12 @@
-#ifndef ENVIRONMENT_H
-#define ENVIRONMENT_H
+#ifndef VARIABLES_H
+#define VARIABLES_H
 #pragma once
 
-/** @brief Declarations relating to initialisation & modification of environment
+/** @brief Declarations relating to manage variables
   * @author Salih Ahmed
   * @date 2 Aug 2021 **/
 
 #include "parser.h" // WordStore
-
-/** change directory
-  * @param pointer to Environment struct variable 
-  * @param const char* c-string to new desired path 
-  * @return int acting as boolean as to whether operation was sucessful or not **/ 
-int change_directory(const char*) ;
 
 // Below is to do with storing variables
 
@@ -50,9 +44,9 @@ int declare_variable(const char*, const void*, const char, VariableStore*) ;
 
 /** Modifies indicator to data type stored within contents
   * @param pointer to a Variable
-  * @param char holding value s(tring), d(int), f(double)
+  * @param const char holding value s(tring), d(int), f(double)
   * @return exit code (where 0 indicates success) **/ 
-int update_variable_type(Variable*, const void*) ; 
+int update_variable_type(Variable*, const char) ; 
 
 /** Modifies stored contents of a created variable
   * @param pointer to a Variable
@@ -75,4 +69,4 @@ void substitute_variables(WordStore*, const VariableStore*) ;
   * @param pointer to VariableStore struct variable **/ 
 void variable_store_fini(VariableStore*) ;
 
-#endif // ENVIRONMENT_H
+#endif // VARIABLES_H

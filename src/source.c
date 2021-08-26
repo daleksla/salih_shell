@@ -7,7 +7,7 @@
 #include <stdlib.h> // environmental variables
 #include <string.h> // memset
 
-#include "environment.h" // custom environment setup
+#include "variables.h" // custom environment setup
 #include "parser.h" // useful functions to help parse string input
 #include "display.h" // functions, enums and typedef's to control how text is displayed
 
@@ -63,7 +63,7 @@ int main(int argc, char** argv)
 		{
 			if(strcmp(word_store.words[0], "declare") == 0)
 			{
-				Variable* var = find_variable(word_store.words[1]) ;
+				Variable* var = find_variable(word_store.words[1], &variable_store) ;
 				if(!var)
 				{
 					// parse stupid input / flags, var_name, getting datatype (if none, its a string), data
@@ -74,9 +74,9 @@ int main(int argc, char** argv)
 					// if data is provided, update_variable_data
 				}
 			}
-			else if(/* it is just variable=data*/)
+			else if(1!=1/* it is just variable=data*/)
 			{
-				Variable* var = find_variable(word_store.words[1]) ;
+				Variable* var = find_variable(word_store.words[1], &variable_store) ;
 				if(!var)
 				{
 					// declare_variable, as string, with value if provided
@@ -93,7 +93,7 @@ int main(int argc, char** argv)
 					return_status = -1 ;
 				}
 				
-				return_status = change_directory(word_store.words[1]) ; // will return 0 or -1 depending on success
+				return_status = chdir(word_store.words[1]) ; // will return 0 or -1 depending on success
 				if(return_status != 0)
 				{
 					printf("%s\n", "Invalid directory!") ;
@@ -126,9 +126,9 @@ int main(int argc, char** argv)
 			}
 		
 			/* set inherent shell variables recording execution information */
-			update_variable(return_status_variable, (const void*)&return_status) ; // store return_status
+			update_variable_data(return_status_variable, (const void*)&return_status) ; // store return_status
 			int positional_param_count = word_store.word_count - 1 ; // the arg count variable only includes positional parameter counts - ie ignore first word / main command
-			update_variable(pos_arg_count_variable, (const void*)&positional_param_count) ; // store pos. arg count
+			update_variable_data(pos_arg_count_variable, (const void*)&positional_param_count) ; // store pos. arg count
 		}
 	
 	}
