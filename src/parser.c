@@ -28,7 +28,7 @@ void word_store_refresh(WordStore* word_store)
 	}
 	word_store->word_count = 0 ;
 }
-  
+
 int parse(char* buffer, size_t available, WordStore* word_store)
 {		
 	char* i = find_text(buffer, available) ;
@@ -110,62 +110,4 @@ void word_store_fini(WordStore* word_store)
 	word_store->words = NULL ;
 	word_store->_size = 0 ;
 	word_store->word_count = 0 ;
-}
-
-void variable_store_init(VariableStore* variable_store)
-{
-	variable_store->_size = 25 ;
-	variable_store->variables = malloc(sizeof(Variable) * variable_store->_size) ; // list of max 256 char pointers
-	variable_store->variable_count = 0 ;
-}  
-
-Variable* find_variable(const char* var_name, const VariableStore* variable_store)
-{
-	for(size_t i = 0 ; i < variable_store->variable_count ; ++i)
-	{
-		if(strcmp(var_name, variable_store->variables[i].identifier) == 0)
-		{
-			return &variable_store->variables[i] ;
-		}
-	}
-	return NULL ;
-}
-
-int store_variable(const char* var_name, const void* data, const char data_type, VariableStore* variable_store)
-{
-	Variable* variable = find_variable(var_name, (const VariableStore*)variable_store) ;
-	if(variable == NULL) // if variable with a given name hasn't been created, create it
-	{
-		++variable_store->variable_count ;
-		variable = variable_store->variables + (variable_store->variable_count - 1) ;
-		if(strlen(var_name) > 64) // if desired variable name is too long
-		{
-			return -1 ;
-		}
-		strcpy(variable->identifier, var_name) ;
-	}
-	// if variable wasn't created, it has been located now. if it existed, we already have it
-	// now just update values (and datatype if needed)
-	if(data_type == 's')
-	{
-		strcpy(variable->value, (char*)data) ;
-	}
-	else if(data_type == 'i')
-	{
-		*(int*)variable->value = *(int*)data ;
-	}
-	else if(data_type == 'd')
-	{
-		*(double*)variable->value = *(double*)data ;
-	}
-	variable->type = data_type ;		
-	return 0 ; // sucessful operation
-}
-
-void variable_store_fini(VariableStore* variable_store)
-{
-	free(variable_store->variables) ;
-	variable_store->variables = NULL ;
-	variable_store->_size = 0 ;
-	variable_store->variable_count = 0 ;
 }

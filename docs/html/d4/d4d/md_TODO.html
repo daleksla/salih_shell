@@ -70,18 +70,15 @@ $(function() {
 to do list</h1>
 <ol type="1">
 <li>store variables which are unwriteable except by the shell to do with command execution: <blockquote class="doxtable">
-<p>ie <code>$#</code> = number of arguments, <code>$@</code> = what parameters were passed, <code>$?</code> = return value of last command </p>
+<p>ie <code>$@</code> = what parameters were passed </p>
 </blockquote>
 </li>
-<li>if user input is too large, expand buffer until a certain limit (4096 is POSIX limit).</li>
-</ol>
-<ol type="1">
-<li>Swap in variable names into final command if need be (e.g. <code>echo ${greeting}</code> -&gt; <code>echo "Hello world"</code>) <blockquote class="doxtable">
-<p>create a function to go ahead and sub variables with the values behind them, ie go to each word in CmdStore, see if it's preceeded by a $. if it is, and it's a valid variable name, substitute (either point straight to value held by variable, else just copy bytes into buffer (try the first, sounds better)). again, do this in parse function upon encountering words. </p>
+<li>add additional case for saving variables from given user input. two ways of doing so, but favouring strings as most things are such, and to deduce and store as other than strings is unneeded <blockquote class="doxtable">
+<p>using <code>declare</code>, with options specifying data types (-i, &ndash;integer, -f, &ndash;float = double float, -s, &ndash;string = string). one declare, with a given datatype, overwrites another. basic and implicit <code>var=2</code>, which will store all given values as strings. equivalent of using <code>declare</code> command with options <code>--</code> <code>-s</code> when variable is being created the first time. if previous declaration has been made, it'll store that value as the type that has been previously declared. </p>
 </blockquote>
-</li>
-<li>may want to put all the execution stuff in a seperate function. warrants a seperate file. it'll seem easier if a while loop is being implemented, etc. when it comes to writing the full interpretter. probably call it executer/or/however-the-hell-you-spell-that-word</li>
-<li>Currently, lines are parsed and run, regardless of content. Code will only be run if it's marked as a statement (e.g. doesn't contain keyword like <code>if</code>, etc.) </li>
+when writing variables, format should use <code>find_variable</code>, then <code>update_variable</code> or <code>declare_variable</code> function calls (former where no declare command is used, latter otherwise)</li>
+<li>add another buffer, which copies a given item of data (ie non-string variable's value) into string format</li>
+<li>generally speaking, this programs memory usage is heinous and <em>must</em> be reduced. a variable should not have a default of 1024 chars. each variable should start with 10 bytes of memory, and realloc on an individual basis. add those to methods which deal with update values </li>
 </ol>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

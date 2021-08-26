@@ -95,18 +95,10 @@ Include dependency graph for parser.c:</div>
 Functions</h2></td></tr>
 <tr class="memitem:aa83b8a23104415a5a76f774a03c198ec"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#aa83b8a23104415a5a76f774a03c198ec">find_text</a> (const char *input, const size_t size)</td></tr>
 <tr class="separator:aa83b8a23104415a5a76f774a03c198ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a350ddba0fd8a650984cc18fed8c72014"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd3/structVariable.html">Variable</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a350ddba0fd8a650984cc18fed8c72014">find_variable</a> (const char *var_name, const <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store)</td></tr>
-<tr class="separator:a350ddba0fd8a650984cc18fed8c72014"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12f7fd690876f2456bec70cb5903947e"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a12f7fd690876f2456bec70cb5903947e">find_whitespace</a> (const char *input, const size_t size)</td></tr>
 <tr class="separator:a12f7fd690876f2456bec70cb5903947e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1cab1dce3eaabda012312c3659cf9a04"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a1cab1dce3eaabda012312c3659cf9a04">parse</a> (char *buffer, size_t available, <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store)</td></tr>
 <tr class="separator:a1cab1dce3eaabda012312c3659cf9a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad12db1f6c50706e19d8bfa4292949a6a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#ad12db1f6c50706e19d8bfa4292949a6a">store_variable</a> (const char *var_name, const void *data, const char data_type, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store)</td></tr>
-<tr class="separator:ad12db1f6c50706e19d8bfa4292949a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae0f45dc681f13e5f8f3ef32fef93a35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#aae0f45dc681f13e5f8f3ef32fef93a35">variable_store_fini</a> (<a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store)</td></tr>
-<tr class="separator:aae0f45dc681f13e5f8f3ef32fef93a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2d61879c6d14cf62a394c090999ca14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#ab2d61879c6d14cf62a394c090999ca14">variable_store_init</a> (<a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store)</td></tr>
-<tr class="separator:ab2d61879c6d14cf62a394c090999ca14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac15775480689fe9d1b2fe577e022fad8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#ac15775480689fe9d1b2fe577e022fad8">word_store_fini</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store)</td></tr>
 <tr class="separator:ac15775480689fe9d1b2fe577e022fad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93e1fb41298bd746a3788b9289fbf00c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a93e1fb41298bd746a3788b9289fbf00c">word_store_init</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store)</td></tr>
@@ -148,42 +140,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>pointer to byte storing first instance of text </dd></dl>
-
-</div>
-</div>
-<a id="a350ddba0fd8a650984cc18fed8c72014"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a350ddba0fd8a650984cc18fed8c72014">&#9670;&nbsp;</a></span>find_variable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d0/dd3/structVariable.html">Variable</a>* find_variable </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Attempts to locate a variable by a given name </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">const</td><td>char* c-string storing identifier for variable </td></tr>
-    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct variable to add variable to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>pointer to a <a class="el" href="../../d0/dd3/structVariable.html">Variable</a> struct (if found) </dd></dl>
 
 </div>
 </div>
@@ -263,103 +219,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int acting as boolean, to whether operation occured sucessfully </dd></dl>
-
-</div>
-</div>
-<a id="ad12db1f6c50706e19d8bfa4292949a6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad12db1f6c50706e19d8bfa4292949a6a">&#9670;&nbsp;</a></span>store_variable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int store_variable </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Adds or modifies a variable to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">const</td><td>char* c-string storing identifier for variable </td></tr>
-    <tr><td class="paramname">void*</td><td>generic pointer to data item </td></tr>
-    <tr><td class="paramname">char</td><td>holding value c(har), i(nt), d(ouble) - will show how to dereference generic / void pointer </td></tr>
-    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct variable to add variable to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aae0f45dc681f13e5f8f3ef32fef93a35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae0f45dc681f13e5f8f3ef32fef93a35">&#9670;&nbsp;</a></span>variable_store_fini()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void variable_store_fini </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Deinitialises <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct variable </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ab2d61879c6d14cf62a394c090999ca14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2d61879c6d14cf62a394c090999ca14">&#9670;&nbsp;</a></span>variable_store_init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void variable_store_init </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Initialises <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct variable </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>

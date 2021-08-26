@@ -24,17 +24,14 @@ int main(int, char**) ;
 int main(int argc, char** argv)
 {
 	/* variable setup(s) & config */
-	Environment env ;
 	WordStore word_store ;
 	VariableStore variable_store ;
 	
-	environment_init(&env) ;
 	word_store_init(&word_store) ;
-	
 	variable_store_init(&variable_store) ;
 	int init = 0 ;
-	store_variable("?", (const void*)&init, 'i', &variable_store) ; // store return_status
-	store_variable("#", (const void*)&init, 'i', &variable_store) ; // store pos. arg count
+	declare_variable("?", (const void*)&init, 'i', &variable_store) ; Variable* return_status_variable = find_variable("?", &variable_store) ; // store return_status
+	declare_variable("#", (const void*)&init, 'i', &variable_store) ; Variable* pos_arg_count_variable = find_variable("?", &variable_store) ; // store pos. arg count 
 	
 	/* main functionality */
 	while(1)
@@ -46,7 +43,7 @@ int main(int argc, char** argv)
 		size_t buffer_size = 4096 ; // stores available size in buffer for input
 		memset(buffer, EOF, buffer_size) ;
 		set_display(texture_bold, foreground_white, background_magenta) ;
-		printf("%s%s%s", env.USER, ":", env.WORKING_DIRECTORY) ;
+		printf("%s%s%s", getenv("USER"), ":", get_current_dir_name()) ;
 		reset_display() ;
 		printf("%s", "$ ") ;
 		
@@ -57,11 +54,38 @@ int main(int argc, char** argv)
 		}
 
 		parse(buffer, buffer_size, &word_store) ; // load word_store up with parsed data
-
+		substitute_variables(&word_store, &variable_store) ; // now replace any variables
+									// seperated this from parse function as, in single line mode, you obviously can't save and use a variable at the same time
+									// plus parse function is too big
+		
 		/* Execute instructions */
-		if(word_store.word_count >= 1)
+		if(word_store.word_count >= 1) // if not empty input
 		{
-			if(strcmp(word_store.words[0], "cd") == 0)
+			if(strcmp(word_store.words[0], "declare") == 0)
+			{
+				Variable* var = find_variable(word_store.words[1]) ;
+				if(!var)
+				{
+					// parse stupid input / flags, var_name, getting datatype (if none, its a string), data
+					// declare_variable
+				}				
+				else {
+					// update_variable_type
+					// if data is provided, update_variable_data
+				}
+			}
+			else if(/* it is just variable=data*/)
+			{
+				Variable* var = find_variable(word_store.words[1]) ;
+				if(!var)
+				{
+					// declare_variable, as string, with value if provided
+				}				
+				else {
+					// just update_variable_data
+				}				
+			}
+			else if(strcmp(word_store.words[0], "cd") == 0)
 			{
 				if(word_store.word_count > 2)
 				{
@@ -69,7 +93,7 @@ int main(int argc, char** argv)
 					return_status = -1 ;
 				}
 				
-				return_status = change_directory(&env, word_store.words[1]) ; // will return 0 or -1 depending on success
+				return_status = change_directory(word_store.words[1]) ; // will return 0 or -1 depending on success
 				if(return_status != 0)
 				{
 					printf("%s\n", "Invalid directory!") ;
@@ -102,17 +126,16 @@ int main(int argc, char** argv)
 			}
 		
 			/* set inherent shell variables recording execution information */
-			store_variable("?", (const void*)&return_status, 'i', &variable_store) ; // store return_status
+			update_variable(return_status_variable, (const void*)&return_status) ; // store return_status
 			int positional_param_count = word_store.word_count - 1 ; // the arg count variable only includes positional parameter counts - ie ignore first word / main command
-			store_variable("#", (const void*)&positional_param_count, 'i', &variable_store) ; // store pos. arg count
+			update_variable(pos_arg_count_variable, (const void*)&positional_param_count) ; // store pos. arg count
 		}
 	
 	}
-	
+
 	/* EndOfProgram */
 	reset_display() ;
-	printf("%c", '\n') ;	
-	environment_fini(&env) ;
+	printf("%c", '\n') ;
 	word_store_fini(&word_store) ;
 	variable_store_fini(&variable_store) ;
 	return 0 ;

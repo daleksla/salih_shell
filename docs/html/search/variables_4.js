@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['value_158',['value',['../d0/dd3/structVariable.html#ab40942d93adc7c5156ff6ee3f3ea4c20',1,'Variable']]],
-  ['variable_5fcount_159',['variable_count',['../df/d55/structVariableStore.html#a1b11d0b781ebf33981dbccc5a10fbe34',1,'VariableStore']]],
-  ['variables_160',['variables',['../df/d55/structVariableStore.html#a58a80f3863478142098e22494232c77b',1,'VariableStore']]]
+  ['word_5fcount_154',['word_count',['../d6/d38/structWordStore.html#a9346709bc44fa84cfccb11bf21b96956',1,'WordStore']]],
+  ['words_155',['words',['../d6/d38/structWordStore.html#a9046be76ba2b5840b9158264451c10ae',1,'WordStore']]]
 ];

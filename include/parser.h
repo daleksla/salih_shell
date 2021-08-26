@@ -52,47 +52,4 @@ char* find_whitespace(const char*, const size_t) ;
   * @param pointer to WordStore struct variable **/ 
 void word_store_fini(WordStore*) ;
 
-// Below is to do with storing variables
-
-typedef struct {
-	/** This struct stores the name, value and datatype of a given variable **/
-	char identifier[64] ; // 63 chars is max length reserved for an identifier
-	
-	char value[1024] ;
-	
-	char type ;
-
-} Variable ;
-
-typedef struct {
-	/** This struct stores pointers to an allocated array of `Variable` structs, as-well as max capacity of arrays and how many are currently in store **/
-	size_t _size ;
-
-	Variable* variables ;
-
-	size_t variable_count ;
-
-} VariableStore ;
-
-/** Initialises VariableStore structure
-  * @param pointer to VariableStore struct variable **/ 
-void variable_store_init(VariableStore*) ;
-
-/** Attempts to locate a variable by a given name
-  * @param const char* c-string storing identifier for variable
-  * @param pointer to VariableStore struct variable to add variable to
-  * @return pointer to a Variable struct (if found) **/ 
-Variable* find_variable(const char*, const VariableStore*) ; 
-
-/** Adds or modifies a variable to VariableStore structure
-  * @param const char* c-string storing identifier for variable
-  * @param void* generic pointer to data item
-  * @param char holding value c(har), i(nt), d(ouble) - will show how to dereference generic / void pointer
-  * @param pointer to VariableStore struct variable to add variable to **/ 
-int store_variable(const char*, const void*, const char, VariableStore*) ; 
-
-/** Deinitialises VariableStore structure
-  * @param pointer to VariableStore struct variable **/ 
-void variable_store_fini(VariableStore*) ;
-
 #endif // PARSER_H
