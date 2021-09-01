@@ -16,5 +16,6 @@ var searchData=
   ['background_5fred_16',['background_red',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a2a51d78336a3dc6e2842a4865a3ec885',1,'display.h']]],
   ['background_5ft_17',['background_t',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228',1,'background_t():&#160;display.h'],['../d4/d68/display_8h.html#a371526c04350d19b08af967f7a244b2a',1,'background_t():&#160;display.h']]],
   ['background_5fwhite_18',['background_white',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a6bd419b9740c2e79cfa4c7d19fba2f01',1,'display.h']]],
-  ['background_5fyellow_19',['background_yellow',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a9dd454653fbd881bf73c4722faa0d19c',1,'display.h']]]
+  ['background_5fyellow_19',['background_yellow',['../d4/d68/display_8h.html#a6356354e1f872b1d09ec3db8cac65228a9dd454653fbd881bf73c4722faa0d19c',1,'display.h']]],
+  ['buffer_20',['buffer',['../d7/d21/structInputBuffer.html#aee7a717b6cf023deabe9910410e6cfb6',1,'InputBuffer']]]
 ];

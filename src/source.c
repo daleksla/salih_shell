@@ -6,6 +6,7 @@
 #include <stdio.h> // IO ops
 #include <stdlib.h> // environmental variables
 #include <string.h> // memset
+#include <argp.h> // arg parsing
 
 #include "variables.h" // custom environment setup
 #include "parser.h" // useful functions to help parse string input
@@ -23,10 +24,12 @@ int main(int, char**) ;
 
 int main(int argc, char** argv)
 {
-	/* variable setup(s) & config */
+	/* setup */
+	InputBuffer input_buffer ;
 	WordStore word_store ;
 	VariableStore variable_store ;
 	
+	input_buffer_init(&input_buffer) ;
 	word_store_init(&word_store) ;
 	variable_store_init(&variable_store) ;
 	int init = 0 ;
@@ -36,54 +39,56 @@ int main(int argc, char** argv)
 	/* main functionality */
 	while(1)
 	{	
-		/* Initialise variables & display */
-		word_store_refresh(&word_store) ;
-		int return_status = 0 ; // will be used at end of loop for execution status
-		char buffer[4096] ; // serves as input buffer
-		size_t buffer_size = 4096 ; // stores available size in buffer for input
-		memset(buffer, EOF, buffer_size) ;
+		/* Request input, tinker display */
 		set_display(texture_bold, foreground_white, background_magenta) ;
-		printf("%s%s%s", getenv("USER"), ":", get_current_dir_name()) ;
+		printf("%s%c%s", getenv("USER"), ':', get_current_dir_name()) ;
 		reset_display() ;
 		printf("%s", "$ ") ;
 		
 		/* Get, store & parse input */
-		if(fgets(buffer, buffer_size, stdin) == NULL) // if read isn't sucessful / is manually quit
-		{
-			break ; // terminate shell
-		}
-
-		parse(buffer, buffer_size, &word_store) ; // load word_store up with parsed data
+		word_store_refresh(&word_store) ;
+		input_buffer_refresh(&input_buffer) ;
+		if(read_input(stdin, &input_buffer) == -1) break ; // if EOF, end 
+		dissect(input_buffer.buffer, input_buffer.size, &word_store) ; // load word_store up with parsed data
 		substitute_variables(&word_store, &variable_store) ; // now replace any variables
 									// seperated this from parse function as, in single line mode, you obviously can't save and use a variable at the same time
 									// plus parse function is too big
-		
+
 		/* Execute instructions */
-		if(word_store.word_count >= 1) // if not empty input
+		int return_status = 0 ; // will be used at end of loop to store execution status
+		if(word_store.word_count) // if not empty input
 		{
 			if(strcmp(word_store.words[0], "declare") == 0)
 			{
-				Variable* var = find_variable(word_store.words[1], &variable_store) ;
-				if(!var)
+				if(word_store.word_count != 3)
 				{
-					// parse stupid input / flags, var_name, getting datatype (if none, its a string), data
-					// declare_variable
-				}				
-				else {
-					// update_variable_type
-					// if data is provided, update_variable_data
+					printf("%s\n", "Incorrect number of arguments provided!") ;
+					return_status = -1 ;
 				}
-			}
-			else if(1!=1/* it is just variable=data*/)
-			{
-				Variable* var = find_variable(word_store.words[1], &variable_store) ;
-				if(!var)
-				{
-					// declare_variable, as string, with value if provided
-				}				
 				else {
-					// just update_variable_data
-				}				
+					int data_type = 's' ;
+					char* var_name = NULL ;
+
+					data_type = parse_variable_type(word_store.words[1]) ;
+					printf("VAL:%d\n", data_type) ;
+					if(data_type == -2)
+					{
+						printf("`%s` starts with invalid option token (use -<type abbreviation> or --<type>)!\n", word_store.words[1]) ;
+						return_status = data_type ;
+					}
+					else if(data_type == -3)
+					{
+						printf("`%s` is not a valid data-type specification!\n", word_store.words[1]) ;
+						return_status = data_type ;
+					}
+					else { // if deducing datatype was a success
+						var_name = word_store.words[2] ;
+						// try to find '=' and use value right of it, else use default 0/'\0'/NULL
+						// find variable name
+						// if exists, update variable type, update data
+						// if it doesn't, create
+					}
+				}
 			}
 			else if(strcmp(word_store.words[0], "cd") == 0)
 			{
@@ -92,13 +97,14 @@ int main(int argc, char** argv)
 					printf("%s\n", "Too many arguments provided!") ;
 					return_status = -1 ;
 				}
-				
-				return_status = chdir(word_store.words[1]) ; // will return 0 or -1 depending on success
-				if(return_status != 0)
-				{
-					printf("%s\n", "Invalid directory!") ;
-					// return_status would've already been set to -1, no need to change
-				}
+				else {
+					return_status = chdir(word_store.words[1]) ; // will return 0 or -1 depending on success
+					if(return_status != 0)
+					{
+						printf("%s\n", "Invalid directory!") ;
+						// return_status would've already been set to -1, no need to change
+					}
+				}	
 			}
 			else if(strcmp(word_store.words[0], "echo") == 0)
 			{
@@ -135,7 +141,8 @@ int main(int argc, char** argv)
 
 	/* EndOfProgram */
 	reset_display() ;
-	printf("%c", '\n') ;
+	printf("%s%c", "Exiting...", '\n') ;
+	input_buffer_fini(&input_buffer) ;
 	word_store_fini(&word_store) ;
 	variable_store_fini(&variable_store) ;
 	return 0 ;

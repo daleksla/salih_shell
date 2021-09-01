@@ -1,14 +1,60 @@
 #include <stddef.h> // type aliases
-#include <stdio.h> // EOF
+#include <stdio.h> // EOF, fflush
 #include <stdlib.h> // malloc, free
-#include <string.h> // strcmp, memset
+#include <string.h> // strcmp, memset, strchr
+#include <unistd.h> // read
 
 #include "parser.h"
 
-/** @brief Functionality relating to parsing input
+/** @brief Functionality relating to parsing input (ie literally dissecting input aswell as understanding and running it)
   * @author Salih Ahmed
   * @date 3 Aug 2021 **/
-  
+
+void input_buffer_init(InputBuffer* input_buffer)
+{
+	input_buffer->buffer = malloc(256) ; // 256 chars
+	input_buffer->size = 256 ;
+	input_buffer->current = input_buffer->buffer ;
+}
+
+void input_buffer_refresh(InputBuffer* input_buffer)
+{
+	memset(input_buffer->buffer, EOF, input_buffer->size) ;
+	input_buffer->current = input_buffer->buffer ;
+}
+
+int read_input(FILE* fs, InputBuffer* input_buffer)
+{
+	fflush(stdout) ;
+	fflush(stderr) ;
+	// initial read
+	int was_sucess = (int)fgets(input_buffer->current, input_buffer->size, fs) ; // stdin
+	if(!was_sucess) // if we wouldn't read even once
+	{
+		return -1 ;
+	}
+	
+	while(strchr(input_buffer->current, '\n') == NULL)  // if theres still text before user hit enter key / new line
+	{
+		size_t dist_from_start = input_buffer->current - input_buffer->buffer ;
+		input_buffer->buffer = realloc(input_buffer->buffer, input_buffer->size * 2) ; // original_chars * 2
+		input_buffer->current = strchr(input_buffer->buffer+dist_from_start, '\0') ;
+		memset(input_buffer->current, EOF, input_buffer->size) ;
+		was_sucess = (int)fgets(input_buffer->current, input_buffer->size, fs) ; // stdin
+		input_buffer->size *= 2 ;
+	} 
+	input_buffer->current = strchr(input_buffer->current, '\n') ;
+	return 0 ;
+}
+
+void input_buffer_fini(InputBuffer* input_buffer)
+{
+	free(input_buffer->buffer) ;
+	input_buffer->buffer = NULL ;
+	input_buffer->size = 0 ;
+	input_buffer->current = NULL ;
+}
+
 void word_store_init(WordStore* word_store)
 {
 	word_store->_size = 25 ;
@@ -29,8 +75,9 @@ void word_store_refresh(WordStore* word_store)
 	word_store->word_count = 0 ;
 }
 
-int parse(char* buffer, size_t available, WordStore* word_store)
-{		
+int dissect(char* buffer, const size_t initial_available, WordStore* word_store)
+{
+	size_t available = initial_available ;
 	char* i = find_text(buffer, available) ;
 	
 	if(i == NULL) // if no text was found
@@ -39,11 +86,11 @@ int parse(char* buffer, size_t available, WordStore* word_store)
 	// if text was found
 	++word_store->word_count ;
 	word_store->words[word_store->word_count-1] = i ; // save it as main command, since it's our first bit of text found
-	available -= i - buffer ; // calculate number of bytes left in buffer
+	available = initial_available - (i - buffer) ; // calculate number of bytes left in buffer
 	i = find_whitespace(i, available) ; // find next gap 
 	*i = '\0' ; // place null terminator at first whitespace to create a valid c-string
 	
-	available -= i - buffer ;
+	available = initial_available - (i - buffer) ;
 
 	while(available > 0) 	// loop is responsible for generating arguments
 				// searches for text, finds first instance of whitespace (therefore end of argument) and adds NULL terminator, then repeats
@@ -70,14 +117,14 @@ int parse(char* buffer, size_t available, WordStore* word_store)
 			}
 			*i = '\0' ; // replace end quotation with null termination char to create a valid c-string
 			++i ; // move to next char
-			available -= i - buffer ; // calculate what remains of the buffer
+			available = initial_available - (i - buffer) ; // calculate what remains of the buffer
 		}
 		else {	// if it's a single word arg
 			word_store->words[word_store->word_count-1] = i ; // save it as an argument
-			available -= i - buffer ; // calculate what remains of the buffer using the pointers			
+			available = initial_available - (i - buffer) ; // calculate what remains of the buffer using the pointers			
 			i = find_whitespace(i, available) ; // first find next gap
 			*i = '\0' ; // replace whitespace with null termination char to create a valid c-string
-			available -= i - buffer ; // calculate what remains of the buffer using the positioned pointers
+			available = initial_available - (i - buffer) ; // calculate what remains of the buffer using the positioned pointers
 		}
 	}
 	

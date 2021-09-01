@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['texture_141',['texture',['../d7/d9d/structDisplaySettings.html#abdf131599853b17cdb7ed90176815e8e',1,'DisplaySettings']]]
+  ['word_5fcount_170',['word_count',['../d6/d38/structWordStore.html#a9346709bc44fa84cfccb11bf21b96956',1,'WordStore']]],
+  ['words_171',['words',['../d6/d38/structWordStore.html#a9046be76ba2b5840b9158264451c10ae',1,'WordStore']]]
 ];

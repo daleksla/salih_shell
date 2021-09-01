@@ -82,12 +82,13 @@ Include dependency graph for variables.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/de6/variables_8c__incl.png" border="0" usemap="#src_2variables_8c" alt=""/></div>
 <map name="src_2variables_8c" id="src_2variables_8c">
-<area shape="rect" title=" " alt="" coords="67,5,183,32"/>
-<area shape="rect" title=" " alt="" coords="5,229,80,256"/>
-<area shape="rect" title=" " alt="" coords="43,80,114,107"/>
-<area shape="rect" title=" " alt="" coords="138,80,209,107"/>
-<area shape="rect" href="../../de/dca/variables_8h.html" title=" " alt="" coords="233,80,327,107"/>
-<area shape="rect" href="../../d5/d36/parser_8h.html" title=" " alt="" coords="143,155,217,181"/>
+<area shape="rect" title=" " alt="" coords="50,5,166,32"/>
+<area shape="rect" title=" " alt="" coords="40,229,115,256"/>
+<area shape="rect" title=" " alt="" coords="26,80,97,107"/>
+<area shape="rect" title=" " alt="" coords="121,80,192,107"/>
+<area shape="rect" href="../../de/dca/variables_8h.html" title=" " alt="" coords="216,80,310,107"/>
+<area shape="rect" href="../../d5/d36/parser_8h.html" title=" " alt="" coords="180,155,255,181"/>
+<area shape="rect" title=" " alt="" coords="184,229,251,256"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -102,6 +103,8 @@ Functions</h2></td></tr>
 <tr class="separator:acaf73c2f711b1c86a226570875f78dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a350ddba0fd8a650984cc18fed8c72014"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd3/structVariable.html">Variable</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de8/variables_8c.html#a350ddba0fd8a650984cc18fed8c72014">find_variable</a> (const char *var_name, const <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store)</td></tr>
 <tr class="separator:a350ddba0fd8a650984cc18fed8c72014"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cf18136d65b611a6419b835d7ebef67"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de8/variables_8c.html#a0cf18136d65b611a6419b835d7ebef67">parse_variable_type</a> (const char *type_declaration)</td></tr>
+<tr class="separator:a0cf18136d65b611a6419b835d7ebef67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d7c600bb935b272a96aa3b9427d29dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de8/variables_8c.html#a9d7c600bb935b272a96aa3b9427d29dc">substitute_variables</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, const <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store)</td></tr>
 <tr class="separator:a9d7c600bb935b272a96aa3b9427d29dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f6011e52fb9d87fd6df7596241c0043"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de8/variables_8c.html#a5f6011e52fb9d87fd6df7596241c0043">update_variable_data</a> (<a class="el" href="../../d0/dd3/structVariable.html">Variable</a> *variable, const void *data)</td></tr>
@@ -211,7 +214,32 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>pointer to a <a class="el" href="../../d0/dd3/structVariable.html">Variable</a> struct (if found), else NULL </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>pointer to a <a class="el" href="../../d0/dd3/structVariable.html" title="Declarations relating to management of variables.">Variable</a> struct (if found), else NULL </dd></dl>
+
+</div>
+</div>
+<a id="a0cf18136d65b611a6419b835d7ebef67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cf18136d65b611a6419b835d7ebef67">&#9670;&nbsp;</a></span>parse_variable_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int parse_variable_type </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>parses specified variable-type information, returns char correlating to type </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">const</td><td>char* c-string storing type specified </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer correlating to ASCII value of type or negative number indicating a type of error (-2 invalid format, -3 invalid option) </dd></dl>
 
 </div>
 </div>
@@ -242,7 +270,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>substitute_variables is a function which goes through every word parsed and see it starts with $. It adjusts the word accordingly </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html" title="Declarations relating to parsing user input.">WordStore</a> </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> </td></tr>
     <tr><td class="paramname">const</td><td>pointer to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> </td></tr>
   </table>
   </dd>
@@ -277,7 +305,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Modifies stored contents of a created variable </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pointer</td><td>to a <a class="el" href="../../d0/dd3/structVariable.html">Variable</a> </td></tr>
+    <tr><td class="paramname">pointer</td><td>to a <a class="el" href="../../d0/dd3/structVariable.html" title="Declarations relating to management of variables.">Variable</a> </td></tr>
     <tr><td class="paramname">void*</td><td>generic pointer to data item </td></tr>
   </table>
   </dd>
@@ -313,7 +341,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Modifies indicator to data type stored within contents </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pointer</td><td>to a <a class="el" href="../../d0/dd3/structVariable.html">Variable</a> </td></tr>
+    <tr><td class="paramname">pointer</td><td>to a <a class="el" href="../../d0/dd3/structVariable.html" title="Declarations relating to management of variables.">Variable</a> </td></tr>
     <tr><td class="paramname">const</td><td>char holding value s(tring), d(int), f(double) </td></tr>
   </table>
   </dd>
@@ -362,7 +390,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Functionality to initialise &amp; modify variables. </p>
+<p>Functionality to management of variables. </p>
 <dl class="section author"><dt>Author</dt><dd>Salih Ahmed </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2 Aug 2021 </dd></dl>
 

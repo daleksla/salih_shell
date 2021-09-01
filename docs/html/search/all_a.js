@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['parse_59',['parse',['../d5/d36/parser_8h.html#a3d3178c2ca80d6651ff680250e4fb126',1,'parse(char *, const size_t, WordStore *):&#160;parser.c'],['../d2/d72/parser_8c.html#a1cab1dce3eaabda012312c3659cf9a04',1,'parse(char *buffer, size_t available, WordStore *word_store):&#160;parser.c']]],
-  ['parser_2ec_60',['parser.c',['../d2/d72/parser_8c.html',1,'']]],
-  ['parser_2eh_61',['parser.h',['../d5/d36/parser_8h.html',1,'']]],
-  ['platform_5fid_62',['PLATFORM_ID',['../d9/d4b/CMakeCCompilerId_8c.html#adbc5372f40838899018fadbc89bd588b',1,'CMakeCCompilerId.c']]]
+  ['parse_5fvariable_5ftype_65',['parse_variable_type',['../de/dca/variables_8h.html#aa55152363b81f417dc55926c54205b93',1,'parse_variable_type(const char *):&#160;variables.c'],['../d5/de8/variables_8c.html#a0cf18136d65b611a6419b835d7ebef67',1,'parse_variable_type(const char *type_declaration):&#160;variables.c']]],
+  ['parser_2ec_66',['parser.c',['../d2/d72/parser_8c.html',1,'']]],
+  ['parser_2eh_67',['parser.h',['../d5/d36/parser_8h.html',1,'']]],
+  ['platform_5fid_68',['PLATFORM_ID',['../d9/d4b/CMakeCCompilerId_8c.html#adbc5372f40838899018fadbc89bd588b',1,'CMakeCCompilerId.c']]]
 ];

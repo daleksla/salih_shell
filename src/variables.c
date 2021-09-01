@@ -5,7 +5,7 @@
 
 #include "variables.h"
 
-/** @brief Functionality to manage variables
+/** @brief Functionality to management of variables
   * @author Salih Ahmed
   * @date 2 Aug 2021 **/
   
@@ -14,6 +14,29 @@ void variable_store_init(VariableStore* variable_store)
 	variable_store->_size = 25 ;
 	variable_store->variables = malloc(sizeof(Variable) * variable_store->_size) ; // list of max 256 char pointers
 	variable_store->variable_count = 0 ;
+}
+
+int parse_variable_type(const char* type_declaration)
+{
+	if(type_declaration[0] != '-')
+	{
+		return -2 ;
+	}
+	
+	if(type_declaration[1] == 'i' || strcmp(type_declaration, "--integer") == 0)
+	{
+		return 'd' ;
+	}
+	else if(type_declaration[1] == 'f' || strcmp(type_declaration, "--float") == 0)
+	{
+		return 'f' ;
+	}
+	else if(type_declaration[1] == 's' || strcmp(type_declaration, "--string") == 0)
+	{
+		return 's' ;
+	}
+
+	return -3 ; // if a valid type isn't detected
 }
 
 int declare_variable(const char* var_name, const void* data, const char data_type, VariableStore* variable_store)

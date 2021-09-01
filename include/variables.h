@@ -2,11 +2,11 @@
 #define VARIABLES_H
 #pragma once
 
-/** @brief Declarations relating to manage variables
+/** @brief Declarations relating to management of variables
   * @author Salih Ahmed
   * @date 2 Aug 2021 **/
 
-#include "parser.h" // WordStore
+#include "parser.h" // struct WordStore
 
 // Below is to do with storing variables
 
@@ -33,6 +33,11 @@ typedef struct {
 /** Initialises VariableStore structure
   * @param pointer to VariableStore struct variable **/ 
 void variable_store_init(VariableStore*) ;
+
+/** parses specified variable-type information, returns char correlating to type
+  * @param const char* c-string storing type specified
+  * @return integer correlating to ASCII value of type or negative number indicating a type of error (-2 invalid format, -3 invalid option) **/ 
+int parse_variable_type(const char*) ;
 
 /** Creates a variable within a given VariableStore structure
   * @param const char* c-string storing identifier for variable

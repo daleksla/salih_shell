@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>salih_shell: Variable Struct Reference</title>
+<title>salih_shell: InputBuffer Struct Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -64,65 +64,65 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="../../d7/d1b/structVariable-members.html">List of all members</a>  </div>
+<a href="../../dc/dc6/structInputBuffer-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">Variable Struct Reference</div>  </div>
+<div class="title">InputBuffer Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="../../de/dca/variables_8h_source.html">variables.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d5/d36/parser_8h_source.html">parser.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a8d753c075b6de4cc6d847a2ac730f67c"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd3/structVariable.html#a8d753c075b6de4cc6d847a2ac730f67c">identifier</a> [64]</td></tr>
-<tr class="separator:a8d753c075b6de4cc6d847a2ac730f67c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeef2cd2fb7af25533ea814a03f652f6c"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd3/structVariable.html#aeef2cd2fb7af25533ea814a03f652f6c">type</a></td></tr>
-<tr class="separator:aeef2cd2fb7af25533ea814a03f652f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab40942d93adc7c5156ff6ee3f3ea4c20"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd3/structVariable.html#ab40942d93adc7c5156ff6ee3f3ea4c20">value</a> [1024]</td></tr>
-<tr class="separator:ab40942d93adc7c5156ff6ee3f3ea4c20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee7a717b6cf023deabe9910410e6cfb6"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d21/structInputBuffer.html#aee7a717b6cf023deabe9910410e6cfb6">buffer</a></td></tr>
+<tr class="separator:aee7a717b6cf023deabe9910410e6cfb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeabd49a209be6f6673aa845791845325"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d21/structInputBuffer.html#aeabd49a209be6f6673aa845791845325">current</a></td></tr>
+<tr class="separator:aeabd49a209be6f6673aa845791845325"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4385896d74789c460e6441e4f7947a57"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d21/structInputBuffer.html#a4385896d74789c460e6441e4f7947a57">size</a></td></tr>
+<tr class="separator:a4385896d74789c460e6441e4f7947a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Declarations relating to management of variables. </p>
+<div class="textblock"><p>Declarations relating to parsing user input (ie literally dissecting input aswell as understanding and running it) </p>
 <dl class="section author"><dt>Author</dt><dd>Salih Ahmed </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2 Aug 2021 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>3 Aug 2021 </dd></dl>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a8d753c075b6de4cc6d847a2ac730f67c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d753c075b6de4cc6d847a2ac730f67c">&#9670;&nbsp;</a></span>identifier</h2>
+<a id="aee7a717b6cf023deabe9910410e6cfb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee7a717b6cf023deabe9910410e6cfb6">&#9670;&nbsp;</a></span>buffer</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char Variable::identifier[64]</td>
+          <td class="memname">char* InputBuffer::buffer</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This struct stores the name, value and datatype of a given variable </p>
+<p>Struct storing buffer and size </p>
 
 </div>
 </div>
-<a id="aeef2cd2fb7af25533ea814a03f652f6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeef2cd2fb7af25533ea814a03f652f6c">&#9670;&nbsp;</a></span>type</h2>
+<a id="aeabd49a209be6f6673aa845791845325"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeabd49a209be6f6673aa845791845325">&#9670;&nbsp;</a></span>current</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char Variable::type</td>
+          <td class="memname">char* InputBuffer::current</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ab40942d93adc7c5156ff6ee3f3ea4c20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab40942d93adc7c5156ff6ee3f3ea4c20">&#9670;&nbsp;</a></span>value</h2>
+<a id="a4385896d74789c460e6441e4f7947a57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4385896d74789c460e6441e4f7947a57">&#9670;&nbsp;</a></span>size</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char Variable::value[1024]</td>
+          <td class="memname">size_t InputBuffer::size</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -130,7 +130,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/<a class="el" href="../../de/dca/variables_8h_source.html">variables.h</a></li>
+<li>include/<a class="el" href="../../d5/d36/parser_8h_source.html">parser.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
