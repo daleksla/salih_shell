@@ -50,7 +50,7 @@ int declare_variable(const char* var_name, const void* data, const char data_typ
 
 	if(variable->type == 's')
 	{
-		strcpy(variable->value, (char*)data) ;
+		strcpy((char*)variable->value, *(char**)data) ;
 	}
 	else if(variable->type == 'd')
 	{

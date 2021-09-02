@@ -41,7 +41,9 @@ int main(int argc, char** argv)
 	{	
 		/* Request input, tinker display */
 		set_display(texture_bold, foreground_white, background_magenta) ;
-		printf("%s%c%s", getenv("USER"), ':', get_current_dir_name()) ;
+		char* dir = get_current_dir_name() ; 
+		printf("%s%c%s", getenv("USER"), ':', dir) ;
+		free(dir) ;
 		reset_display() ;
 		printf("%s", "$ ") ;
 		
@@ -49,7 +51,8 @@ int main(int argc, char** argv)
 		word_store_refresh(&word_store) ;
 		input_buffer_refresh(&input_buffer) ;
 		if(read_input(stdin, &input_buffer) == -1) break ; // if EOF, end 
-		dissect(input_buffer.buffer, input_buffer.size, &word_store) ; // load word_store up with parsed data
+		//printf("Bytes written: %d", input_buffer.current - input_buffer.buffer) ;
+		dissect(input_buffer.buffer, input_buffer.current+1-input_buffer.buffer, &word_store) ; // load word_store up with parsed data
 		substitute_variables(&word_store, &variable_store) ; // now replace any variables
 									// seperated this from parse function as, in single line mode, you obviously can't save and use a variable at the same time
 									// plus parse function is too big
@@ -66,11 +69,10 @@ int main(int argc, char** argv)
 					return_status = -1 ;
 				}
 				else {
+					// First, parse datatype
 					int data_type = 's' ;
-					char* var_name = NULL ;
-
 					data_type = parse_variable_type(word_store.words[1]) ;
-					printf("VAL:%d\n", data_type) ;
+					
 					if(data_type == -2)
 					{
 						printf("`%s` starts with invalid option token (use -<type abbreviation> or --<type>)!\n", word_store.words[1]) ;
@@ -81,12 +83,27 @@ int main(int argc, char** argv)
 						printf("`%s` is not a valid data-type specification!\n", word_store.words[1]) ;
 						return_status = data_type ;
 					}
-					else { // if deducing datatype was a success
-						var_name = word_store.words[2] ;
-						// try to find '=' and use value right of it, else use default 0/'\0'/NULL
-						// find variable name
-						// if exists, update variable type, update data
-						// if it doesn't, create
+					else { // if deducing datatype was a succes
+						const char* var_name = word_store.words[2] ;
+						
+						char* data = strchr(var_name, '=') ;
+						if(data)
+						{
+							*data = '\0' ;
+							++data ;
+						}
+						
+						Variable* var_itself = find_variable(var_name, &variable_store) ;
+						if(var_itself) // if variable is found
+						{
+							update_variable_type(var_itself, data_type) ;
+							update_variable_data(var_itself, &data) ;
+						}
+						else {
+							declare_variable(var_name, &data, data_type, &variable_store) ;					
+						}
+						printf("Was var created?: %d\n", find_variable(var_name, &variable_store) ? 1 : 0) ;
+						printf("var val?: %s\n", find_variable(var_name, &variable_store)->value) ;
 					}
 				}
 			}

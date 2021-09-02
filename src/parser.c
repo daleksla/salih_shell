@@ -28,7 +28,7 @@ int read_input(FILE* fs, InputBuffer* input_buffer)
 	fflush(stdout) ;
 	fflush(stderr) ;
 	// initial read
-	int was_sucess = (int)fgets(input_buffer->current, input_buffer->size, fs) ; // stdin
+	int was_sucess = (int)fgets(input_buffer->current, input_buffer->size - (input_buffer->current - input_buffer->buffer), fs) ; // stdin
 	if(!was_sucess) // if we wouldn't read even once
 	{
 		return -1 ;
