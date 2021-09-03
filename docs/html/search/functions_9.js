@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['variable_5fstore_5ffini_152',['variable_store_fini',['../de/dca/variables_8h.html#a75aba09ebd049ea585bec0695f385baa',1,'variable_store_fini(VariableStore *):&#160;variables.c'],['../d5/de8/variables_8c.html#aae0f45dc681f13e5f8f3ef32fef93a35',1,'variable_store_fini(VariableStore *variable_store):&#160;variables.c']]],
-  ['variable_5fstore_5finit_153',['variable_store_init',['../de/dca/variables_8h.html#a451a5a98650812b4408695c28efc6ff1',1,'variable_store_init(VariableStore *):&#160;variables.c'],['../d5/de8/variables_8c.html#ab2d61879c6d14cf62a394c090999ca14',1,'variable_store_init(VariableStore *variable_store):&#160;variables.c']]]
+  ['update_5fvariable_5fdata_158',['update_variable_data',['../de/dca/variables_8h.html#abeca1ebe26baabc268576ed25a898605',1,'update_variable_data(Variable *, const void *):&#160;variables.c'],['../d5/de8/variables_8c.html#a5f6011e52fb9d87fd6df7596241c0043',1,'update_variable_data(Variable *variable, const void *data):&#160;variables.c']]],
+  ['update_5fvariable_5ftype_159',['update_variable_type',['../de/dca/variables_8h.html#acc33d561aae2184983594e129fa510f5',1,'update_variable_type(Variable *, const char):&#160;variables.c'],['../d5/de8/variables_8c.html#a5bf1f83aaec016928f18194aba2759b3',1,'update_variable_type(Variable *variable, const char type):&#160;variables.c']]]
 ];

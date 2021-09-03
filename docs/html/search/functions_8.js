@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['update_5fvariable_5fdata_150',['update_variable_data',['../de/dca/variables_8h.html#abeca1ebe26baabc268576ed25a898605',1,'update_variable_data(Variable *, const void *):&#160;variables.c'],['../d5/de8/variables_8c.html#a5f6011e52fb9d87fd6df7596241c0043',1,'update_variable_data(Variable *variable, const void *data):&#160;variables.c']]],
-  ['update_5fvariable_5ftype_151',['update_variable_type',['../de/dca/variables_8h.html#acc33d561aae2184983594e129fa510f5',1,'update_variable_type(Variable *, const char):&#160;variables.c'],['../d5/de8/variables_8c.html#a5bf1f83aaec016928f18194aba2759b3',1,'update_variable_type(Variable *variable, const char type):&#160;variables.c']]]
+  ['set_5fdisplay_156',['set_display',['../d4/d68/display_8h.html#a829d0f39a5d1f61332cfedfc6bd77014',1,'set_display(const texture_t, const foreground_t, const background_t):&#160;display.c'],['../db/d85/display_8c.html#a033b8c305aa3dc1dd2d7737be4a6eceb',1,'set_display(const texture_t i_texture, const foreground_t i_foreground, const background_t i_background):&#160;display.c']]],
+  ['substitute_5fvariables_157',['substitute_variables',['../de/dca/variables_8h.html#a8b78ee956e5d49052a630f2cd482105e',1,'substitute_variables(WordStore *, const VariableStore *):&#160;variables.c'],['../d5/de8/variables_8c.html#a9d7c600bb935b272a96aa3b9427d29dc',1,'substitute_variables(WordStore *word_store, const VariableStore *variable_store):&#160;variables.c']]]
 ];
