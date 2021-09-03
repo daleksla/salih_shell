@@ -82,7 +82,9 @@ int dissect(char* buffer, const size_t initial_available, WordStore* word_store)
 	
 	if(i == NULL) // if no text was found
 		return -1 ; // indicate failure
-
+	else if(*i == '#') // if we've hit a comment
+		return -1 ;
+	
 	// if text was found
 	++word_store->word_count ;
 	word_store->words[word_store->word_count-1] = i ; // save it as main command, since it's our first bit of text found
@@ -99,7 +101,9 @@ int dissect(char* buffer, const size_t initial_available, WordStore* word_store)
 		
 		if(i == NULL) // if there's no more text (and therefore no arguments left)
 			break ; // then stop searching for them
-			
+		else if(*i == '#') // if we've hit a comment
+			break ;
+				
 		// if we do find text
 		++word_store->word_count ; // then we've definitely found an arg, so increment count
 			

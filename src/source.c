@@ -1,7 +1,7 @@
 #define _GNU_SOURCE
 #include <signal.h> // signal handling
 #include <stdio.h> // IO ops
-#include <stdlib.h> // environmental variables
+#include <stdlib.h> // environmental variables, fopen
 #include <string.h> // memset
 #include <unistd.h> // get_current_dir_name
 
@@ -31,35 +31,48 @@ int main(int argc, char** argv)
 	int init = 0 ;
 	declare_variable("?", (const void*)&init, 'i', &variable_store) ;
 	declare_variable("#", (const void*)&init, 'i', &variable_store) ;
+	
+	FILE* file_stream = stdin ;
+	if(argc == 2)
+	{
+		file_stream = fopen(argv[1], "r") ;
+	}
 
 	/* main functionality */
 	while(1)
 	{	
 		/* Request input, tinker display */
-		set_display(texture_bold, foreground_white, background_magenta) ;
-		char* dir = get_current_dir_name() ; 
-		printf("%s%c%s", getenv("USER"), ':', dir) ;
-		free(dir) ;
-		reset_display() ;
-		printf("%s", "$ ") ;
+		if(file_stream == stdin)
+		{
+			set_display(texture_bold, foreground_white, background_magenta) ;
+			char* dir = get_current_dir_name() ; 
+			printf("%s%c%s", getenv("USER"), ':', dir) ;
+			free(dir) ;
+			reset_display() ;
+			printf("%s", "$ ") ;
+		}
 		
 		/* Get, store & parse input */
 		word_store_refresh(&word_store) ;
 		input_buffer_refresh(&input_buffer) ;
-		if(read_input(stdin, &input_buffer) == -1) break ; // if EOF, end 
-		dissect(input_buffer.buffer, input_buffer.current+1-input_buffer.buffer, &word_store) ; // load word_store up with parsed data
+		if(read_input(file_stream, &input_buffer) == -1) break ; // if EOF, end 
+		if(dissect(input_buffer.buffer, input_buffer.current+1-input_buffer.buffer, &word_store) == -1) continue ; // load word_store up with parsed data
+															       // if no words were found, next line
 		substitute_variables(&word_store, &variable_store) ; // now replace any variables
 									// seperated this from parse function as, in single line mode, you obviously can't save and use a variable at the same time
 									// plus parse function is too big
 
 		/* Execute instructions */
-		int return_status = 0 ; // will be used at end of loop to store execution status
-		exec_statement(&word_store, &variable_store, &return_status) ;
+		exec_statement(&word_store, &variable_store) ;
 	}
 
 	/* EndOfProgram */
-	reset_display() ;
-	printf("%s%c", "Exiting...", '\n') ;
+	if(file_stream == stdin)
+	{
+		reset_display() ;
+		printf("%s%c", "Exiting...", '\n') ;
+	}
+	fclose(file_stream) ;
 	input_buffer_fini(&input_buffer) ;
 	word_store_fini(&word_store) ;
 	variable_store_fini(&variable_store) ;
