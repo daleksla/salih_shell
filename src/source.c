@@ -36,6 +36,11 @@ int main(int argc, char** argv)
 	if(argc == 2)
 	{
 		file_stream = fopen(argv[1], "r") ;
+		if(!file_stream)
+		{
+			fprintf(stdout, "File `%s` does not exist!\n", argv[1]) ;
+			return -1 ;
+		}
 	}
 
 	/* main functionality */
@@ -46,7 +51,7 @@ int main(int argc, char** argv)
 		{
 			set_display(texture_bold, foreground_white, background_magenta) ;
 			char* dir = get_current_dir_name() ; 
-			printf("%s%c%s", getenv("USER"), ':', dir) ;
+			fprintf(stdout, "%s%c%s", getenv("USER"), ':', dir) ;
 			free(dir) ;
 			reset_display() ;
 			printf("%s", "$ ") ;
@@ -63,14 +68,14 @@ int main(int argc, char** argv)
 									// plus parse function is too big
 
 		/* Execute instructions */
-		exec_statement(&word_store, &variable_store) ;
+		run_statement(&word_store, &variable_store) ;
 	}
 
 	/* EndOfProgram */
 	if(file_stream == stdin)
 	{
 		reset_display() ;
-		printf("%s%c", "Exiting...", '\n') ;
+		fprintf(stdout, "%s%c", "Exiting...", '\n') ;
 	}
 	fclose(file_stream) ;
 	input_buffer_fini(&input_buffer) ;

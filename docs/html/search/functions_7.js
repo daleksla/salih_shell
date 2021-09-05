@@ -1,5 +1,6 @@
 var searchData=
 [
   ['read_5finput_154',['read_input',['../d5/d36/parser_8h.html#a578e3995db3b49670036bc59c091ee0d',1,'read_input(FILE *, InputBuffer *):&#160;parser.c'],['../d2/d72/parser_8c.html#a445d1df2baf9e5c001f977e58c04f5a6',1,'read_input(FILE *fs, InputBuffer *input_buffer):&#160;parser.c']]],
-  ['reset_5fdisplay_155',['reset_display',['../d4/d68/display_8h.html#ac1dc34a8a587fbe3cbb82061f333a4b4',1,'reset_display(void):&#160;display.c'],['../db/d85/display_8c.html#ac1dc34a8a587fbe3cbb82061f333a4b4',1,'reset_display(void):&#160;display.c']]]
+  ['reset_5fdisplay_155',['reset_display',['../d4/d68/display_8h.html#ac1dc34a8a587fbe3cbb82061f333a4b4',1,'reset_display(void):&#160;display.c'],['../db/d85/display_8c.html#ac1dc34a8a587fbe3cbb82061f333a4b4',1,'reset_display(void):&#160;display.c']]],
+  ['run_5fstatement_156',['run_statement',['../dd/d01/execution_8h.html#a31bdb86eb5ced4479e478bb8e12ba775',1,'run_statement(WordStore *, VariableStore *):&#160;execution.c'],['../d0/dda/execution_8c.html#a0e28c10edea3673f483bf6bfb5f29a03',1,'run_statement(WordStore *word_store, VariableStore *variable_store):&#160;execution.c']]]
 ];

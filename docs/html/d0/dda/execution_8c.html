@@ -77,19 +77,26 @@ $(function() {
 <code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;sys/wait.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d36/parser_8h_source.html">parser.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../de/dca/variables_8h_source.html">variables.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dd/d01/execution_8h_source.html">execution.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for execution.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/da5/execution_8c__incl.png" border="0" usemap="#src_2execution_8c" alt=""/></div>
 <map name="src_2execution_8c" id="src_2execution_8c">
-<area shape="rect" title=" " alt="" coords="145,5,263,32"/>
+<area shape="rect" title=" " alt="" coords="294,5,413,32"/>
 <area shape="rect" title=" " alt="" coords="5,80,80,107"/>
-<area shape="rect" title=" " alt="" coords="123,229,197,256"/>
-<area shape="rect" title=" " alt="" coords="295,229,361,256"/>
-<area shape="rect" title=" " alt="" coords="277,80,365,107"/>
-<area shape="rect" href="../../dd/d01/execution_8h.html" title=" " alt="" coords="155,80,253,107"/>
-<area shape="rect" href="../../d5/d36/parser_8h.html" title=" " alt="" coords="167,155,241,181"/>
+<area shape="rect" title=" " alt="" coords="285,304,360,331"/>
+<area shape="rect" title=" " alt="" coords="588,304,655,331"/>
+<area shape="rect" title=" " alt="" coords="205,80,293,107"/>
+<area shape="rect" title=" " alt="" coords="318,80,389,107"/>
+<area shape="rect" title=" " alt="" coords="413,80,483,107"/>
+<area shape="rect" href="../../d5/d36/parser_8h.html" title=" " alt="" coords="537,229,612,256"/>
+<area shape="rect" href="../../de/dca/variables_8h.html" title=" " alt="" coords="442,155,537,181"/>
+<area shape="rect" href="../../dd/d01/execution_8h.html" title=" " alt="" coords="507,80,605,107"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -100,8 +107,12 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a76cb9c5192b8d8c137d8b5ea1c28d7af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dda/execution_8c.html#a76cb9c5192b8d8c137d8b5ea1c28d7af">exec_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store, int *return_status)</td></tr>
-<tr class="separator:a76cb9c5192b8d8c137d8b5ea1c28d7af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d0147b4c80df41a3f02739b8328dfc5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dda/execution_8c.html#a9d0147b4c80df41a3f02739b8328dfc5">exec_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store)</td></tr>
+<tr class="separator:a9d0147b4c80df41a3f02739b8328dfc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e28c10edea3673f483bf6bfb5f29a03"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dda/execution_8c.html#a0e28c10edea3673f483bf6bfb5f29a03">run_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store)</td></tr>
+<tr class="separator:a0e28c10edea3673f483bf6bfb5f29a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a403bb516c54bcd73bca622a14f566110"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dda/execution_8c.html#a403bb516c54bcd73bca622a14f566110">set_shell_variables</a> (const int return_status, const int positional_param_count, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store)</td></tr>
+<tr class="separator:a403bb516c54bcd73bca622a14f566110"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a369266c24eacffb87046522897a570d5"></a>
@@ -119,29 +130,23 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a76cb9c5192b8d8c137d8b5ea1c28d7af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76cb9c5192b8d8c137d8b5ea1c28d7af">&#9670;&nbsp;</a></span>exec_statement()</h2>
+<a id="a9d0147b4c80df41a3f02739b8328dfc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d0147b4c80df41a3f02739b8328dfc5">&#9670;&nbsp;</a></span>exec_statement()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void exec_statement </td>
+          <td class="memname">int exec_statement </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
-          <td class="paramname"><em>word_store</em>, </td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
-          <td class="paramname"><em>variable_store</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>return_status</em>&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -150,8 +155,95 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>exec_statement function purely executes a statement based on given words </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct containing words amounting to statement to attempt to execute </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct to possibly modify </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>exit code of statement (we do save it as a shell variable but internally its more efficient to simply check if the statement executed right) </dd></dl>
+
+</div>
+</div>
+<a id="a0e28c10edea3673f483bf6bfb5f29a03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e28c10edea3673f483bf6bfb5f29a03">&#9670;&nbsp;</a></span>run_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int run_statement </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>run_statement function evaluates a portion of code resembling a statement &amp; facilitates their execution (eg. calling exec_statement, checking pipes etc.) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct containing words amounting to statement to attempt to execute </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct to possibly modify </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>exit code of statement (we do save it as a shell variable but internally its more efficient to simply check if the statement executed right) </dd></dl>
+
+</div>
+</div>
+<a id="a403bb516c54bcd73bca622a14f566110"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a403bb516c54bcd73bca622a14f566110">&#9670;&nbsp;</a></span>set_shell_variables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void set_shell_variables </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>return_status</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>positional_param_count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
+          <td class="paramname"><em>variable_store</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 <p>Functionality relating to executing different types of statements. </p>
+<p>Declarations relating to executing different types of statements.</p>
 <dl class="section author"><dt>Author</dt><dd>Salih Ahmed </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>3 September 2021 </dd></dl>
 

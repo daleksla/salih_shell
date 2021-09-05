@@ -6,6 +6,5 @@ var searchData=
   ['cmakeccompilerid_2ec_24',['CMakeCCompilerId.c',['../d9/d4b/CMakeCCompilerId_8c.html',1,'']]],
   ['cmakelists_2etxt_25',['CMakeLists.txt',['../da/d9e/CMakeLists_8txt.html',1,'']]],
   ['compiler_5fid_26',['COMPILER_ID',['../d9/d4b/CMakeCCompilerId_8c.html#a81dee0709ded976b2e0319239f72d174',1,'CMakeCCompilerId.c']]],
-  ['count_2etxt_27',['count.txt',['../dc/daf/count_8txt.html',1,'']]],
-  ['current_28',['current',['../d7/d21/structInputBuffer.html#aeabd49a209be6f6673aa845791845325',1,'InputBuffer']]]
+  ['current_27',['current',['../d7/d21/structInputBuffer.html#aeabd49a209be6f6673aa845791845325',1,'InputBuffer']]]
 ];
