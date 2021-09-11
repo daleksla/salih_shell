@@ -68,6 +68,11 @@ void word_store_refresh(WordStore*) ;
   * @return int acting as boolean, to whether operation occured sucessfully **/ 
 int dissect(char*, const size_t, WordStore*) ;
 
+/** is_whitespace determines whether a given character is a 'whitespace char'
+  * @param const char to determine whether its a whitespace character
+  * @return int storing boolean, where true means given char is a whitespace, else false **/
+int is_whitespace(const char) ;
+
 /** find_text finds first instance of text (ie not whitespace characters), returns NULL if no text is available 
   * @param const char* being the string buffer we're searching through
   * @param const size_t relating to the maximum amount of bytes we can search through from the starting point

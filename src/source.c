@@ -33,7 +33,7 @@ int main(int argc, char** argv)
 	declare_variable("#", (const void*)&init, 'i', &variable_store) ;
 	
 	FILE* file_stream = stdin ;
-	if(argc == 2)
+	if(argc >= 2)
 	{
 		file_stream = fopen(argv[1], "r") ;
 		if(!file_stream)

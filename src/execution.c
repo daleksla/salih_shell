@@ -1,10 +1,11 @@
 #define _GNU_SOURCE
-#include <unistd.h> // working dir, symbolic constants, exec*
+#include <unistd.h> // working dir, symbolic constants, exec*, dup, dup2
 #include <stddef.h> // type aliases
 #include <stdio.h> // IO ops
 #include <sys/wait.h> // wait
 #include <string.h> // strcmp, strchr, memchr
 #include <stdlib.h> // setenv
+#include <fcntl.h> // open
 
 #include "parser.h" // WordStore, find_text
 #include "variables.h" // VariableStore, variable storing functionality
@@ -25,24 +26,97 @@ int run_statement(WordStore* word_store, VariableStore* variable_store)
 {
 	int return_status ;
 	/* check for special commands, which will change how we execute the statement (eg pipes) */
-	char* pipe = NULL ;
-	for(size_t i = 0 ; i < word_store->word_count ; ++i)
+	char* pipe_ptr = NULL ;
+	char* fs_ptr = NULL ;
+	size_t i ; // record where to split word input
+	for(i = 0 ; i < word_store->word_count ; ++i)
 	{
-		pipe = (char*)strchr(word_store->words[i], '|') ;
-		if(pipe)
+		pipe_ptr = strchr(word_store->words[i], '|') ;
+		fs_ptr = strchr(word_store->words[i], '>') ;
+		if(pipe_ptr || fs_ptr)
 		{
 			break ; 
 		}
 	}
 
-	if(pipe)
+	if(pipe_ptr) // if '|' symbol detected first
 	{
-		fprintf(stdout, "PIPE DETECTED!%c", '\n') ;
-		return_status = 0 ;
+		/* first half of piping process - run first seen statement, store stdoutput in pipe */
+		*pipe_ptr = '\0' ; // replace pipe symbol with null terminator to seperate before+after (if needed)
+
+		WordStore half_store ;
+		word_store_init(&half_store) ;
+		for(size_t j = 0 ; j != (const size_t)i ; ++j)
+		{
+			half_store.words[j] = word_store->words[j] ;
+			++half_store.word_count  ;
+		}
+
+		int filedes[2] ; // create array to store pipes r+w fds
+		pipe(filedes) ; // pipe syscall
+		int fd_old = dup(fileno(stdout)) ; 
+		dup2(filedes[1], fileno(stdout)) ; // redirect stdout to write end of pipe		
+		return_status = run_statement(&half_store, variable_store) ;
+		dup2(fd_old, fileno(stdout)) ; // redirect stdout back to stdout
+		close(filedes[1]) ;  // now close handle to write end of pipe
+		
+		if(return_status != 0)
+		{
+			return return_status ;
+		}
+		
+		/* second half of piping process - recursively run statement, send pipe data as stdinput in next process */
+		half_store.word_count = 0 ;
+		if(!is_whitespace(*(pipe_ptr+1))) // if pipe symbol is not seperate from word after it
+		{
+			for(size_t j = i ; j != word_store->word_count ; ++j)
+			{
+				half_store.words[j-i] = word_store->words[j] ;
+				if(*half_store.words[j-i] == '\0') ++half_store.words[j-i] ; // move start of word from null terminator to start of actual text
+				++half_store.word_count ;
+			}			
+		}
+		else {
+			for(size_t j = i+1 ; j != word_store->word_count ; ++j)
+			{
+				half_store.words[j-i-1] = word_store->words[j] ;
+				++half_store.word_count ;
+			}
+		}
+		
+		fd_old = dup(fileno(stdin)) ; 
+		dup2(filedes[0], fileno(stdin)) ; // now redirect stdin to our pipe, such that 'input' will come from pipe's data
+		close(filedes[0]) ; // close read fd of pipe, sealing input
+		return_status = run_statement(&half_store, variable_store) ;
+		dup2(fd_old, fileno(stdin)) ; // reset stdin (ie stdin -> stdin), rather than from pipe
+		*pipe_ptr = '|' ; // when all is said and done, restore pipe symbol
+	}
+	else if(fs_ptr) // if '>' symbol detected first
+	{
+		*fs_ptr = '\0' ;
+		
+		const char* filename = word_store->words[word_store->word_count-1] ;
+		int fd = open(filename, O_APPEND | O_WRONLY | O_CREAT, 0777) ;
+		int old_fd = dup(fileno(stdout)) ;
+		dup2(fd, fileno(stdout)) ;
+		
+		WordStore half_store ;
+		word_store_init(&half_store) ;
+		for(size_t j = 0 ; j != (const size_t)i ; ++j)
+		{
+			half_store.words[j] = word_store->words[j] ;
+			++half_store.word_count  ;
+			//fprintf(stdout, "word #%lu: %p\n", j+1, half_store.words[j+1]) ;
+		}
+		return_status = run_statement(&half_store, variable_store) ;
+		
+		dup2(old_fd, fileno(stdout)) ;
+		close(fd) ;
 	}
 	else {
 		return_status = exec_statement(word_store, variable_store) ; // no need to create seperate wordstore containing seperate statement, just pass full statement
 	}
+	
 	return return_status ;
 }
 

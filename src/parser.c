@@ -128,20 +128,29 @@ int dissect(char* buffer, const size_t initial_available, WordStore* word_store)
 			available = initial_available - (i - buffer) ; // calculate what remains of the buffer using the pointers			
 			i = find_whitespace(i, available) ; // first find next gap
 			*i = '\0' ; // replace whitespace with null termination char to create a valid c-string
+						   // if its the pipe symbol, it'll be replaced within the run_statement function temporary will '\0' to seperate words if needed
 			available = initial_available - (i - buffer) ; // calculate what remains of the buffer using the positioned pointers
 		}
 	}
 	
 	return 0 ; // indicate success
 }
- 
+
+int is_whitespace(const char i)
+{
+	if(i == ' ' || i == '\t' || i == '\n' || i == EOF || i == '\0')
+	{
+		return 1 ;
+	}
+	return 0 ;
+}
+
 char* find_text(const char* input, const size_t size)
 {
 	for(char const* i = input ; i < input + size ; ++i)
 	{
-		if(*i == ' ' || *i == '\t' || *i == '\n' || *i == '\0') continue ;
-		else if(*i == EOF) break ;
-		else return (char*)i ;
+		if(*i == EOF) break ;
+		else if(!is_whitespace(*i)) return (char*)i ;
 	}
 	return NULL ;
 }
@@ -150,7 +159,7 @@ char* find_whitespace(const char* input, const size_t size)
 {
 	for(char const* i = input ; i < input + size ; ++i)
 	{
-		if(*i == ' ' || *i == '\t' || *i == '\n' || *i == EOF || *i == '\0') return (char*)i ;
+		if(is_whitespace(*i)) return (char*)i ;
 	}
 	return NULL ;
 }
