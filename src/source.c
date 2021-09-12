@@ -61,14 +61,14 @@ int main(int argc, char** argv)
 		word_store_refresh(&word_store) ;
 		input_buffer_refresh(&input_buffer) ;
 		if(read_input(file_stream, &input_buffer) == -1) break ; // if EOF, end 
-		if(dissect(input_buffer.buffer, input_buffer.current+1-input_buffer.buffer, &word_store) == -1) continue ; // load word_store up with parsed data
+		if(dissect(input_buffer.current_start, input_buffer.size - (input_buffer.current_end - input_buffer.buffer), &word_store) == -1) continue ; // load word_store up with parsed data
 															       // if no words were found, next line
 		substitute_variables(&word_store, &variable_store) ; // now replace any variables
 									// seperated this from parse function as, in single line mode, you obviously can't save and use a variable at the same time
 									// plus parse function is too big
 
 		/* Execute instructions */
-		run_statement(&word_store, &variable_store) ;
+		run_statement(&word_store, &variable_store, &input_buffer) ;
 	}
 
 	/* EndOfProgram */

@@ -14,13 +14,15 @@ void input_buffer_init(InputBuffer* input_buffer)
 {
 	input_buffer->buffer = malloc(256) ; // 256 chars
 	input_buffer->size = 256 ;
-	input_buffer->current = input_buffer->buffer ;
+	input_buffer->current_start = input_buffer->buffer ;
+	input_buffer->current_end = input_buffer->buffer ;
 }
 
 void input_buffer_refresh(InputBuffer* input_buffer)
 {
 	memset(input_buffer->buffer, EOF, input_buffer->size) ;
-	input_buffer->current = input_buffer->buffer ;
+	input_buffer->current_start = input_buffer->buffer ;
+	input_buffer->current_end = input_buffer->buffer ;
 }
 
 int read_input(FILE* fs, InputBuffer* input_buffer)
@@ -28,22 +30,28 @@ int read_input(FILE* fs, InputBuffer* input_buffer)
 	fflush(stdout) ;
 	fflush(stderr) ;
 	// initial read
-	int was_sucess = (int)fgets(input_buffer->current, input_buffer->size - (input_buffer->current - input_buffer->buffer), fs) ; // stdin
+	input_buffer->current_start = input_buffer->current_end + 1 ; // set new start location for writing
+	int was_sucess = (int)fgets(input_buffer->current_start, input_buffer->size - (input_buffer->current_start - input_buffer->buffer), fs) ; // stdin
 	if(!was_sucess) // if we wouldn't read even once
 	{
 		return -1 ;
 	}
-	
-	while(strchr(input_buffer->current, '\n') == NULL)  // if theres still text before user hit enter key / new line
+
+	while(strrchr(input_buffer->current_start, '\n') == NULL)  // if theres still text before user hit enter key / new line
 	{
-		size_t dist_from_start = input_buffer->current - input_buffer->buffer ;
-		input_buffer->buffer = realloc(input_buffer->buffer, input_buffer->size * 2) ; // original_chars * 2
-		input_buffer->current = strchr(input_buffer->buffer+dist_from_start, '\0') ;
-		memset(input_buffer->current, EOF, input_buffer->size) ;
-		was_sucess = (int)fgets(input_buffer->current, input_buffer->size, fs) ; // stdin
+		// increase and initialise buffer
 		input_buffer->size *= 2 ;
-	} 
-	input_buffer->current = strchr(input_buffer->current, '\n') ;
+		input_buffer->buffer = realloc(input_buffer->buffer, input_buffer->size) ; // original_chars * 2
+		memset(input_buffer->current_end, EOF, input_buffer->size - (input_buffer->current_end - input_buffer->buffer)) ;
+		
+		// set end of buffer, set new start to write to, then write
+		input_buffer->current_end = input_buffer->buffer + (input_buffer->size / 2) ; // set current end of written-up-to buffer
+		input_buffer->current_start = input_buffer->current_end + 1 ; // set place to now start writing to
+		was_sucess = (int)fgets(input_buffer->current_start, input_buffer->size, fs) ; // stdin
+	}
+	
+	input_buffer->current_end = strrchr(input_buffer->current_start, '\n') ;
+
 	return 0 ;
 }
 
@@ -52,7 +60,8 @@ void input_buffer_fini(InputBuffer* input_buffer)
 	free(input_buffer->buffer) ;
 	input_buffer->buffer = NULL ;
 	input_buffer->size = 0 ;
-	input_buffer->current = NULL ;
+	input_buffer->current_start = NULL ;
+	input_buffer->current_end = NULL ;
 }
 
 void word_store_init(WordStore* word_store)

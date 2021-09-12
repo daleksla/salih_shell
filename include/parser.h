@@ -18,7 +18,9 @@ typedef struct {
 	
 	size_t size ;
 	
-	char* current ;
+	char* current_start ;
+	
+	char* current_end ;
 	
 } InputBuffer ;
  

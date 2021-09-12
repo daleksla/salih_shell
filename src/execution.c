@@ -22,7 +22,7 @@ inline void set_shell_variables(const int return_status, const int positional_pa
 	update_variable_data(find_variable("#", variable_store), (const void*)&positional_param_count) ; // store pos. arg count	
 }
 
-int run_statement(WordStore* word_store, VariableStore* variable_store)
+int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuffer* input_buffer)
 {
 	int return_status ;
 	/* check for special commands, which will change how we execute the statement (eg pipes) */
@@ -33,8 +33,20 @@ int run_statement(WordStore* word_store, VariableStore* variable_store)
 	{
 		pipe_ptr = strchr(word_store->words[i], '|') ;
 		fs_ptr = strchr(word_store->words[i], '>') ;
+		//printf("WC: %zu\n", word_store->word_count) ;
 		if(pipe_ptr || fs_ptr)
-		{
+		{	
+			while(word_store->word_count-1 == i)
+			{
+				fprintf(stdout, "%c ", '<') ;
+				//printf("WCIN: %zu\n", word_store->word_count) ;
+				if(read_input(stdin, input_buffer) != 0) 
+					continue ;
+				if(dissect(input_buffer->current_start, input_buffer->size - (input_buffer->current_end - input_buffer->buffer), word_store) != 0)
+					continue ;
+			}
+			pipe_ptr = strchr(word_store->words[i], '|') ;
+			fs_ptr = strchr(word_store->words[i], '>') ;
 			break ; 
 		}
 	}
@@ -51,12 +63,12 @@ int run_statement(WordStore* word_store, VariableStore* variable_store)
 			half_store.words[j] = word_store->words[j] ;
 			++half_store.word_count  ;
 		}
-
+		
 		int filedes[2] ; // create array to store pipes r+w fds
 		pipe(filedes) ; // pipe syscall
 		int fd_old = dup(fileno(stdout)) ; 
 		dup2(filedes[1], fileno(stdout)) ; // redirect stdout to write end of pipe		
-		return_status = run_statement(&half_store, variable_store) ;
+		return_status = run_statement(&half_store, variable_store, input_buffer) ;
 		dup2(fd_old, fileno(stdout)) ; // redirect stdout back to stdout
 		close(filedes[1]) ;  // now close handle to write end of pipe
 		
@@ -87,7 +99,7 @@ int run_statement(WordStore* word_store, VariableStore* variable_store)
 		fd_old = dup(fileno(stdin)) ; 
 		dup2(filedes[0], fileno(stdin)) ; // now redirect stdin to our pipe, such that 'input' will come from pipe's data
 		close(filedes[0]) ; // close read fd of pipe, sealing input
-		return_status = run_statement(&half_store, variable_store) ;
+		return_status = run_statement(&half_store, variable_store, input_buffer) ;
 		dup2(fd_old, fileno(stdin)) ; // reset stdin (ie stdin -> stdin), rather than from pipe
 		*pipe_ptr = '|' ; // when all is said and done, restore pipe symbol
 	}
@@ -108,7 +120,7 @@ int run_statement(WordStore* word_store, VariableStore* variable_store)
 			++half_store.word_count  ;
 			//fprintf(stdout, "word #%lu: %p\n", j+1, half_store.words[j+1]) ;
 		}
-		return_status = run_statement(&half_store, variable_store) ;
+		return_status = run_statement(&half_store, variable_store, input_buffer) ;
 		
 		dup2(old_fd, fileno(stdout)) ;
 		close(fd) ;

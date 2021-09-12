@@ -18,8 +18,9 @@ static inline void set_shell_variables(const int, const int, VariableStore*) ;
 /** run_statement function evaluates a portion of code resembling a statement & facilitates their execution (eg. calling exec_statement, checking pipes etc.)
   * @param pointer to WordStore struct containing words amounting to statement to attempt to execute
   * @param pointer to VariableStore struct to possibly modify 
+  * @param pointer to InputBuffer struct containing tape of input (in case we need to resize)
   * @return exit code of statement (we do save it as a shell variable but internally its more efficient to simply check if the statement executed right) **/
-int run_statement(WordStore*, VariableStore*) ;
+int run_statement(WordStore*, VariableStore*, InputBuffer*) ;
 
 /** exec_statement function purely executes a statement based on given words
   * @param pointer to WordStore struct containing words amounting to statement to attempt to execute
