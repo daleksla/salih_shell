@@ -103,8 +103,8 @@ This graph shows which files directly or indirectly include this file:</div>
 Functions</h2></td></tr>
 <tr class="memitem:a0240a019005c572b6bd123764cb036a1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/execution_8h.html#a0240a019005c572b6bd123764cb036a1">exec_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *)</td></tr>
 <tr class="separator:a0240a019005c572b6bd123764cb036a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31bdb86eb5ced4479e478bb8e12ba775"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/execution_8h.html#a31bdb86eb5ced4479e478bb8e12ba775">run_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *)</td></tr>
-<tr class="separator:a31bdb86eb5ced4479e478bb8e12ba775"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a736d8ab9b84c7ea9f9020b08dd05c56d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/execution_8h.html#a736d8ab9b84c7ea9f9020b08dd05c56d">run_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *, <a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *)</td></tr>
+<tr class="separator:a736d8ab9b84c7ea9f9020b08dd05c56d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc2aab9d54e3266ad5540773baa99879"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/execution_8h.html#afc2aab9d54e3266ad5540773baa99879">set_shell_variables</a> (const int, const int, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *)</td></tr>
 <tr class="separator:afc2aab9d54e3266ad5540773baa99879"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -145,8 +145,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a31bdb86eb5ced4479e478bb8e12ba775"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31bdb86eb5ced4479e478bb8e12ba775">&#9670;&nbsp;</a></span>run_statement()</h2>
+<a id="a736d8ab9b84c7ea9f9020b08dd05c56d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a736d8ab9b84c7ea9f9020b08dd05c56d">&#9670;&nbsp;</a></span>run_statement()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -161,6 +161,12 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -174,6 +180,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct containing words amounting to statement to attempt to execute </td></tr>
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct to possibly modify </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct containing tape of input (in case we need to resize) </td></tr>
   </table>
   </dd>
 </dl>

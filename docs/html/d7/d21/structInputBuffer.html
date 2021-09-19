@@ -76,10 +76,14 @@ $(function() {
 Public Attributes</h2></td></tr>
 <tr class="memitem:aee7a717b6cf023deabe9910410e6cfb6"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d21/structInputBuffer.html#aee7a717b6cf023deabe9910410e6cfb6">buffer</a></td></tr>
 <tr class="separator:aee7a717b6cf023deabe9910410e6cfb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeabd49a209be6f6673aa845791845325"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d21/structInputBuffer.html#aeabd49a209be6f6673aa845791845325">current</a></td></tr>
-<tr class="separator:aeabd49a209be6f6673aa845791845325"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a445073e822a3bc385ccc558644d092cb"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d21/structInputBuffer.html#a445073e822a3bc385ccc558644d092cb">current_end</a></td></tr>
+<tr class="separator:a445073e822a3bc385ccc558644d092cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54321fec88f0be5f77e0abb51abe9105"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d21/structInputBuffer.html#a54321fec88f0be5f77e0abb51abe9105">current_start</a></td></tr>
+<tr class="separator:a54321fec88f0be5f77e0abb51abe9105"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4385896d74789c460e6441e4f7947a57"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d21/structInputBuffer.html#a4385896d74789c460e6441e4f7947a57">size</a></td></tr>
 <tr class="separator:a4385896d74789c460e6441e4f7947a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2db43bf3f5945d9143178a663349df0f"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d21/structInputBuffer.html#a2db43bf3f5945d9143178a663349df0f">src</a></td></tr>
+<tr class="separator:a2db43bf3f5945d9143178a663349df0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Declarations relating to parsing user input (ie literally dissecting input aswell as understanding and running it) </p>
@@ -101,14 +105,28 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aeabd49a209be6f6673aa845791845325"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeabd49a209be6f6673aa845791845325">&#9670;&nbsp;</a></span>current</h2>
+<a id="a445073e822a3bc385ccc558644d092cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a445073e822a3bc385ccc558644d092cb">&#9670;&nbsp;</a></span>current_end</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* InputBuffer::current</td>
+          <td class="memname">char* InputBuffer::current_end</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a54321fec88f0be5f77e0abb51abe9105"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54321fec88f0be5f77e0abb51abe9105">&#9670;&nbsp;</a></span>current_start</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* InputBuffer::current_start</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -123,6 +141,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">size_t InputBuffer::size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2db43bf3f5945d9143178a663349df0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2db43bf3f5945d9143178a663349df0f">&#9670;&nbsp;</a></span>src</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FILE* InputBuffer::src</td>
         </tr>
       </table>
 </div><div class="memdoc">

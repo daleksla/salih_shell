@@ -79,6 +79,7 @@ $(function() {
 <code>#include &lt;sys/wait.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;fcntl.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/d36/parser_8h_source.html">parser.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/dca/variables_8h_source.html">variables.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dd/d01/execution_8h_source.html">execution.h</a>&quot;</code><br />
@@ -87,16 +88,17 @@ Include dependency graph for execution.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/da5/execution_8c__incl.png" border="0" usemap="#src_2execution_8c" alt=""/></div>
 <map name="src_2execution_8c" id="src_2execution_8c">
-<area shape="rect" title=" " alt="" coords="294,5,413,32"/>
+<area shape="rect" title=" " alt="" coords="341,5,459,32"/>
 <area shape="rect" title=" " alt="" coords="5,80,80,107"/>
-<area shape="rect" title=" " alt="" coords="285,304,360,331"/>
-<area shape="rect" title=" " alt="" coords="588,304,655,331"/>
+<area shape="rect" title=" " alt="" coords="328,304,403,331"/>
+<area shape="rect" title=" " alt="" coords="675,304,741,331"/>
 <area shape="rect" title=" " alt="" coords="205,80,293,107"/>
 <area shape="rect" title=" " alt="" coords="318,80,389,107"/>
 <area shape="rect" title=" " alt="" coords="413,80,483,107"/>
-<area shape="rect" href="../../d5/d36/parser_8h.html" title=" " alt="" coords="537,229,612,256"/>
-<area shape="rect" href="../../de/dca/variables_8h.html" title=" " alt="" coords="442,155,537,181"/>
-<area shape="rect" href="../../dd/d01/execution_8h.html" title=" " alt="" coords="507,80,605,107"/>
+<area shape="rect" title=" " alt="" coords="507,80,570,107"/>
+<area shape="rect" href="../../d5/d36/parser_8h.html" title=" " alt="" coords="624,229,699,256"/>
+<area shape="rect" href="../../de/dca/variables_8h.html" title=" " alt="" coords="529,155,623,181"/>
+<area shape="rect" href="../../dd/d01/execution_8h.html" title=" " alt="" coords="594,80,691,107"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -109,8 +111,8 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a9d0147b4c80df41a3f02739b8328dfc5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dda/execution_8c.html#a9d0147b4c80df41a3f02739b8328dfc5">exec_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store)</td></tr>
 <tr class="separator:a9d0147b4c80df41a3f02739b8328dfc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e28c10edea3673f483bf6bfb5f29a03"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dda/execution_8c.html#a0e28c10edea3673f483bf6bfb5f29a03">run_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store)</td></tr>
-<tr class="separator:a0e28c10edea3673f483bf6bfb5f29a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0df1e27a9dc8ec18024136c4c00c3e64"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dda/execution_8c.html#a0df1e27a9dc8ec18024136c4c00c3e64">run_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store, <a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *input_buffer)</td></tr>
+<tr class="separator:a0df1e27a9dc8ec18024136c4c00c3e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a403bb516c54bcd73bca622a14f566110"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dda/execution_8c.html#a403bb516c54bcd73bca622a14f566110">set_shell_variables</a> (const int return_status, const int positional_param_count, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *variable_store)</td></tr>
 <tr class="separator:a403bb516c54bcd73bca622a14f566110"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -166,8 +168,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0e28c10edea3673f483bf6bfb5f29a03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e28c10edea3673f483bf6bfb5f29a03">&#9670;&nbsp;</a></span>run_statement()</h2>
+<a id="a0df1e27a9dc8ec18024136c4c00c3e64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0df1e27a9dc8ec18024136c4c00c3e64">&#9670;&nbsp;</a></span>run_statement()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,6 +184,12 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -195,6 +203,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct containing words amounting to statement to attempt to execute </td></tr>
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct to possibly modify </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct containing tape of input (in case we need to resize) </td></tr>
   </table>
   </dd>
 </dl>

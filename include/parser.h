@@ -22,6 +22,8 @@ typedef struct {
 	
 	char* current_end ;
 	
+	FILE* src ;
+	
 } InputBuffer ;
  
 /** Initialises InputBuffer structure
@@ -33,10 +35,9 @@ void input_buffer_init(InputBuffer*) ;
 void input_buffer_refresh(InputBuffer*) ;
  
 /** Reads user input into InputBuffer structure from a given FILE stream
-  * @param pointer to FILE stream struct source to read from
   * @param pointer to InputBuffer struct variable
   * @return exit code status (0 if success and something was read, -1 if EOF) **/ 
-int read_input(FILE*, InputBuffer*) ;
+int read_input(InputBuffer*) ;
 
 /** Deinitialises InputBuffer structure
   * @param pointer to InputBuffer struct variable **/ 
@@ -56,24 +57,41 @@ typedef struct {
 } WordStore ;
 
 /** Initialises WordStore structure
-  * @param pointer to WordStore struct variable **/ 
-void word_store_init(WordStore*) ;
+  * @param pointer to WordStore struct variable
+  * @param const size_t specific amount of memory to allocate (if word count is known, 0 indicates to allocate arbitary amount) **/ 
+void word_store_init(WordStore*, const size_t) ;
 
 /** Resets WordStore structure
   * @param pointer to WordStore struct variable **/ 
 void word_store_refresh(WordStore*) ;
 
 /** dissect scans user input and splits relevant info it into commands, arguments etc.
-  * @param pointer to input buffer
-  * @param const size_t available to read from input buffer
+  * @param pointer to InputBuffer struct containing start and end point to read in contained buffer
   * @param pointer to WordStore struct variable to load with information 
   * @return int acting as boolean, to whether operation occured sucessfully **/ 
-int dissect(char*, const size_t, WordStore*) ;
+int dissect(InputBuffer*, WordStore*) ;
 
 /** is_whitespace determines whether a given character is a 'whitespace char'
   * @param const char to determine whether its a whitespace character
   * @return int storing boolean, where true means given char is a whitespace, else false **/
 int is_whitespace(const char) ;
+
+/** is_special determines whether a given character is a 'special symbol' (ie not plain text, but a command)
+  * @param const char to determine whether its a special character
+  * @return int storing boolean, where true means given char is a special symbol, else false **/
+int is_special(const char) ;
+
+/** find_special finds any type of non whitespace
+  * @param const char* being the string buffer we're searching through
+  * @param const size_t relating to the maximum amount of bytes we can search through from the starting point
+  * @return pointer to byte storing first instance of text **/
+char* find_content(const char*, const size_t) ; 
+
+/** find_special finds first a special symbol, returns NULL if no special symbols are available 
+  * @param const char* being the string buffer we're searching through
+  * @param const size_t relating to the maximum amount of bytes we can search through from the starting point
+  * @return pointer to byte storing first instance of text **/
+char* find_special(const char*, const size_t) ; 
 
 /** find_text finds first instance of text (ie not whitespace characters), returns NULL if no text is available 
   * @param const char* being the string buffer we're searching through

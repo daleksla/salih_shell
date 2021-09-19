@@ -1,12 +1,9 @@
 # salih_shell
 ## to do list
 
-1. add piping capabilities - all we need to do now is create a pipe whereby `ls|*` format is accepted
-
-2. add proper file streaming capabilities (ie redirect output)
-
-3. if user input expects values, simply open input buffer and request more values
-> e.g if `then` keyword isn't detected in if statement, values aren't present after pipe symbol (`|`), etc.
+1. implement detection of special symbols in parser function itself - will stop stupid text handling in statement runner itself
+> if special symbol, await text or whitespace. if text, await special symbol or whitespace. if whitespace, etc. 
+> run both find functions, see which pointer is not NULL
 
 4. save user input via implicit `var=val` command (if var doesn't exist, create as string, else just set data)
 

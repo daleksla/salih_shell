@@ -31,8 +31,8 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 	size_t i ; // record where to split word input
 	for(i = 0 ; i < word_store->word_count ; ++i)
 	{
-		pipe_ptr = strchr(word_store->words[i], '|') ;
-		fs_ptr = strchr(word_store->words[i], '>') ;
+		pipe_ptr = (word_store->words[i][0] == '|' ? word_store->words[i] : NULL) ;
+		fs_ptr = (word_store->words[i][0] == '>' ? word_store->words[i] : NULL) ;
 		//printf("WC: %zu\n", word_store->word_count) ;
 		if(pipe_ptr || fs_ptr)
 		{	
@@ -40,13 +40,14 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 			{
 				fprintf(stdout, "%c ", '<') ;
 				//printf("WCIN: %zu\n", word_store->word_count) ;
-				if(read_input(stdin, input_buffer) != 0) 
+				input_buffer->current_start = input_buffer->current_end+1 ;
+				if(read_input(input_buffer) != 0) 
 					continue ;
-				if(dissect(input_buffer->current_start, input_buffer->size - (input_buffer->current_end - input_buffer->buffer), word_store) != 0)
+				if(dissect(input_buffer, word_store) != 0)
 					continue ;
 			}
-			pipe_ptr = strchr(word_store->words[i], '|') ;
-			fs_ptr = strchr(word_store->words[i], '>') ;
+			pipe_ptr = (word_store->words[i][0] == '|' ? word_store->words[i] : NULL) ;
+			fs_ptr = (word_store->words[i][0] == '>' ? word_store->words[i] : NULL) ;
 			break ; 
 		}
 	}
@@ -57,7 +58,7 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 		*pipe_ptr = '\0' ; // replace pipe symbol with null terminator to seperate before+after (if needed)
 
 		WordStore half_store ;
-		word_store_init(&half_store) ;
+		word_store_init(&half_store, 0) ;
 		for(size_t j = 0 ; j != (const size_t)i ; ++j)
 		{
 			half_store.words[j] = word_store->words[j] ;
@@ -79,21 +80,10 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 		
 		/* second half of piping process - recursively run statement, send pipe data as stdinput in next process */
 		half_store.word_count = 0 ;
-		if(!is_whitespace(*(pipe_ptr+1))) // if pipe symbol is not seperate from word after it
+		for(size_t j = i+1 ; j != word_store->word_count ; ++j)
 		{
-			for(size_t j = i ; j != word_store->word_count ; ++j)
-			{
-				half_store.words[j-i] = word_store->words[j] ;
-				if(*half_store.words[j-i] == '\0') ++half_store.words[j-i] ; // move start of word from null terminator to start of actual text
-				++half_store.word_count ;
-			}			
-		}
-		else {
-			for(size_t j = i+1 ; j != word_store->word_count ; ++j)
-			{
-				half_store.words[j-i-1] = word_store->words[j] ;
-				++half_store.word_count ;
-			}
+			half_store.words[j-i-1] = word_store->words[j] ;
+			++half_store.word_count ;
 		}
 		
 		fd_old = dup(fileno(stdin)) ; 
@@ -108,12 +98,12 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 		*fs_ptr = '\0' ;
 		
 		const char* filename = word_store->words[word_store->word_count-1] ;
-		int fd = open(filename, O_APPEND | O_WRONLY | O_CREAT, 0777) ;
+		int fd = (fs_ptr[1] == '>' ? open(filename, O_APPEND | O_WRONLY | O_CREAT, 0777) : open(filename, O_WRONLY | O_CREAT, 0777)) ;
 		int old_fd = dup(fileno(stdout)) ;
 		dup2(fd, fileno(stdout)) ;
 		
 		WordStore half_store ;
-		word_store_init(&half_store) ;
+		word_store_init(&half_store, 0) ;
 		for(size_t j = 0 ; j != (const size_t)i ; ++j)
 		{
 			half_store.words[j] = word_store->words[j] ;
@@ -134,7 +124,7 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 
 int exec_statement(WordStore* word_store, VariableStore* variable_store)
 {
-	int return_status = 0 ;	
+	int return_status = 0 ;
 	if(strcmp(word_store->words[0], "declare") == 0)
 	{
 		if(word_store->word_count < 2 || word_store->word_count > 3)
@@ -228,10 +218,17 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store)
 	}
 	else if(strcmp(word_store->words[0], "cd") == 0)
 	{
+		if(word_store->word_count < 2)
+		{
+			fprintf(stderr, "%s\n", "Too few arguments provided!") ;
+			return_status = -1 ;
+			goto end ;
+		}
+	
 		if(word_store->word_count > 2)
 		{
 			fprintf(stderr, "%s\n", "Too many arguments provided!") ;
-			return_status = -1 ;
+			return_status = -2 ;
 			goto end ;
 		}
 		
@@ -239,7 +236,7 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store)
 		if(return_status != 0)
 		{
 			fprintf(stderr, "%s\n", "Invalid directory!") ;
-			// return_status would've already been set to -1, no need to change
+			return_status = -3 ;
 		}
 	}
 	else if(strcmp(word_store->words[0], "echo") == 0)

@@ -26,17 +26,16 @@ int main(int argc, char** argv)
 	VariableStore variable_store ;
 	
 	input_buffer_init(&input_buffer) ;
-	word_store_init(&word_store) ;
+	word_store_init(&word_store, 0) ;
 	variable_store_init(&variable_store) ;
 	int init = 0 ;
 	declare_variable("?", (const void*)&init, 'i', &variable_store) ;
 	declare_variable("#", (const void*)&init, 'i', &variable_store) ;
 	
-	FILE* file_stream = stdin ;
 	if(argc >= 2)
 	{
-		file_stream = fopen(argv[1], "r") ;
-		if(!file_stream)
+		input_buffer.src = fopen(argv[1], "r") ;
+		if(!input_buffer.src)
 		{
 			fprintf(stdout, "File `%s` does not exist!\n", argv[1]) ;
 			return -1 ;
@@ -47,22 +46,30 @@ int main(int argc, char** argv)
 	while(1)
 	{	
 		/* Request input, tinker display */
-		if(file_stream == stdin)
+		if(input_buffer.src == stdin)
 		{
+			const char* USER = getenv("USER") ;
+			char* dir = get_current_dir_name() ; // stupid gnu function actually mallocs each time.
 			set_display(texture_bold, foreground_white, background_magenta) ;
-			char* dir = get_current_dir_name() ; 
-			fprintf(stdout, "%s%c%s", getenv("USER"), ':', dir) ;
-			free(dir) ;
-			reset_display() ;
-			printf("%s", "$ ") ;
+			fprintf(stdout, "%s%c%s", USER, ':', dir) ;
+			reset_display() ; free(dir) ;
+			strcmp(USER, "root") == 0 ? fprintf(stdout, "%s", "# ") : fprintf(stdout, "%s", "$ ") ;
 		}
 		
 		/* Get, store & parse input */
 		word_store_refresh(&word_store) ;
 		input_buffer_refresh(&input_buffer) ;
-		if(read_input(file_stream, &input_buffer) == -1) break ; // if EOF, end 
-		if(dissect(input_buffer.current_start, input_buffer.size - (input_buffer.current_end - input_buffer.buffer), &word_store) == -1) continue ; // load word_store up with parsed data
-															       // if no words were found, next line
+		
+		int rets = read_input(&input_buffer) ;
+		//fprintf(stdout, "read_input ret: %d\n", rets) ;
+		if(rets != 0) break ; // if EOF / no text at all read, end 
+		rets = dissect(&input_buffer, &word_store) ;
+		//fprintf(stdout, "dissect ret: %d\n", rets) ;
+		if(rets != 0) continue ; // load word_store up with parsed data
+					       // if no words were found, next line
+		
+		//fprintf(stdout, "First of Buffer: %c\n", input_buffer.buffer[0]) ;
+		//for(size_t i = 0 ; i < word_store.word_count ; ++i) fprintf(stdout, "Input: %s\n", word_store.words[i]) ;
 		substitute_variables(&word_store, &variable_store) ; // now replace any variables
 									// seperated this from parse function as, in single line mode, you obviously can't save and use a variable at the same time
 									// plus parse function is too big
@@ -72,12 +79,11 @@ int main(int argc, char** argv)
 	}
 
 	/* EndOfProgram */
-	if(file_stream == stdin)
+	if(input_buffer.src == stdin)
 	{
 		reset_display() ;
 		fprintf(stdout, "%s%c", "Exiting...", '\n') ;
 	}
-	fclose(file_stream) ;
 	input_buffer_fini(&input_buffer) ;
 	word_store_fini(&word_store) ;
 	variable_store_fini(&variable_store) ;

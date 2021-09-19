@@ -69,12 +69,11 @@ $(function() {
 <div class="textblock"><h1><a class="anchor" id="autotoc_md3"></a>
 to do list</h1>
 <ol type="1">
-<li>save user input via implicit <code>var=val</code> command (if var doesn't exist, create as string, else just set data)</li>
-<li>add piping capabilities <blockquote class="doxtable">
-<p>e.g. if pipe symbol <code>|</code> detected in general executor, open pipe, run first, if first returns non-zero exit code, close, else run next statement </p>
+<li>implement detection of special symbols in parser function itself - will stop stupid text handling in statement runner itself <blockquote class="doxtable">
+<p>if special symbol, await text or whitespace. if text, await special symbol or whitespace. if whitespace, etc. run both find functions, see which pointer is not NULL </p>
 </blockquote>
 </li>
-<li>add proper file streaming capabilities (ie redirect output)</li>
+<li>save user input via implicit <code>var=val</code> command (if var doesn't exist, create as string, else just set data)</li>
 <li>add proper initial argument parsing (<code>-c</code> = execute command (argv onwards), <code>-f</code> filename)</li>
 <li>store variables which are unwriteable except by the shell to do with command execution: <blockquote class="doxtable">
 <p>ie <code>$@</code> = what parameters were passed </p>
