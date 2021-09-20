@@ -11,7 +11,7 @@
   
 void variable_store_init(VariableStore* variable_store)
 {
-	variable_store->_size = 25 ;
+	variable_store->_size = 3 ;
 	variable_store->variables = malloc(sizeof(Variable) * variable_store->_size) ; // list of max 256 char pointers
 	variable_store->variable_count = 0 ;
 }
@@ -41,6 +41,11 @@ int parse_variable_type(const char* type_declaration)
 
 int declare_variable(const char* var_name, const void* data, const char data_type, VariableStore* variable_store)
 {
+	if(variable_store->variable_count == variable_store->_size)
+	{
+		variable_store->_size *= 2 ;
+		variable_store->variables = realloc(variable_store->variables, variable_store->_size) ;
+	}
 	++variable_store->variable_count ; // increment variable count
 	Variable* variable = variable_store->variables + (variable_store->variable_count - 1) ; // find position of new var
 

@@ -41,8 +41,11 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 				fprintf(stdout, "%c ", '<') ;
 				//printf("WCIN: %zu\n", word_store->word_count) ;
 				input_buffer->current_start = input_buffer->current_end+1 ;
-				if(read_input(input_buffer) != 0) 
-					continue ;
+				if(read_input(input_buffer) != 0) // if user outright sends EOFs
+				{
+					fprintf(stderr, "Error: special symbol `%c` requires one-word minimum of text before and after\n", (pipe_ptr ? '|' : '>')) ;
+					return -1 ;
+				}
 				if(dissect(input_buffer, word_store) != 0)
 					continue ;
 			}
@@ -114,6 +117,7 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 		
 		dup2(old_fd, fileno(stdout)) ;
 		close(fd) ;
+		*fs_ptr = '>' ; // when all is said and done, restore > symbol
 	}
 	else {
 		return_status = exec_statement(word_store, variable_store) ; // no need to create seperate wordstore containing seperate statement, just pass full statement
@@ -125,7 +129,31 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 int exec_statement(WordStore* word_store, VariableStore* variable_store)
 {
 	int return_status = 0 ;
-	if(strcmp(word_store->words[0], "declare") == 0)
+	if(strchr(word_store->words[0], '=') != NULL)
+	{
+		char* var_name = word_store->words[0] ;
+		char* data = strchr(word_store->words[0], '=') ; *data = '\0' ; ++data ;
+		
+		Variable* var_itself = find_variable(var_name, variable_store) ;
+		
+		int data_type = 's' ;
+		if(var_itself)
+		{
+			data_type = var_itself->type ;
+		}
+		
+		// set data
+		if(var_itself) // if variable is found
+		{
+			update_variable_type(var_itself, data_type) ;
+			update_variable_data(var_itself, &data) ;
+		}
+		else {
+			declare_variable(var_name, &data, data_type, variable_store) ;					
+		}
+		--data ; *data = '=' ; // restore equals sign
+	}
+	else if(strcmp(word_store->words[0], "declare") == 0)
 	{
 		if(word_store->word_count < 2 || word_store->word_count > 3)
 		{

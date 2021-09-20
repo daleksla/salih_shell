@@ -76,6 +76,7 @@ int main(int argc, char** argv)
 
 		/* Execute instructions */
 		run_statement(&word_store, &variable_store, &input_buffer) ;
+		continue ;
 	}
 
 	/* EndOfProgram */
