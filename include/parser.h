@@ -65,6 +65,23 @@ void word_store_init(WordStore*, const size_t) ;
   * @param pointer to WordStore struct variable **/ 
 void word_store_refresh(WordStore*) ;
 
+/** Adds record of a detected word to WordStore structure
+  * @param pointer to WordStore struct variable
+  * @param char* to first character of a word **/  
+void word_store_add(WordStore*, char*) ;
+
+/** Replace word stored in WordStore structure with another
+  * @param pointer to WordStore struct variable
+  * @param char* to first character of a word
+  * @param const size_t relating to position to enter word into **/  
+void word_store_replace(WordStore*, char*, const size_t) ;
+
+/** Inserts record of a detected word to WordStore structure into specified position (to avoid word_store_add having unneeded runtime overhead)
+  * @param pointer to WordStore struct variable
+  * @param char* to first character of a word
+  * @param const size_t relating to position to enter word into **/  
+void word_store_insert(WordStore*, char*, const size_t) ;
+
 /** dissect scans user input and splits relevant info it into commands, arguments etc.
   * @param pointer to InputBuffer struct containing start and end point to read in contained buffer
   * @param pointer to WordStore struct variable to load with information 

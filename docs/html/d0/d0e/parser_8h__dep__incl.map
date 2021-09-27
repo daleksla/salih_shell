@@ -1,9 +1,11 @@
 <map id="include/parser.h" name="include/parser.h">
-<area shape="rect" id="node1" title=" " alt="" coords="171,5,296,32"/>
-<area shape="rect" id="node2" href="$dd/d01/execution_8h.html" title=" " alt="" coords="22,155,170,181"/>
-<area shape="rect" id="node3" href="$d0/dda/execution_8c.html" title=" " alt="" coords="37,229,155,256"/>
-<area shape="rect" id="node4" href="$d9/d97/source_8c.html" title=" " alt="" coords="209,229,308,256"/>
-<area shape="rect" id="node5" href="$de/dca/variables_8h.html" title=" " alt="" coords="161,80,306,107"/>
-<area shape="rect" id="node7" href="$d2/d72/parser_8c.html" title=" " alt="" coords="488,80,584,107"/>
-<area shape="rect" id="node6" href="$d5/de8/variables_8c.html" title=" " alt="" coords="297,155,413,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="334,5,459,32"/>
+<area shape="rect" id="node2" href="$d8/d7f/aliases_8h.html" title=" " alt="" coords="74,80,205,107"/>
+<area shape="rect" id="node3" href="$d9/dfe/aliases_8c.html" title=" " alt="" coords="5,155,108,181"/>
+<area shape="rect" id="node4" href="$d9/d97/source_8c.html" title=" " alt="" coords="235,229,334,256"/>
+<area shape="rect" id="node5" href="$dd/d01/execution_8h.html" title=" " alt="" coords="267,155,415,181"/>
+<area shape="rect" id="node6" href="$d0/dda/execution_8c.html" title=" " alt="" coords="444,229,563,256"/>
+<area shape="rect" id="node7" href="$de/dca/variables_8h.html" title=" " alt="" coords="380,80,525,107"/>
+<area shape="rect" id="node8" href="$d5/de8/variables_8c.html" title=" " alt="" coords="541,155,657,181"/>
+<area shape="rect" id="node9" href="$d2/d72/parser_8c.html" title=" " alt="" coords="733,80,829,107"/>
 </map>

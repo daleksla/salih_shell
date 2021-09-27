@@ -117,12 +117,18 @@ Functions</h2></td></tr>
 <tr class="separator:a66bd068392b62e332d25be144b866eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bcf0f59e099ea9f9aab03ca3fab6612"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a8bcf0f59e099ea9f9aab03ca3fab6612">read_input</a> (<a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *input_buffer)</td></tr>
 <tr class="separator:a8bcf0f59e099ea9f9aab03ca3fab6612"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c72bd266b1f0c286705bc4ae74764c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a9c72bd266b1f0c286705bc4ae74764c8">word_store_add</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, char *word)</td></tr>
+<tr class="separator:a9c72bd266b1f0c286705bc4ae74764c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac15775480689fe9d1b2fe577e022fad8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#ac15775480689fe9d1b2fe577e022fad8">word_store_fini</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store)</td></tr>
 <tr class="separator:ac15775480689fe9d1b2fe577e022fad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a415b4d1b0646e9d642cc038094d85c1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a415b4d1b0646e9d642cc038094d85c1b">word_store_init</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, const size_t sz)</td></tr>
 <tr class="separator:a415b4d1b0646e9d642cc038094d85c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a071852662992467e4d4ed3089dbb1120"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a071852662992467e4d4ed3089dbb1120">word_store_insert</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, char *word, const size_t pos)</td></tr>
+<tr class="separator:a071852662992467e4d4ed3089dbb1120"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd4098dfb72ff899028f21cc04e9074b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#afd4098dfb72ff899028f21cc04e9074b">word_store_refresh</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store)</td></tr>
 <tr class="separator:afd4098dfb72ff899028f21cc04e9074b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a834a2ccc4dc835eab30284df7f160ba6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a834a2ccc4dc835eab30284df7f160ba6">word_store_replace</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, char *word, const size_t pos)</td></tr>
+<tr class="separator:a834a2ccc4dc835eab30284df7f160ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="abb1e1d7438a1edf54797718a29318d4e"></a>
@@ -450,6 +456,41 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9c72bd266b1f0c286705bc4ae74764c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c72bd266b1f0c286705bc4ae74764c8">&#9670;&nbsp;</a></span>word_store_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void word_store_add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adds record of a detected word to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct variable </td></tr>
+    <tr><td class="paramname">char*</td><td>to first character of a word </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ac15775480689fe9d1b2fe577e022fad8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac15775480689fe9d1b2fe577e022fad8">&#9670;&nbsp;</a></span>word_store_fini()</h2>
 
@@ -509,6 +550,48 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a071852662992467e4d4ed3089dbb1120"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a071852662992467e4d4ed3089dbb1120">&#9670;&nbsp;</a></span>word_store_insert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void word_store_insert </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const&#160;</td>
+          <td class="paramname"><em>size_t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Inserts record of a detected word to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> structure into specified position (to avoid word_store_add having unneeded runtime overhead) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct variable </td></tr>
+    <tr><td class="paramname">char*</td><td>to first character of a word </td></tr>
+    <tr><td class="paramname">const</td><td>size_t relating to position to enter word into </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="afd4098dfb72ff899028f21cc04e9074b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afd4098dfb72ff899028f21cc04e9074b">&#9670;&nbsp;</a></span>word_store_refresh()</h2>
 
@@ -527,6 +610,48 @@ Functions</h2></td></tr>
 <p>Resets <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct variable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a834a2ccc4dc835eab30284df7f160ba6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a834a2ccc4dc835eab30284df7f160ba6">&#9670;&nbsp;</a></span>word_store_replace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void word_store_replace </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const&#160;</td>
+          <td class="paramname"><em>size_t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Replace word stored in <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> structure with another </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct variable </td></tr>
+    <tr><td class="paramname">char*</td><td>to first character of a word </td></tr>
+    <tr><td class="paramname">const</td><td>size_t relating to position to enter word into </td></tr>
   </table>
   </dd>
 </dl>

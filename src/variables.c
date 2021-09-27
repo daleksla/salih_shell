@@ -4,8 +4,9 @@
 #include <string.h> // strlen
 
 #include "variables.h"
+#include "parser.h"
 
-/** @brief Functionality to management of variables
+/** @brief Functionality to manage variables
   * @author Salih Ahmed
   * @date 2 Aug 2021 **/
   

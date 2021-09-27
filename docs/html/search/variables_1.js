@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['buffer_178',['buffer',['../d7/d21/structInputBuffer.html#aee7a717b6cf023deabe9910410e6cfb6',1,'InputBuffer']]]
+  ['alias_5fcount_206',['alias_count',['../d7/de8/structAliasStore.html#aabaadb5666632fa77d64f893b850e508',1,'AliasStore']]],
+  ['aliases_207',['aliases',['../d7/de8/structAliasStore.html#a13b42301c95b215b8f7168d7a0c8303a',1,'AliasStore']]]
 ];

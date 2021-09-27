@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['type_188',['type',['../d0/dd3/structVariable.html#aeef2cd2fb7af25533ea814a03f652f6c',1,'Variable']]]
+  ['size_216',['size',['../d7/d21/structInputBuffer.html#a4385896d74789c460e6441e4f7947a57',1,'InputBuffer']]],
+  ['src_217',['src',['../d7/d21/structInputBuffer.html#a2db43bf3f5945d9143178a663349df0f',1,'InputBuffer']]]
 ];

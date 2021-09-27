@@ -19,7 +19,6 @@ inline void set_shell_variables(const int return_status, const int positional_pa
 {
 	/* set inherent shell variables recording execution information */
 	update_variable_data(find_variable("?", variable_store), (const void*)&return_status) ; // store return_status
-	update_variable_data(find_variable("#", variable_store), (const void*)&positional_param_count) ; // store pos. arg count	
 }
 
 int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuffer* input_buffer)
@@ -33,14 +32,13 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 	{
 		pipe_ptr = (word_store->words[i][0] == '|' ? word_store->words[i] : NULL) ;
 		fs_ptr = (word_store->words[i][0] == '>' ? word_store->words[i] : NULL) ;
-		//printf("WC: %zu\n", word_store->word_count) ;
 		if(pipe_ptr || fs_ptr)
 		{	
 			while(word_store->word_count-1 == i)
 			{
 				fprintf(stdout, "%c ", '<') ;
 				//printf("WCIN: %zu\n", word_store->word_count) ;
-				input_buffer->current_start = input_buffer->current_end+1 ;
+				input_buffer->current_start = input_buffer->current_end+1 ; // add to the end of current input
 				if(read_input(input_buffer) != 0) // if user outright sends EOFs
 				{
 					fprintf(stderr, "Error: special symbol `%c` requires one-word minimum of text before and after\n", (pipe_ptr ? '|' : '>')) ;
@@ -61,13 +59,13 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 		*pipe_ptr = '\0' ; // replace pipe symbol with null terminator to seperate before+after (if needed)
 
 		WordStore half_store ;
-		word_store_init(&half_store, 0) ;
-		for(size_t j = 0 ; j != (const size_t)i ; ++j)
-		{
-			half_store.words[j] = word_store->words[j] ;
-			++half_store.word_count  ;
-		}
+		half_store._size = 0 ;
 		
+		half_store.words = word_store->words ;
+		for(half_store.word_count = 0 ; half_store.word_count != (const size_t)i ; ++half_store.word_count) ;
+		fprintf(stdout, "SALIH SAYS: %s\n", half_store.words[0]) ;
+		word_store->words[i] = NULL ;
+
 		int filedes[2] ; // create array to store pipes r+w fds
 		pipe(filedes) ; // pipe syscall
 		int fd_old = dup(fileno(stdout)) ; 
@@ -75,26 +73,26 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 		return_status = run_statement(&half_store, variable_store, input_buffer) ;
 		dup2(fd_old, fileno(stdout)) ; // redirect stdout back to stdout
 		close(filedes[1]) ;  // now close handle to write end of pipe
-		
+
 		if(return_status != 0)
 		{
 			return return_status ;
 		}
 		
 		/* second half of piping process - recursively run statement, send pipe data as stdinput in next process */
+		half_store.words = word_store->words + i + 1 ;
+		fprintf(stdout, "SALIH SAYS: %s\n", half_store.words[0]) ;
 		half_store.word_count = 0 ;
-		for(size_t j = i+1 ; j != word_store->word_count ; ++j)
-		{
-			half_store.words[j-i-1] = word_store->words[j] ;
-			++half_store.word_count ;
-		}
+		for(size_t j = i+1 ; j != word_store->word_count ; ++j) ++half_store.word_count ;
 		
 		fd_old = dup(fileno(stdin)) ; 
 		dup2(filedes[0], fileno(stdin)) ; // now redirect stdin to our pipe, such that 'input' will come from pipe's data
 		close(filedes[0]) ; // close read fd of pipe, sealing input
 		return_status = run_statement(&half_store, variable_store, input_buffer) ;
 		dup2(fd_old, fileno(stdin)) ; // reset stdin (ie stdin -> stdin), rather than from pipe
+		
 		*pipe_ptr = '|' ; // when all is said and done, restore pipe symbol
+		word_store->words[i] = pipe_ptr ;
 	}
 	else if(fs_ptr) // if '>' symbol detected first
 	{
@@ -106,17 +104,16 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 		dup2(fd, fileno(stdout)) ;
 		
 		WordStore half_store ;
-		word_store_init(&half_store, 0) ;
-		for(size_t j = 0 ; j != (const size_t)i ; ++j)
-		{
-			half_store.words[j] = word_store->words[j] ;
-			++half_store.word_count  ;
-			//fprintf(stdout, "word #%lu: %p\n", j+1, half_store.words[j+1]) ;
-		}
+		half_store._size = 0 ;
+		half_store.words = word_store->words ;
+		for(half_store.word_count = 0 ; half_store.word_count != (const size_t)i ; ++half_store.word_count) ;
+		word_store->words[i] = NULL ;
+
 		return_status = run_statement(&half_store, variable_store, input_buffer) ;
 		
 		dup2(old_fd, fileno(stdout)) ;
 		close(fd) ;
+		
 		*fs_ptr = '>' ; // when all is said and done, restore > symbol
 	}
 	else {

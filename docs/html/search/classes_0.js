@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['inputbuffer_128',['InputBuffer',['../d7/d21/structInputBuffer.html',1,'']]]
+  ['alias_143',['Alias',['../d8/d95/structAlias.html',1,'']]],
+  ['aliasstore_144',['AliasStore',['../d7/de8/structAliasStore.html',1,'']]]
 ];

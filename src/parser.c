@@ -73,11 +73,8 @@ void word_store_init(WordStore* word_store, const size_t sz)
 {
 	word_store->_size = (sz ? sz : 25) ;
 	word_store->words = malloc(sizeof(char*) * word_store->_size) ; // list of max 256 char pointers
-	for(size_t i = 0 ; i < word_store->_size ; ++i)
-	{
-		word_store->words[i] = NULL ;
-	}
 	word_store->word_count = 0 ;
+	word_store_refresh(word_store) ;
 }
 
 void word_store_refresh(WordStore* word_store)
@@ -89,29 +86,58 @@ void word_store_refresh(WordStore* word_store)
 	word_store->word_count = 0 ;
 }
 
+void word_store_add(WordStore* word_store, char* word)
+{
+	++word_store->word_count ;
+	if(word_store->word_count+1 >= word_store->_size) // need one of them to be NULL at the end, so cannot completely fill store
+	{
+		word_store->_size = (word_store->_size + 1) * 2 ;
+		word_store->words = realloc(word_store->words, word_store->_size) ;
+		for(size_t i = word_store->word_count ; i < word_store->_size ; ++i)
+		{
+			word_store->words[i] = NULL ;
+		}
+	}
+
+	word_store->words[word_store->word_count-1] = word ;
+}
+
+void word_store_replace(WordStore* word_store, char* word, const size_t pos)
+{
+	word_store->words[pos-1] = word ;
+}
+
+void word_store_insert(WordStore* word_store, char* word, const size_t pos)
+{
+	++word_store->word_count ;
+	if(word_store->word_count+1 >= word_store->_size) // need one of them to be NULL at the end, so cannot completely fill store
+	{
+		word_store->_size = (word_store->_size + 1) * 2 ;
+		word_store->words = realloc(word_store->words, word_store->_size) ;
+		for(size_t i = word_store->word_count ; i < word_store->_size ; ++i)
+		{
+			word_store->words[i] = NULL ;
+		}
+	}
+	
+	for(size_t i = word_store->word_count ; i >= pos ; --i)
+	{
+		word_store->words[i] = word_store->words[i-1] ;
+	}
+
+	word_store->words[pos-1] = word ;
+}
+
 int dissect(InputBuffer* input_buffer, WordStore* word_store)
 {
 	size_t initial_available = input_buffer->current_end - input_buffer->current_start ;
 	size_t available = initial_available ;
-	/*//fprintf(stdout, "SABAH: %d\n", *input_buffer->current_start) ;
-	char* i = find_text(input_buffer->current_start, available) ;
-	
-	if(i == NULL) // if no text was found
-		return -2 ; // indicate failure
-	else if(*i == '#') // if we've hit a comment
-		return -1 ;
-	
-	// if text was found
-	++word_store->word_count ;
-	word_store->words[word_store->word_count-1] = i ; // save it as main command, since it's our first bit of text found
-	available = initial_available - (i - input_buffer->current_start) ; // calculate number of bytes left in buffer
-	i = find_whitespace(i, available) ; // find next gap
-	*i = '\0' ; // place null terminator at first whitespace to create a valid c-string*/
 	char* i = input_buffer->current_start ;
 	do {	// loop is responsible for generating arguments
 		// searches for content, finds first instance of whitespace (therefore end of argument) and adds NULL terminator, then repeats
 		// now, find next starting point of next bit of content 
 		i = find_content(i, available) ;
+		//fprintf(stdout, "SAKICHAR: %c\n", *i) ;
 		
 		if(available == initial_available && (i == NULL || *i == '#')) // if we haven't read anything yet
 		{								// && if there's no more content or we've hit a comment
@@ -123,9 +149,7 @@ int dissect(InputBuffer* input_buffer, WordStore* word_store)
 						
 		available = initial_available - (i - input_buffer->current_start) ;
 				
-		// if we do find content
-		++word_store->word_count ; // then we've definitely found an arg, so increment count
-			
+		// if we do find content...	
 		// check whether its a single word, special symbol or double worded word
 		// if quotes are being used, treat from start->end quote as single arg
 		enum { double_quotes = 34, single_quotes = 39, uptick_quotes = 96 } ; // local enum w ASCII values
@@ -133,17 +157,17 @@ int dissect(InputBuffer* input_buffer, WordStore* word_store)
 		{
 			const char quotation = *i ; // store quotation mark
 			++i ; // move to next value, since we don't want to read / store quotation 
-			word_store->words[word_store->word_count-1] = i ; // save it as an argument
+			word_store_add(word_store, i) ; // save it as an argument
 			while(*i != quotation) // keep going till you see the char again
 			{
 				++i ;
 			}
 			*i = '\0' ; // replace end quotation with null termination char to create a valid c-string
 			++i ; // move to next char
-			available = initial_available - (i - input_buffer->current_start); // calculate what remains of the buffer
 		}
-		else { // either text or special symbol
-			word_store->words[word_store->word_count-1] = i ; // save it as an argument
+		else if(is_special(*i))
+		{
+			word_store_add(word_store, i) ; // save it as an argument
 			available = initial_available - (i - input_buffer->current_start) ; // calculate what remains of the buffer using the pointers			
 			if(is_special(*i))
 			{
@@ -164,26 +188,30 @@ int dissect(InputBuffer* input_buffer, WordStore* word_store)
 				}
 				// if its the pipe symbol, it'll be replaced within the run_statement function temporary will '\0' to seperate words if needed
 			}
-			else {
-				char* tmpI = find_whitespace(i, available) ;
-				char* tmpII = find_special(i, available) ;
-				if(tmpI == NULL && tmpII)
-				{
-					i = tmpII ;
-				}
-				else if(tmpI && tmpII == NULL)
-				{
-					i = tmpI ;
-					*i = '\0' ; // replace whitespace with null termination char to create a valid c-string
-				}
-				else {
-					i = (tmpI < tmpII ? tmpI : tmpII) ;
-					if(is_whitespace(*i)) *i = '\0' ;
-				}
-			}
-			
-			available = initial_available - (i - input_buffer->current_start) ; // calculate what remains of the buffer using the positioned pointers
 		}
+		else { // either text or special symbol
+			word_store_add(word_store, i) ; // save it as an argument
+			available = initial_available - (i - input_buffer->current_start) ; // calculate what remains of the buffer using the pointers			
+
+			char* tmpI = find_whitespace(i, available) ;
+			char* tmpII = find_special(i, available) ;
+			if(tmpI == NULL && tmpII)
+			{
+				i = tmpII ;
+			}
+			else if(tmpI && tmpII == NULL)
+			{
+				i = tmpI ;
+				*i = '\0' ; // replace whitespace with null termination char to create a valid c-string
+			}
+			else {
+				i = (tmpI < tmpII ? tmpI : tmpII) ;
+				if(is_whitespace(*i)) *i = '\0' ;
+			}
+		}
+		
+		available = initial_available - (i - input_buffer->current_start) ; // calculate what remains of the buffer using the positioned pointers
+	
 	} while (available > 0) ;
 	
 	return 0 ; // indicate success
