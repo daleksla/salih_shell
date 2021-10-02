@@ -9,11 +9,11 @@
   * @author Salih Ahmed
   * @date 3 September 2021 **/
 
-/** set_shell_variables inline function to tidily save inherent shell variables values based on statement executions
+/** post_statement inline function to store return-status variable, push statement to history etc.
   * @param const int storing return status of last command executed 
   * @param const int storing positional parameter counts
   * @param pointer to VariableStore struct to modify **/
-static inline void set_shell_variables(const int, const int, VariableStore*) ;
+static inline void post_statement(const int, const int, VariableStore*) ;
 
 /** run_statement function evaluates a portion of code resembling a statement & facilitates their execution (eg. calling exec_statement, checking pipes etc.)
   * @param pointer to WordStore struct containing words amounting to statement to attempt to execute

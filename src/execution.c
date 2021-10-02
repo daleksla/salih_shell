@@ -15,7 +15,7 @@
   * @author Salih Ahmed
   * @date 3 September 2021 **/
 
-inline void set_shell_variables(const int return_status, const int positional_param_count, VariableStore* variable_store)
+inline void post_statement(const int return_status, const int positional_param_count, VariableStore* variable_store)
 {
 	/* set inherent shell variables recording execution information */
 	update_variable_data(find_variable("?", variable_store), (const void*)&return_status) ; // store return_status
@@ -81,7 +81,7 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 		
 		/* second half of piping process - recursively run statement, send pipe data as stdinput in next process */
 		half_store.words = word_store->words + i + 1 ;
-		fprintf(stdout, "SALIH SAYS: %s\n", half_store.words[0]) ;
+		//fprintf(stdout, "SALIH SAYS: %s\n", half_store.words[0]) ;
 		half_store.word_count = 0 ;
 		for(size_t j = i+1 ; j != word_store->word_count ; ++j) ++half_store.word_count ;
 		
@@ -127,27 +127,49 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store)
 {
 	int return_status = 0 ;
 	if(strchr(word_store->words[0], '=') != NULL)
-	{
+	{	
 		char* var_name = word_store->words[0] ;
-		char* data = strchr(word_store->words[0], '=') ; *data = '\0' ; ++data ;
-		
-		Variable* var_itself = find_variable(var_name, variable_store) ;
-		
-		int data_type = 's' ;
-		if(var_itself)
+	
+		char* data = strchr(word_store->words[0], '=') ;
+		*data = '\0' ; ++data ;
+
+		char** i = environ ; // char** of all environmental variables
+		while(*i != NULL)
 		{
-			data_type = var_itself->type ;
+			fprintf(stdout, "env iter: %s\n", *i) ;
+			char* point = strchr(*i, '=') ;
+			*point = '\0' ;
+			if(strcmp(*i, var_name) == 0)
+			{
+				*point = '=' ;
+				setenv(var_name, data, 1) ;
+				break ;
+			}
+			*point = '=' ;
+			++i ;
 		}
 		
-		// set data
-		if(var_itself) // if variable is found
+		if(!*i)
 		{
-			update_variable_type(var_itself, data_type) ;
-			update_variable_data(var_itself, &data) ;
+			Variable* var_itself = find_variable(var_name, variable_store) ;		
+
+			int data_type = 's' ;
+			if(var_itself)
+			{
+				data_type = var_itself->type ;
+			}
+		
+			// set data
+			if(var_itself) // if variable is found
+			{
+				update_variable_type(var_itself, data_type) ;
+				update_variable_data(var_itself, &data) ;
+			}
+			else {
+				declare_variable(var_name, &data, data_type, variable_store) ;					
+			}
 		}
-		else {
-			declare_variable(var_name, &data, data_type, variable_store) ;					
-		}
+		
 		--data ; *data = '=' ; // restore equals sign
 	}
 	else if(strcmp(word_store->words[0], "declare") == 0)
@@ -160,7 +182,7 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store)
 		}
 		 
 		// get variable name
-		const char* var_name ;
+		const char* var_name = NULL ;
 		if(word_store->word_count == 2)
 			var_name = word_store->words[1] ;
 		else 
@@ -177,42 +199,61 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store)
 		else {
 			data = def_data ;
 		}
-					
-		Variable* var_itself = find_variable(var_name, variable_store) ;
+
+		char** i = environ ; // char** of all environmental variables
+		while(*i != NULL)
+		{
+			fprintf(stdout, "env iter: %s\n", *i) ;
+			char* point = strchr(*i, '=') ;
+			*point = '\0' ;
+			if(strcmp(*i, var_name) == 0)
+			{
+				*point = '=' ;
+				setenv(var_name, data, 1) ;
+				break ;
+			}
+			*point = '=' ;
+			++i ;
+		}
+		
+		if(!*i)
+		{	
+			Variable* var_itself = find_variable(var_name, variable_store) ;
 			
-		// see what data type we need to assign, else set a default
-		// string if declare is used for first time w variable name, else use old assigneds
-		int data_type = 's' ;
-		if(word_store->word_count == 2 && var_itself)
-		{
-			data_type = var_itself->type ;
-		}			
-		else if(word_store->word_count == 3)
-		{
-			data_type = parse_variable_type(word_store->words[1]) ;
-		
-			if(data_type == -2)
+			// see what data type we need to assign, else set a default
+			// string if declare is used for first time w variable name, else use old assigneds
+			int data_type = 's' ;
+			if(word_store->word_count == 2 && var_itself)
 			{
-				fprintf(stderr, "`%s` starts with invalid option token (use -<type abbreviation> or --<type>)!\n", word_store->words[1]) ;
-				return_status = data_type ;
-				goto end ;
-			}
-			else if(data_type == -3)
+				data_type = var_itself->type ;
+			}			
+			else if(word_store->word_count == 3)
 			{
-				fprintf(stderr, "`%s` is not a valid data-type specification!\n", word_store->words[1]) ;
+				data_type = parse_variable_type(word_store->words[1]) ;
+			
+				if(data_type == -2)
+				{
+					fprintf(stderr, "`%s` starts with invalid option token (use -<type abbreviation> or --<type>)!\n", word_store->words[1]) ;
+					return_status = data_type ;
+					goto end ;
+				}
+				else if(data_type == -3)
+				{
+					fprintf(stderr, "`%s` is not a valid data-type specification!\n", word_store->words[1]) ;
 				return_status = data_type ;
-				goto end ;
+					goto end ;
+				}
 			}
-		}
 		
-		// set data
-		if(var_itself) // if variable is found
-		{
-			update_variable_type(var_itself, data_type) ;
-			update_variable_data(var_itself, &data) ;
-		}
-		else {
-			declare_variable(var_name, &data, data_type, variable_store) ;					
+			// set data
+			if(var_itself) // if variable is found
+			{
+				update_variable_type(var_itself, data_type) ;
+				update_variable_data(var_itself, &data) ;
+			}
+			else {
+				declare_variable(var_name, &data, data_type, variable_store) ;					
+			}
 		}
 	}
 	else if(strcmp(word_store->words[0], "export") == 0)
@@ -290,6 +331,6 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store)
 	}
 	end: // i would like to make it clear whilst I hate gotos, I had no choice due to the nesting of the if statements
 	     // plus it makes the code look cleaner whilst making my bloody life easier
-	set_shell_variables((const int)return_status, (const int)word_store->word_count - 1, variable_store) ;
+	post_statement((const int)return_status, (const int)word_store->word_count - 1, variable_store) ;
 	return return_status ;
 }

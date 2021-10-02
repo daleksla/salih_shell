@@ -51,21 +51,10 @@ int declare_variable(const char* var_name, const void* data, const char data_typ
 	Variable* variable = variable_store->variables + (variable_store->variable_count - 1) ; // find position of new var
 
 	strcpy(variable->identifier, var_name) ; // set name
-	variable->type = data_type ; // set data type of var
+	update_variable_type(variable, data_type) ; // set data type of var
 	memset(variable->value, '\0', 1024) ; // fill buffer up with null chars
 
-	if(variable->type == 's')
-	{
-		strcpy(variable->value, *(char**)data) ;
-	}
-	else if(variable->type == 'd')
-	{
-		*(int*)variable->value = *(int*)data ;
-	}
-	else if(variable->type == 'f')
-	{
-		*(double*)variable->value = *(double*)data ;
-	}
+	update_variable_data(variable, data) ;
 	
 	return 0 ; // sucessful operation
 }
@@ -81,15 +70,16 @@ int update_variable_data(Variable* variable, const void* data)
 	// store with correct data
 	if(variable->type == 's')
 	{
-		strcpy(variable->value, *(char**)data) ;
+		strcpy((char*)variable->value, *(const char**)data) ;
+		fprintf(stdout, "first letter: %c\n", variable->value[0]) ;
 	}
 	else if(variable->type == 'd')
 	{
-		*(int*)variable->value = *(int*)data ;
+		*(int*)variable->value = *(const int*)data ;
 	}
 	else if(variable->type == 'f')
 	{
-		*(double*)variable->value = *(double*)data ;
+		*(double*)variable->value = *(const double*)data ;
 	}
 	return 0 ; // sucessful operation
 }
@@ -110,7 +100,9 @@ void substitute_variables(WordStore* word_store, const VariableStore* variable_s
 {
 	for(size_t i = 0 ; i < word_store->word_count ; ++i)
 	{
-		if(word_store->words[i][0] == '$')
+		//char* point = strchr(word_store->words[i], '$') ;
+		char* point = word_store->words[i] ;
+		if(*point == '$' && !is_whitespace(point[1]))
 		{
 			Variable* variable = find_variable(word_store->words[i]+1, variable_store) ;
 			if(variable) // if variable was found
@@ -130,6 +122,31 @@ void substitute_variables(WordStore* word_store, const VariableStore* variable_s
 			}
 		}
 	}
+	/*
+	for(size_t i = 0 ; i < word_store->word_count ; ++i)
+	{
+		char* point[1] ;
+		point[0] = strchr(word_store->words[i], '$') ;
+		if(*point && !is_whitespace((*point)[1]))
+		{
+			Variable* variable = find_variable((*point)+1, variable_store) ;
+			if(variable) // if variable was found
+			{
+				word_store->words[i] = (char*)(variable->value) ;
+			}
+			else { // ie not found in terminal variables
+				char* environment_var = getenv((*point)+1) ; // then try to find it as a environmental variable
+				if(environment_var)
+				{
+					*point = environment_var ;
+				}
+				else {
+					word_store->words[i][0] = '\0' ; // just make it an empty c-string by replacing $ char (therefore using memory we have whilst nullifying the word we tried to replace)
+				}
+				// no return code as shells don't typicallly report errors when it comes to variables
+			}
+		}
+	}*/
 }
 
 void variable_store_fini(VariableStore* variable_store)
