@@ -3,6 +3,7 @@
 #include <stdlib.h> // malloc, free
 #include <string.h> // strcmp, memset, strchr
 #include <unistd.h> // read
+#include <assert.h> // assert
 
 #include "parser.h"
 

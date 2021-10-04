@@ -6,24 +6,107 @@
 #include <string.h> // strcmp, strchr, memchr
 #include <stdlib.h> // setenv
 #include <fcntl.h> // open
+#include <limits.h> // PATH_MAX
 
 #include "parser.h" // WordStore, find_text
 #include "variables.h" // VariableStore, variable storing functionality
 #include "execution.h"
+#include "display.h"
 
 /** @brief Functionality relating to executing different types of statements
   * @author Salih Ahmed
   * @date 3 September 2021 **/
 
-inline void post_statement(const int return_status, const int positional_param_count, VariableStore* variable_store)
+int read_manager(WordStore* word_store, VariableStore* variable_store, AliasStore* alias_store, InputBuffer* input_buffer)
 {
-	/* set inherent shell variables recording execution information */
-	update_variable_data(find_variable("?", variable_store), (const void*)&return_status) ; // store return_status
+	int pre_rets = 0 ;
+
+	/* Request input, tinker display */
+	if(input_buffer->src == stdin)
+	{
+		const char* USER = getenv("USER") ;
+		char dir[PATH_MAX] ;
+		getcwd(dir, PATH_MAX) ;
+		set_display(texture_bold, foreground_white, background_magenta) ;
+		fprintf(stdout, "%s%c%s", USER, ':', dir) ;
+		reset_display() ;
+		strcmp(USER, "root") == 0 ? fprintf(stdout, "%s", "# ") : fprintf(stdout, "%s", "$ ") ;
+	}
+	
+	/* Get, store & parse input */
+	word_store_refresh(word_store) ;
+	input_buffer_refresh(input_buffer) ;
+
+	pre_rets = read_input(input_buffer) ;
+	//fprintf(stdout, "read_input ret: %d\n", rets) ;
+	if(pre_rets != 0) return -1 ; // if EOF / no text at all read, end 
+	pre_rets = dissect(input_buffer, word_store) ;
+	//fprintf(stdout, "dissect ret: %d\n", rets) ;
+	if(pre_rets != 0) return -2 ; // load word_store up with parsed data
+				       // if no words were found, next line
+				       
+	return 0 ;
 }
 
-int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuffer* input_buffer)
+int run_manager(WordStore* word_store, VariableStore* variable_store, AliasStore* alias_store, InputBuffer* input_buffer)
+{
+	int run_rets = 0 ;
+	
+	if(strcmp(word_store->words[0], "if") == 0)
+	{
+		substitute_variables(word_store, variable_store) ; // now replace any variables
+		substitute_aliases(word_store, alias_store) ; // replace with store aliases
+		run_rets = run_if(word_store, variable_store, alias_store, input_buffer) ;
+	}
+	else {
+		substitute_variables(word_store, variable_store) ; // now replace any variables
+		substitute_aliases(word_store, alias_store) ; // replace with store aliases
+		run_rets = run_statement(word_store, variable_store, alias_store, input_buffer) ;
+	}
+	
+	return run_rets ;
+}
+
+int run_if(WordStore* word_store, VariableStore* variable_store, AliasStore* alias_store, InputBuffer* input_buffer)
+{
+	++word_store->words ;
+	--word_store->word_count ;
+	substitute_variables(word_store, variable_store) ; // now replace any variables
+	substitute_aliases(word_store, alias_store) ; // replace with store aliases
+	run_statement(word_store, variable_store, alias_store, input_buffer) ;
+	--word_store->words ;
+	++word_store->word_count ;
+	
+	Variable* var = find_variable("?", variable_store) ; // find exit status of command run
+	int rets = *(int*)var->value ; // see success of condition
+	
+	if(rets == 0) // if condition of statement is ran successfully (zero exit code)
+	{
+		/* Run statement(s) until one of the if statement or till one of the statements running have a syntax error */
+		while(strcmp(word_store->words[0], "fi") != 0 || rets != 0)
+		{	
+			rets = read_manager(word_store, variable_store, alias_store, input_buffer) ;
+			if(rets == 0)
+			{
+				rets = run_manager(word_store, variable_store, alias_store, input_buffer) ;
+			}
+			else if(rets == -1)
+			{
+				fprintf(stderr, "%s\n", "Error: EOF detected before valid delimeters / statements!") ;
+			}
+			else {
+				continue ;
+			}
+		}
+	}
+	
+	return rets ;
+}
+
+int run_statement(WordStore* word_store, VariableStore* variable_store, AliasStore* alias_store, InputBuffer* input_buffer)
 {
 	int return_status ;
+
 	/* check for special commands, which will change how we execute the statement (eg pipes) */
 	char* pipe_ptr = NULL ;
 	char* fs_ptr = NULL ;
@@ -63,14 +146,14 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 		
 		half_store.words = word_store->words ;
 		for(half_store.word_count = 0 ; half_store.word_count != (const size_t)i ; ++half_store.word_count) ;
-		fprintf(stdout, "SALIH SAYS: %s\n", half_store.words[0]) ;
+		//(stdout, "SALIH SAYS: %s\n", half_store.words[0]) ;
 		word_store->words[i] = NULL ;
 
 		int filedes[2] ; // create array to store pipes r+w fds
 		pipe(filedes) ; // pipe syscall
 		int fd_old = dup(fileno(stdout)) ; 
-		dup2(filedes[1], fileno(stdout)) ; // redirect stdout to write end of pipe		
-		return_status = run_statement(&half_store, variable_store, input_buffer) ;
+		dup2(filedes[1], fileno(stdout)) ; // redirect stdout to write end of pipe
+		return_status = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
 		dup2(fd_old, fileno(stdout)) ; // redirect stdout back to stdout
 		close(filedes[1]) ;  // now close handle to write end of pipe
 
@@ -88,7 +171,7 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 		fd_old = dup(fileno(stdin)) ; 
 		dup2(filedes[0], fileno(stdin)) ; // now redirect stdin to our pipe, such that 'input' will come from pipe's data
 		close(filedes[0]) ; // close read fd of pipe, sealing input
-		return_status = run_statement(&half_store, variable_store, input_buffer) ;
+		return_status = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
 		dup2(fd_old, fileno(stdin)) ; // reset stdin (ie stdin -> stdin), rather than from pipe
 		
 		*pipe_ptr = '|' ; // when all is said and done, restore pipe symbol
@@ -109,24 +192,56 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, InputBuf
 		for(half_store.word_count = 0 ; half_store.word_count != (const size_t)i ; ++half_store.word_count) ;
 		word_store->words[i] = NULL ;
 
-		return_status = run_statement(&half_store, variable_store, input_buffer) ;
+		return_status = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
 		
 		dup2(old_fd, fileno(stdout)) ;
 		close(fd) ;
 		
 		*fs_ptr = '>' ; // when all is said and done, restore > symbol
 	}
-	else {
-		return_status = exec_statement(word_store, variable_store) ; // no need to create seperate wordstore containing seperate statement, just pass full statement
+	else {	
+		return_status = exec_statement(word_store, variable_store, alias_store) ; // no need to create seperate wordstore containing seperate statement, just pass full statement
 	}
 	
 	return return_status ;
 }
 
-int exec_statement(WordStore* word_store, VariableStore* variable_store)
+int exec_statement(WordStore* word_store, VariableStore* variable_store, AliasStore* alias_store)
 {
 	int return_status = 0 ;
-	if(strchr(word_store->words[0], '=') != NULL)
+	if(strcmp(word_store->words[0], "source") == 0)
+	{
+		if(word_store->word_count < 2)
+		{
+			fprintf(stderr, "%s %s\n", "Too few arguments!", "Format: source `file#1`...`file#n`") ;
+			return_status = -1 ;
+			goto end ;
+		}
+
+		FILE* fsrc = fopen(word_store->words[1], "r") ;
+		if(!fsrc)
+		{
+			fprintf(stderr, "File`%s` not found\n", word_store->words[1]) ;
+			return_status = -1 ;
+			goto end ;
+		}	
+
+		InputBuffer input_buffer_new ;
+		input_buffer_init(&input_buffer_new) ;
+		input_buffer_new.src = fsrc ; 
+		WordStore word_store_new ;
+		word_store_init(&word_store_new, 0) ;
+			
+		int rets = read_manager(&word_store_new, variable_store, alias_store, &input_buffer_new) ;
+		rets = run_manager(&word_store_new, variable_store, alias_store, &input_buffer_new) ;
+		if(rets != 0)
+		{
+			fprintf(stderr, "Error occured during sourcing of file `%s`\n", word_store->words[1]) ;
+			return_status = -1 ;
+		}
+		input_buffer_fini(&input_buffer_new) ;
+	}
+	else if(strchr(word_store->words[0], '=') != NULL)
 	{	
 		char* var_name = word_store->words[0] ;
 	
@@ -240,7 +355,7 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store)
 				else if(data_type == -3)
 				{
 					fprintf(stderr, "`%s` is not a valid data-type specification!\n", word_store->words[1]) ;
-				return_status = data_type ;
+					return_status = data_type ;
 					goto end ;
 				}
 			}
@@ -321,6 +436,7 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store)
 				if(execvp(word_store->words[0], word_store->words) == -1)
 				{
 					fprintf(stderr, "%s%s%s\n", "Command `", word_store->words[0], "` could not be executed!") ;
+					return_status = -1 ;
 					kill(getpid(), SIGTERM) ; // since process couldn't be taken over by executable, kill it manually	
 					// may want to implement a 'did you mean?' feature
 				}
@@ -331,6 +447,12 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store)
 	}
 	end: // i would like to make it clear whilst I hate gotos, I had no choice due to the nesting of the if statements
 	     // plus it makes the code look cleaner whilst making my bloody life easier
-	post_statement((const int)return_status, (const int)word_store->word_count - 1, variable_store) ;
+	post_statement((const int)return_status, variable_store) ;
 	return return_status ;
+}
+
+inline void post_statement(const int return_status, VariableStore* variable_store)
+{
+	/* set inherent shell variables recording execution information */
+	update_variable_data(find_variable("?", variable_store), (const void*)&return_status) ; // store return_status
 }

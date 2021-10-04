@@ -2,6 +2,7 @@
 #include <stddef.h> // type aliases
 #include <stdlib.h> // environmental variables, malloc, free
 #include <string.h> // strlen
+#include <assert.h> // assert
 
 #include "variables.h"
 #include "parser.h"
