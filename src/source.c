@@ -2,14 +2,13 @@
 #include <signal.h> // signal handling
 #include <stdio.h> // IO ops
 #include <stdlib.h> // environmental variables, fopen
-#include <string.h> // memset
 #include <unistd.h> // get_current_dir_name
 
 #include "aliases.h" // access user-defined aliases
 #include "variables.h" // structs and functions to access local and env environments
 #include "parser.h" // useful functions to help parse string input
-#include "display.h" // functions, enums and typedef's to control how text is displayed
 #include "execution.h" // functions relating to executing variables
+#include "display.h"
 
 /** @brief Source code to manage shell
   * @author Salih Ahmed
@@ -63,38 +62,18 @@ int main(int argc, char** argv)
 	}
 
 	/* main functionality */
-	while(1)
-	{	
-		/* Request input, tinker display */
-		if(input_buffer.src == stdin)
+	int read_rets = 0, run_rets = 0 ;
+	while(read_rets != -1) // if no EOF
+	{
+		read_rets = read_manager(&word_store, &variable_store, &alias_store, &input_buffer) ;
+		if(word_store.word_count)
 		{
-			const char* USER = getenv("USER") ;
-			char* dir = get_current_dir_name() ; // stupid gnu function actually mallocs each time.
-			set_display(texture_bold, foreground_white, background_magenta) ;
-			fprintf(stdout, "%s%c%s", USER, ':', dir) ;
-			reset_display() ; free(dir) ;
-			strcmp(USER, "root") == 0 ? fprintf(stdout, "%s", "# ") : fprintf(stdout, "%s", "$ ") ;
+			run_rets = run_manager(&word_store, &variable_store, &alias_store, &input_buffer) ;
+			if(input_buffer.src != stdin && run_rets != 0)
+			{
+				break ;
+			}
 		}
-		
-		/* Get, store & parse input */
-		word_store_refresh(&word_store) ;
-		input_buffer_refresh(&input_buffer) ;
-		
-		int rets = read_input(&input_buffer) ;
-		//fprintf(stdout, "read_input ret: %d\n", rets) ;
-		if(rets != 0) break ; // if EOF / no text at all read, end 
-		rets = dissect(&input_buffer, &word_store) ;
-		//fprintf(stdout, "dissect ret: %d\n", rets) ;
-		if(rets != 0) continue ; // load word_store up with parsed data
-					       // if no words were found, next line
-		
-		substitute_variables(&word_store, &variable_store) ; // now replace any variables
-									// seperated this from parse function as, in single line mode, you obviously can't save and use a variable at the same time
-									// plus parse function is too big
-
-		substitute_aliases(&word_store, &alias_store) ; // replace with store aliases
-		/* Execute instructions */
-		if(word_store.word_count) run_statement(&word_store, &variable_store, &input_buffer) ;
 	}
 
 	/* EndOfProgram */
