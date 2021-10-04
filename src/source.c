@@ -65,7 +65,7 @@ int main(int argc, char** argv)
 	int read_rets = 0, run_rets = 0 ;
 	while(read_rets != -1) // if no EOF
 	{
-		read_rets = read_manager(&word_store, &variable_store, &alias_store, &input_buffer) ;
+		read_rets = read_manager(&word_store, &input_buffer) ;
 		if(word_store.word_count)
 		{
 			run_rets = run_manager(&word_store, &variable_store, &alias_store, &input_buffer) ;

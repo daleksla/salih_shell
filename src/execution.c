@@ -6,47 +6,14 @@
 #include <string.h> // strcmp, strchr, memchr
 #include <stdlib.h> // setenv
 #include <fcntl.h> // open
-#include <limits.h> // PATH_MAX
 
 #include "parser.h" // WordStore, find_text
 #include "variables.h" // VariableStore, variable storing functionality
 #include "execution.h"
-#include "display.h"
 
 /** @brief Functionality relating to executing different types of statements
   * @author Salih Ahmed
   * @date 3 September 2021 **/
-
-int read_manager(WordStore* word_store, VariableStore* variable_store, AliasStore* alias_store, InputBuffer* input_buffer)
-{
-	int pre_rets = 0 ;
-
-	/* Request input, tinker display */
-	if(input_buffer->src == stdin)
-	{
-		const char* USER = getenv("USER") ;
-		char dir[PATH_MAX] ;
-		getcwd(dir, PATH_MAX) ;
-		set_display(texture_bold, foreground_white, background_magenta) ;
-		fprintf(stdout, "%s%c%s", USER, ':', dir) ;
-		reset_display() ;
-		strcmp(USER, "root") == 0 ? fprintf(stdout, "%s", "# ") : fprintf(stdout, "%s", "$ ") ;
-	}
-	
-	/* Get, store & parse input */
-	word_store_refresh(word_store) ;
-	input_buffer_refresh(input_buffer) ;
-
-	pre_rets = read_input(input_buffer) ;
-	//fprintf(stdout, "read_input ret: %d\n", rets) ;
-	if(pre_rets != 0) return -1 ; // if EOF / no text at all read, end 
-	pre_rets = dissect(input_buffer, word_store) ;
-	//fprintf(stdout, "dissect ret: %d\n", rets) ;
-	if(pre_rets != 0) return -2 ; // load word_store up with parsed data
-				       // if no words were found, next line
-				       
-	return 0 ;
-}
 
 int run_manager(WordStore* word_store, VariableStore* variable_store, AliasStore* alias_store, InputBuffer* input_buffer)
 {
@@ -85,7 +52,7 @@ int run_if(WordStore* word_store, VariableStore* variable_store, AliasStore* ali
 		/* Run statement(s) until one of the if statement or till one of the statements running have a syntax error */
 		while(strcmp(word_store->words[0], "fi") != 0 || rets != 0)
 		{	
-			rets = read_manager(word_store, variable_store, alias_store, input_buffer) ;
+			rets = read_manager(word_store, input_buffer) ;
 			if(rets == 0)
 			{
 				rets = run_manager(word_store, variable_store, alias_store, input_buffer) ;
@@ -232,7 +199,7 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store, AliasSt
 		WordStore word_store_new ;
 		word_store_init(&word_store_new, 0) ;
 			
-		int rets = read_manager(&word_store_new, variable_store, alias_store, &input_buffer_new) ;
+		int rets = read_manager(&word_store_new, &input_buffer_new) ;
 		rets = run_manager(&word_store_new, variable_store, alias_store, &input_buffer_new) ;
 		if(rets != 0)
 		{
@@ -251,7 +218,7 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store, AliasSt
 		char** i = environ ; // char** of all environmental variables
 		while(*i != NULL)
 		{
-			fprintf(stdout, "env iter: %s\n", *i) ;
+			//fprintf(stdout, "env iter: %s\n", *i) ;
 			char* point = strchr(*i, '=') ;
 			*point = '\0' ;
 			if(strcmp(*i, var_name) == 0)

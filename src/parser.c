@@ -4,7 +4,9 @@
 #include <string.h> // strcmp, memset, strchr
 #include <unistd.h> // read
 #include <assert.h> // assert
+#include <limits.h> // PATH_MAX
 
+#include "display.h"
 #include "parser.h"
 
 /** @brief Functionality relating to parsing input (ie literally dissecting input aswell as understanding and running it)
@@ -71,6 +73,8 @@ void input_buffer_fini(InputBuffer* input_buffer)
 	input_buffer->current_end = NULL ;
 	fclose(input_buffer->src) ;
 }
+
+//
 
 void word_store_init(WordStore* word_store, const size_t sz)
 {
@@ -284,4 +288,39 @@ void word_store_fini(WordStore* word_store)
 	word_store->words = NULL ;
 	word_store->_size = 0 ;
 	word_store->word_count = 0 ;
+}
+
+//
+
+int read_manager(WordStore* word_store, InputBuffer* input_buffer)
+{
+	int pre_rets = 0 ;
+
+	/* Request input, tinker display */
+	if(input_buffer->src == stdin)
+	{
+		static const char* USER = NULL ;
+		if(!USER) USER = getenv("USER") ;
+		
+		char dir[PATH_MAX] ;
+		getcwd(dir, PATH_MAX) ;
+		set_display(texture_bold, foreground_white, background_magenta) ;
+		fprintf(stdout, "%s%c%s", USER, ':', dir) ;
+		reset_display() ;
+		strcmp(USER, "root") == 0 ? fprintf(stdout, "%s", "# ") : fprintf(stdout, "%s", "$ ") ;
+	}
+	
+	/* Get, store & parse input */
+	word_store_refresh(word_store) ;
+	input_buffer_refresh(input_buffer) ;
+
+	pre_rets = read_input(input_buffer) ;
+	//fprintf(stdout, "read_input ret: %d\n", rets) ;
+	if(pre_rets != 0) return -1 ; // if EOF / no text at all read, end 
+	pre_rets = dissect(input_buffer, word_store) ;
+	//fprintf(stdout, "dissect ret: %d\n", rets) ;
+	if(pre_rets != 0) return -2 ; // load word_store up with parsed data
+				       // if no words were found, next line
+				       
+	return 0 ;
 }

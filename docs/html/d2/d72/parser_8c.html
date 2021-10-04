@@ -77,18 +77,24 @@ $(function() {
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;assert.h&gt;</code><br />
+<code>#include &lt;limits.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/d68/display_8h_source.html">display.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/d36/parser_8h_source.html">parser.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for parser.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d92/parser_8c__incl.png" border="0" usemap="#src_2parser_8c" alt=""/></div>
 <map name="src_2parser_8c" id="src_2parser_8c">
-<area shape="rect" title=" " alt="" coords="176,5,272,32"/>
+<area shape="rect" title=" " alt="" coords="321,5,417,32"/>
 <area shape="rect" title=" " alt="" coords="5,155,80,181"/>
-<area shape="rect" title=" " alt="" coords="257,155,324,181"/>
+<area shape="rect" title=" " alt="" coords="405,155,472,181"/>
 <area shape="rect" title=" " alt="" coords="142,80,213,107"/>
 <area shape="rect" title=" " alt="" coords="237,80,307,107"/>
 <area shape="rect" title=" " alt="" coords="332,80,407,107"/>
+<area shape="rect" title=" " alt="" coords="431,80,505,107"/>
+<area shape="rect" title=" " alt="" coords="530,80,601,107"/>
+<area shape="rect" href="../../d4/d68/display_8h.html" title=" " alt="" coords="625,80,703,107"/>
 <area shape="rect" href="../../d5/d36/parser_8h.html" title=" " alt="" coords="43,80,117,107"/>
 </map>
 </div>
@@ -117,6 +123,8 @@ Functions</h2></td></tr>
 <tr class="separator:a66bd068392b62e332d25be144b866eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bcf0f59e099ea9f9aab03ca3fab6612"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a8bcf0f59e099ea9f9aab03ca3fab6612">read_input</a> (<a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *input_buffer)</td></tr>
 <tr class="separator:a8bcf0f59e099ea9f9aab03ca3fab6612"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46ea8f55ca54bcfe9ecfdd4e35eb49ad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a46ea8f55ca54bcfe9ecfdd4e35eb49ad">read_manager</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, <a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *input_buffer)</td></tr>
+<tr class="separator:a46ea8f55ca54bcfe9ecfdd4e35eb49ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c72bd266b1f0c286705bc4ae74764c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a9c72bd266b1f0c286705bc4ae74764c8">word_store_add</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, char *word)</td></tr>
 <tr class="separator:a9c72bd266b1f0c286705bc4ae74764c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac15775480689fe9d1b2fe577e022fad8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#ac15775480689fe9d1b2fe577e022fad8">word_store_fini</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store)</td></tr>
@@ -453,6 +461,42 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>exit code status (0 if success and something was read, -1 if EOF) </dd></dl>
+
+</div>
+</div>
+<a id="a46ea8f55ca54bcfe9ecfdd4e35eb49ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46ea8f55ca54bcfe9ecfdd4e35eb49ad">&#9670;&nbsp;</a></span>read_manager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int read_manager </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>read_manager function facilitates function calls to receive input &amp; to parse it </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> struct to possibly modify </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct containing tape of input (in case we need to resize) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>exit code relating to outcome occured of reading </dd></dl>
 
 </div>
 </div>

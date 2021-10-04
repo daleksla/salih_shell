@@ -74,6 +74,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="../../d5/d36/parser_8h_source.html">parser.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/dca/variables_8h_source.html">variables.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/d7f/aliases_8h_source.html">aliases.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for execution.h:</div>
 <div class="dyncontent">
@@ -81,7 +82,8 @@ Include dependency graph for execution.h:</div>
 <map name="include_2execution_8h" id="include_2execution_8h">
 <area shape="rect" title=" " alt="" coords="15,5,163,32"/>
 <area shape="rect" href="../../d5/d36/parser_8h.html" title=" " alt="" coords="52,155,127,181"/>
-<area shape="rect" href="../../de/dca/variables_8h.html" title=" " alt="" coords="85,80,179,107"/>
+<area shape="rect" href="../../de/dca/variables_8h.html" title=" " alt="" coords="42,80,137,107"/>
+<area shape="rect" href="../../d8/d7f/aliases_8h.html" title=" " alt="" coords="161,80,241,107"/>
 <area shape="rect" title=" " alt="" coords="5,229,80,256"/>
 <area shape="rect" title=" " alt="" coords="104,229,171,256"/>
 </map>
@@ -101,16 +103,20 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0240a019005c572b6bd123764cb036a1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/execution_8h.html#a0240a019005c572b6bd123764cb036a1">exec_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *)</td></tr>
-<tr class="separator:a0240a019005c572b6bd123764cb036a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a736d8ab9b84c7ea9f9020b08dd05c56d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/execution_8h.html#a736d8ab9b84c7ea9f9020b08dd05c56d">run_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *, <a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *)</td></tr>
-<tr class="separator:a736d8ab9b84c7ea9f9020b08dd05c56d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc2aab9d54e3266ad5540773baa99879"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/execution_8h.html#afc2aab9d54e3266ad5540773baa99879">set_shell_variables</a> (const int, const int, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *)</td></tr>
-<tr class="separator:afc2aab9d54e3266ad5540773baa99879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa889c6e0bbfa2171b1cc3a1595045c64"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/execution_8h.html#aa889c6e0bbfa2171b1cc3a1595045c64">exec_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *, <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> *)</td></tr>
+<tr class="separator:aa889c6e0bbfa2171b1cc3a1595045c64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a929dc81dde8a0c9acfac4cefe1f491"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/execution_8h.html#a0a929dc81dde8a0c9acfac4cefe1f491">post_statement</a> (const int, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *)</td></tr>
+<tr class="separator:a0a929dc81dde8a0c9acfac4cefe1f491"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36dface99275722803455f60678c2dbc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/execution_8h.html#a36dface99275722803455f60678c2dbc">run_if</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *, <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> *, <a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *)</td></tr>
+<tr class="separator:a36dface99275722803455f60678c2dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbf2bd04f01b4b25147ae2400c90643a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/execution_8h.html#adbf2bd04f01b4b25147ae2400c90643a">run_manager</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *, <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> *, <a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *)</td></tr>
+<tr class="separator:adbf2bd04f01b4b25147ae2400c90643a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b874b12fd61b65563fe176f190933aa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d01/execution_8h.html#a6b874b12fd61b65563fe176f190933aa">run_statement</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *, <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> *, <a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *)</td></tr>
+<tr class="separator:a6b874b12fd61b65563fe176f190933aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a0240a019005c572b6bd123764cb036a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0240a019005c572b6bd123764cb036a1">&#9670;&nbsp;</a></span>exec_statement()</h2>
+<a id="aa889c6e0bbfa2171b1cc3a1595045c64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa889c6e0bbfa2171b1cc3a1595045c64">&#9670;&nbsp;</a></span>exec_statement()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -125,6 +131,12 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> *&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -138,15 +150,167 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct containing words amounting to statement to attempt to execute </td></tr>
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct to possibly modify </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> struct to possibly modify </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>exit code of statement (we do save it as a shell variable but internally its more efficient to simply check if the statement executed right) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>exit code of statement <br  />
+ </dd></dl>
 
 </div>
 </div>
-<a id="a736d8ab9b84c7ea9f9020b08dd05c56d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a736d8ab9b84c7ea9f9020b08dd05c56d">&#9670;&nbsp;</a></span>run_statement()</h2>
+<a id="a0a929dc81dde8a0c9acfac4cefe1f491"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a929dc81dde8a0c9acfac4cefe1f491">&#9670;&nbsp;</a></span>post_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void post_statement </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>post_statement inline function to store return-status variable, push statement to history etc. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">const</td><td>int storing return status of last command executed </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct to modify </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a36dface99275722803455f60678c2dbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36dface99275722803455f60678c2dbc">&#9670;&nbsp;</a></span>run_if()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int run_if </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>run_if function controls if statements and runs the commands within </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct containing words amounting to statement to attempt to execute </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct to possibly modify </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> struct to possibly modify </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct containing tape of input (in case we need to resize) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>exit code reflects to whether if statement was ran successfully </dd></dl>
+
+</div>
+</div>
+<a id="adbf2bd04f01b4b25147ae2400c90643a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbf2bd04f01b4b25147ae2400c90643a">&#9670;&nbsp;</a></span>run_manager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int run_manager </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname"><em>word_store</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
+          <td class="paramname"><em>variable_store</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> *&#160;</td>
+          <td class="paramname"><em>alias_store</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
+          <td class="paramname"><em>input_buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Declarations relating to executing different types of statements. </p>
+<dl class="section author"><dt>Author</dt><dd>Salih Ahmed </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>3 September 2021 run_manager function facilitates function calls to execute parsed input </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct containing words amounting to statement to attempt to execute </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct to possibly modify </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> struct to possibly modify </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct containing tape of input (in case we need to resize) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>exit code of the final statement ran</dd></dl>
+<p>Declarations relating to executing different types of statements.</p>
+<dl class="section author"><dt>Author</dt><dd>Salih Ahmed </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>3 September 2021 </dd></dl>
+
+</div>
+</div>
+<a id="a6b874b12fd61b65563fe176f190933aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b874b12fd61b65563fe176f190933aa">&#9670;&nbsp;</a></span>run_statement()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -166,6 +330,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
@@ -180,68 +350,12 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct containing words amounting to statement to attempt to execute </td></tr>
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct to possibly modify </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> struct to possibly modify </td></tr>
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct containing tape of input (in case we need to resize) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>exit code of statement (we do save it as a shell variable but internally its more efficient to simply check if the statement executed right) </dd></dl>
-
-</div>
-</div>
-<a id="afc2aab9d54e3266ad5540773baa99879"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc2aab9d54e3266ad5540773baa99879">&#9670;&nbsp;</a></span>set_shell_variables()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void set_shell_variables </td>
-          <td>(</td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>return_status</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>positional_param_count</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> *&#160;</td>
-          <td class="paramname"><em>variable_store</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Declarations relating to executing different types of statements. </p>
-<dl class="section author"><dt>Author</dt><dd>Salih Ahmed </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>3 September 2021 set_shell_variables inline function to tidily save inherent shell variables values based on statement executions </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">const</td><td>int storing return status of last command executed </td></tr>
-    <tr><td class="paramname">const</td><td>int storing positional parameter counts </td></tr>
-    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../df/d55/structVariableStore.html">VariableStore</a> struct to modify</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Declarations relating to executing different types of statements.</p>
-<dl class="section author"><dt>Author</dt><dd>Salih Ahmed </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>3 September 2021 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>exit code of running of statement </dd></dl>
 
 </div>
 </div>

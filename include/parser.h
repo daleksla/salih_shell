@@ -10,7 +10,7 @@
   * @date 3 Aug 2021 **/
  
 // Below is simply a struct storing input buffer and size of storage (used for tracking expansion) and method to read in input, expanding memory if needed
- 
+
 typedef struct {
 	/** Struct storing buffer and size **/
 
@@ -125,5 +125,13 @@ char* find_whitespace(const char*, const size_t) ;
 /** Deinitialises WordStore structure
   * @param pointer to WordStore struct variable **/ 
 void word_store_fini(WordStore*) ;
+
+// Function below uses these functions and facilitates calls, from read in to break down
+
+/** read_manager function facilitates function calls to receive input & to parse it
+  * @param pointer to AliasStore struct to possibly modify
+  * @param pointer to InputBuffer struct containing tape of input (in case we need to resize)
+  * @return exit code relating to outcome occured of reading **/
+int read_manager(WordStore*, InputBuffer*) ;
 
 #endif // PARSER_H

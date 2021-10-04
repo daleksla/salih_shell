@@ -68,24 +68,27 @@ $(function() {
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="autotoc_md3"></a>
 to do list</h1>
+<h2><a class="anchor" id="autotoc_md4"></a>
+HIGH PRIORITY</h2>
 <ol type="1">
-<li>modify <code>substitute_alias</code> method which places aliases with spaces as an extra word in word store</li>
-<li>modify variables to store multi word variables, including string args</li>
-<li>modify <a class="el" href="../../d8/d95/structAlias.html" title="Declarations relating to management of aliases.">Alias</a> and <a class="el" href="../../d0/dd3/structVariable.html" title="Declarations relating to management of variables.">Variable</a> struct so that, within a declaration, the amount of words is recorded &amp; modify respective declare functions accordingly <blockquote class="doxtable">
-<p>e.g <code>typedef struct { char* identifier, char* value, size_t word_count } <a class="el" href="../../d8/d95/structAlias.html" title="Declarations relating to management of aliases.">Alias</a> ;</code> </p>
-</blockquote>
-</li>
-</ol>
-<ol type="1">
-<li>add proper initial argument parsing (<code>-c</code> = execute command (<code>argv</code> onwards), <code>-f</code> filename)</li>
-<li>replace the GNU function <code>get_current_dir_name</code> as it bloody executes <code>malloc</code> each time, which is ridiculous</li>
-<li>replace creation of initialised <code>word_store</code>'s with uninitiliased alternatives which simply do shallow copies</li>
-<li>store variables which are unwriteable except by the shell to do with command execution: <blockquote class="doxtable">
-<p>ie <code>$@</code> = what parameters were passed </p>
-</blockquote>
-</li>
+<li>implement <code>if statement</code> functionality by creating function, which copies condition and implements body</li>
 <li>when implementing a full interpretter with controlled scopes (ifs, fors, while, etc.), the user must input the whole thing first <blockquote class="doxtable">
 <p>ie. keyword (eg. <code>if</code>) detected, after keyword (eg. <code>then</code>) store condition statement, store each command in an array, after endword (eg. <code>fi</code>) is detected, evaluate and run </p>
+</blockquote>
+</li>
+<li>substitute variables and aliases for each statement, not for a whole block of text given</li>
+<li>modify <code>parse</code> method to enforce text being inputted after symbols, rather than the <code>run_statement</code> function <blockquote class="doxtable">
+<p>only if the src is stdin should a &gt; (indicating for user to input) be displayed when requesting more input </p>
+</blockquote>
+</li>
+<li>add <code>if</code> statements wherever memory allocation functions are use - do an assert to make sure they return valid address</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md5"></a>
+LOW PRIORITY</h2>
+<ol type="1">
+<li>add proper initial argument parsing (<code>-c</code> = execute command (<code>argv</code> onwards), <code>-f</code> filename)</li>
+<li>store variables which are unwriteable except by the shell to do with command execution: <blockquote class="doxtable">
+<p>ie <code>$@</code> = what parameters were passed </p>
 </blockquote>
 </li>
 <li>add another buffer, which copies a given item of data (ie non-string variable's value) into string format</li>

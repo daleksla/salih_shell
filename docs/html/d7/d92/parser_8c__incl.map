@@ -1,9 +1,12 @@
 <map id="src/parser.c" name="src/parser.c">
-<area shape="rect" id="node1" title=" " alt="" coords="176,5,272,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="321,5,417,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,155,80,181"/>
-<area shape="rect" id="node3" title=" " alt="" coords="257,155,324,181"/>
+<area shape="rect" id="node3" title=" " alt="" coords="405,155,472,181"/>
 <area shape="rect" id="node4" title=" " alt="" coords="142,80,213,107"/>
 <area shape="rect" id="node5" title=" " alt="" coords="237,80,307,107"/>
 <area shape="rect" id="node6" title=" " alt="" coords="332,80,407,107"/>
-<area shape="rect" id="node7" href="$d5/d36/parser_8h.html" title=" " alt="" coords="43,80,117,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="431,80,505,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="530,80,601,107"/>
+<area shape="rect" id="node9" href="$d4/d68/display_8h.html" title=" " alt="" coords="625,80,703,107"/>
+<area shape="rect" id="node10" href="$d5/d36/parser_8h.html" title=" " alt="" coords="43,80,117,107"/>
 </map>
