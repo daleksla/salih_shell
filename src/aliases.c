@@ -14,6 +14,7 @@ void alias_store_init(AliasStore* alias_store)
 {
 	alias_store->_size = 3 ;
 	alias_store->aliases = malloc(sizeof(Alias) * alias_store->_size) ; // list of max 256 char pointers
+	assert(alias_store->aliases) ;
 	alias_store->alias_count = 0 ;
 }
 
@@ -23,6 +24,7 @@ int declare_alias(const char* alias_name, const char* data, AliasStore* alias_st
 	{
 		alias_store->_size *= 2 ;
 		alias_store->aliases = realloc(alias_store->aliases, alias_store->_size) ;
+		assert(alias_store->aliases) ;
 	}
 	++alias_store->alias_count ; // increment alias count
 	Alias* alias = alias_store->aliases + (alias_store->alias_count - 1) ; // find position of new var

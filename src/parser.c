@@ -14,6 +14,7 @@ void input_buffer_init(InputBuffer* input_buffer)
 {
 	input_buffer->size = 25 ; // starting bytes to allocate
 	input_buffer->buffer = malloc(input_buffer->size) ;
+	assert(input_buffer->buffer) ; // validate realloc success, else abort
 	input_buffer->current_start = input_buffer->buffer ;
 	input_buffer->current_end = input_buffer->buffer ;
 	input_buffer->src = stdin ;
@@ -47,6 +48,7 @@ int read_input(InputBuffer* input_buffer)
 		size_t ptr_diff_end = input_buffer->current_end - input_buffer->buffer ;
 		input_buffer->size *= 2 ;
 		input_buffer->buffer = realloc((void*)input_buffer->buffer, input_buffer->size) ; // original_chars * 2
+		assert(input_buffer->buffer) ; // validate realloc success, else abort
 		input_buffer->current_start = input_buffer->buffer + ptr_diff_start ;
 		input_buffer->current_end = input_buffer->buffer + ptr_diff_end ;
 		temp_start = input_buffer->current_end ; // set place to now start writing to
@@ -73,6 +75,7 @@ void word_store_init(WordStore* word_store, const size_t sz)
 {
 	word_store->_size = (sz ? sz : 25) ;
 	word_store->words = malloc(sizeof(char*) * word_store->_size) ; // list of max 256 char pointers
+	assert(word_store->words) ;
 	word_store->word_count = 0 ;
 	word_store_refresh(word_store) ;
 }
@@ -93,6 +96,7 @@ void word_store_add(WordStore* word_store, char* word)
 	{
 		word_store->_size = (word_store->_size + 1) * 2 ;
 		word_store->words = realloc(word_store->words, word_store->_size) ;
+		assert(word_store->words) ; // validate realloc success, else abort
 		for(size_t i = word_store->word_count ; i < word_store->_size ; ++i)
 		{
 			word_store->words[i] = NULL ;
@@ -114,6 +118,7 @@ void word_store_insert(WordStore* word_store, char* word, const size_t pos)
 	{
 		word_store->_size = (word_store->_size + 1) * 2 ;
 		word_store->words = realloc(word_store->words, word_store->_size) ;
+		assert(word_store->words) ; // validate realloc success, else abort
 		for(size_t i = word_store->word_count ; i < word_store->_size ; ++i)
 		{
 			word_store->words[i] = NULL ;
