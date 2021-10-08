@@ -83,7 +83,12 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 		pipe_ptr = (word_store->words[i][0] == '|' ? word_store->words[i] : NULL) ;
 		fs_ptr = (word_store->words[i][0] == '>' ? word_store->words[i] : NULL) ;
 		if(pipe_ptr || fs_ptr)
-		{	
+		{
+			if(i == 0)
+			{
+				fprintf(stderr, "Error: special symbol `%c` requires one-word minimum of text before and after\n", (*pipe_ptr ? '|' : '>')) ;
+				return -1 ;
+			}
 			while(word_store->word_count-1 == i)
 			{
 				fprintf(stdout, "%c ", '<') ;
@@ -91,7 +96,7 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 				input_buffer->current_start = input_buffer->current_end+1 ; // add to the end of current input
 				if(read_input(input_buffer) != 0) // if user outright sends EOFs
 				{
-					fprintf(stderr, "Error: special symbol `%c` requires one-word minimum of text before and after\n", (pipe_ptr ? '|' : '>')) ;
+					fprintf(stderr, "Error: special symbol `%c` requires one-word minimum of text before and after\n", (*pipe_ptr ? '|' : '>')) ;
 					return -1 ;
 				}
 				if(dissect(input_buffer, word_store) != 0)
@@ -150,18 +155,45 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 		
 		const char* filename = word_store->words[word_store->word_count-1] ;
 		int fd = (fs_ptr[1] == '>' ? open(filename, O_APPEND | O_WRONLY | O_CREAT, 0777) : open(filename, O_WRONLY | O_CREAT, 0777)) ;
-		int old_fd = dup(fileno(stdout)) ;
-		dup2(fd, fileno(stdout)) ;
+		
+		int old_fd ;
+		int flag = 0 ;
+		int offset = 0 ;
+		if(strcmp(word_store->words[i-1], "2") == 0)
+		{
+			old_fd = dup(fileno(stderr)) ;
+			dup2(fd, fileno(stderr)) ;		
+			flag = 2 ;
+			offset = 1 ;
+		}
+		else {
+			old_fd = dup(fileno(stdout)) ;
+			dup2(fd, fileno(stdout)) ;
+		}
+		
+		if(flag == 0 && strcmp(word_store->words[i-1], "1") == 0)
+		{
+			flag = 1 ;
+			offset = 1 ;
+		}
 		
 		WordStore half_store ;
 		half_store._size = 0 ;
 		half_store.words = word_store->words ;
-		for(half_store.word_count = 0 ; half_store.word_count != (const size_t)i ; ++half_store.word_count) ;
-		word_store->words[i] = NULL ;
+		for(half_store.word_count = 0 ; half_store.word_count != (const size_t)i - offset ; ++half_store.word_count) ;
+		word_store->words[i-offset] = NULL ;
 
 		return_status = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
+		//fprintf(stdout, "%p\n", (void*)word_store->words[i-1]) ;
 		
-		dup2(old_fd, fileno(stdout)) ;
+		if(flag == 2)
+		{
+			dup2(old_fd, fileno(stderr)) ;
+		}
+		else {
+			dup2(old_fd, fileno(stdout)) ;
+		}
+		
 		close(fd) ;
 		
 		*fs_ptr = '>' ; // when all is said and done, restore > symbol
