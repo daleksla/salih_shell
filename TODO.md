@@ -3,9 +3,11 @@
 
 ### HIGH PRIORITY
 1. implement `if statement` functionality by creating function, which copies condition and implements body
+> save condition as local variable until keyword `then`
+> then keep writing to the `input_buffer`, seperating each line of input with a `NULL` ptr
+> once `fi` is detected, run condition
 
-2. when implementing a full interpretter with controlled scopes (ifs, fors, while, etc.), the user must input the whole thing first
-> ie. keyword (eg. `if`) detected, after keyword (eg. `then`) store condition statement, store each command in an array, after endword (eg. `fi`) is detected, evaluate and run
+2. ensure only in `source.c`'s call of `read/run_manager` is the `input_buffer_refresh` & `word_store_refresh` method call
 
 3. substitute variables and aliases for each statement, not for a whole block of text given
 

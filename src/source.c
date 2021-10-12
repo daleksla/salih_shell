@@ -35,6 +35,7 @@ int main(int argc, char** argv)
 	alias_store_init(&alias_store) ;
 	
 	declare_alias("ls", "ls --color=auto", &alias_store) ;
+	declare_alias("~", "/home/salih/", &alias_store) ;
 	declare_alias("grep", "grep --color=auto", &alias_store) ;
 	
 	if(argc >= 2)
@@ -65,7 +66,7 @@ int main(int argc, char** argv)
 	int read_rets = 0, run_rets = 0 ;
 	while(read_rets != -1) // if no EOF
 	{
-		read_rets = read_manager(&word_store, &input_buffer) ;
+		read_rets = read_manager(&word_store, &input_buffer, 0) ;
 		if(word_store.word_count)
 		{
 			run_rets = run_manager(&word_store, &variable_store, &alias_store, &input_buffer) ;

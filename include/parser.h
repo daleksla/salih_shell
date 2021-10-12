@@ -131,7 +131,8 @@ void word_store_fini(WordStore*) ;
 /** read_manager function facilitates function calls to receive input & to parse it
   * @param pointer to AliasStore struct to possibly modify
   * @param pointer to InputBuffer struct containing tape of input (in case we need to resize)
+  * @param const int as to whether we are to add to current input stored (ie complete a statement) or just write from the start
   * @return exit code relating to outcome occured of reading **/
-int read_manager(WordStore*, InputBuffer*) ;
+int read_manager(WordStore*, InputBuffer*, const int) ;
 
 #endif // PARSER_H

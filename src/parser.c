@@ -292,7 +292,7 @@ void word_store_fini(WordStore* word_store)
 
 //
 
-int read_manager(WordStore* word_store, InputBuffer* input_buffer)
+int read_manager(WordStore* word_store, InputBuffer* input_buffer, int append_mode)
 {
 	int pre_rets = 0 ;
 
@@ -311,8 +311,14 @@ int read_manager(WordStore* word_store, InputBuffer* input_buffer)
 	}
 	
 	/* Get, store & parse input */
-	word_store_refresh(word_store) ;
-	input_buffer_refresh(input_buffer) ;
+	if(!append_mode)
+	{
+		word_store_refresh(word_store) ;
+		input_buffer_refresh(input_buffer) ;
+	}
+	else {
+		input_buffer->current_start = input_buffer->current_end+1 ;	
+	}
 
 	pre_rets = read_input(input_buffer) ;
 	//fprintf(stdout, "read_input ret: %d\n", rets) ;

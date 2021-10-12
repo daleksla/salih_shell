@@ -105,7 +105,7 @@ void substitute_variables(WordStore* word_store, const VariableStore* variable_s
 	{
 		//char* point = strchr(word_store->words[i], '$') ;
 		char* point = word_store->words[i] ;
-		if(*point == '$' && !is_whitespace(point[1]))
+		if(*point == '$' && !is_whitespace(point[1]) && point[1] != '(')
 		{
 			Variable* variable = find_variable(word_store->words[i]+1, variable_store) ;
 			if(variable) // if variable was found
