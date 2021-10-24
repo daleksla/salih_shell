@@ -196,7 +196,7 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 		half_store._size = 0 ;
 		
 		half_store.words = word_store->words ;
-		for(half_store.word_count = 0 ; half_store.word_count != (const size_t)i ; ++half_store.word_count) ;
+        half_store.word_count = i ;
 		//(stdout, "SALIH SAYS: %s\n", half_store.words[0]) ;
 		word_store->words[i] = NULL ;
 
@@ -217,7 +217,7 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 		half_store.words = word_store->words + i + 1 ;
 		//fprintf(stdout, "SALIH SAYS: %s\n", half_store.words[0]) ;
 		half_store.word_count = 0 ;
-		for(size_t j = i+1 ; j != word_store->word_count ; ++j) ++half_store.word_count ;
+        half_store.word_count = word_store->word_count - i - 1 ;
 		
 		fd_old = dup(fileno(stdin)) ; 
 		dup2(filedes[0], fileno(stdin)) ; // now redirect stdin to our pipe, such that 'input' will come from pipe's data
@@ -228,21 +228,21 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 		*pipe_ptr = '|' ; // when all is said and done, restore pipe symbol
 		word_store->words[i] = pipe_ptr ;
 	}
-	else if(and_ptr) // if '&' symbol detected first
+	else if(and_ptr) // if '&&' symbol detected first
 	{
 		*and_ptr = '\0' ;
 		
 		WordStore half_store ;
 		half_store._size = 0 ;
 		half_store.words = word_store->words ;
-		for(half_store.word_count = 0 ; half_store.word_count != (const size_t)i ; ++half_store.word_count) ;
+        half_store.word_count = i ;
 		word_store->words[i] = NULL ;
 
 		return_status = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
 
 		half_store.words = word_store->words + i + 1 ;
 		half_store.word_count = 0 ;
-		for(size_t j = i+1 ; j != word_store->word_count ; ++j) ++half_store.word_count ;
+        half_store.word_count = word_store->word_count - i - 1 ;
 
 		int tmp = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
 		return_status = tmp && return_status ;
@@ -250,22 +250,22 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 		*and_ptr = '&' ; // when all is said and done, restore & symbol
 		word_store->words[i] = and_ptr ;
 	}
-	else if(or_ptr) // if '&' symbol detected first
+	else if(or_ptr) // if '||' symbol detected first
 	{
 		*or_ptr = '\0' ;
 		
 		WordStore half_store ;
 		half_store._size = 0 ;
 		half_store.words = word_store->words ;
-		for(half_store.word_count = 0 ; half_store.word_count != (const size_t)i ; ++half_store.word_count) ;
+        half_store.word_count = i ;
 		word_store->words[i] = NULL ;
 
 		return_status = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
 
 		half_store.words = word_store->words + i + 1 ;
 		half_store.word_count = 0 ;
-		for(size_t j = i+1 ; j != word_store->word_count ; ++j) ++half_store.word_count ;
-
+        half_store.word_count = word_store->word_count - i - 1 ;
+    
 		int tmp = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
 		return_status = tmp || return_status ;
 		
@@ -303,7 +303,7 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 		WordStore half_store ;
 		half_store._size = 0 ;
 		half_store.words = word_store->words ;
-		for(half_store.word_count = 0 ; half_store.word_count != (const size_t)i - offset ; ++half_store.word_count) ;
+        half_store.word_count = i - offset ;
 		word_store->words[i-offset] = NULL ;
 
 		return_status = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
