@@ -1,6 +1,13 @@
 var searchData=
 [
-  ['update_5falias_123',['update_alias',['../d8/d7f/aliases_8h.html#a73fb10038319de1e8820d08eb230d056',1,'update_alias(Alias *, const char *):&#160;aliases.c'],['../d9/dfe/aliases_8c.html#a8649130e1c2cdefd906d4f0f89a99579',1,'update_alias(Alias *alias, const char *data):&#160;aliases.c']]],
-  ['update_5fvariable_5fdata_124',['update_variable_data',['../de/dca/variables_8h.html#abeca1ebe26baabc268576ed25a898605',1,'update_variable_data(Variable *, const void *):&#160;variables.c'],['../d5/de8/variables_8c.html#a5f6011e52fb9d87fd6df7596241c0043',1,'update_variable_data(Variable *variable, const void *data):&#160;variables.c']]],
-  ['update_5fvariable_5ftype_125',['update_variable_type',['../de/dca/variables_8h.html#acc33d561aae2184983594e129fa510f5',1,'update_variable_type(Variable *, const char):&#160;variables.c'],['../d5/de8/variables_8c.html#a5bf1f83aaec016928f18194aba2759b3',1,'update_variable_type(Variable *variable, const char type):&#160;variables.c']]]
+  ['targetdirectories_2etxt_116',['TargetDirectories.txt',['../d5/dd5/TargetDirectories_8txt.html',1,'']]],
+  ['texture_5fblink_117',['texture_blink',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07a02fb897694f5c1eb6a1e61d7c01d6c96',1,'display.h']]],
+  ['texture_5fbold_118',['texture_bold',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07addf55abf86b6692d7dbe57ab3cfd4f97',1,'display.h']]],
+  ['texture_5fdim_119',['texture_dim',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07a18f98a3dd0d230fd9fce5b9c1dc15ad0',1,'display.h']]],
+  ['texture_5fhidden_120',['texture_hidden',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07ad9e4be568426a9f5c572b0023c582c1e',1,'display.h']]],
+  ['texture_5finvert_121',['texture_invert',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07ac6fc36f7fd0779ad7ad33000b3ece0c9',1,'display.h']]],
+  ['texture_5ft_122',['texture_t',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07',1,'texture_t():&#160;display.h'],['../d4/d68/display_8h.html#aab87d264384d1808fa10810c470d2391',1,'texture_t():&#160;display.h']]],
+  ['texture_5funderline_123',['texture_underline',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07a2612b2483773609c194a5a2631c4b34e',1,'display.h']]],
+  ['todo_2emd_124',['TODO.md',['../dc/d6a/TODO_8md.html',1,'']]],
+  ['type_125',['type',['../d0/dd3/structVariable.html#aeef2cd2fb7af25533ea814a03f652f6c',1,'Variable']]]
 ];

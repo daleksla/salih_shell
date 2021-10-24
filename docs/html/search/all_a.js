@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['parse_5fvariable_5ftype_82',['parse_variable_type',['../de/dca/variables_8h.html#aa55152363b81f417dc55926c54205b93',1,'parse_variable_type(const char *):&#160;variables.c'],['../d5/de8/variables_8c.html#a0cf18136d65b611a6419b835d7ebef67',1,'parse_variable_type(const char *type_declaration):&#160;variables.c']]],
-  ['parser_2ec_83',['parser.c',['../d2/d72/parser_8c.html',1,'']]],
-  ['parser_2eh_84',['parser.h',['../d5/d36/parser_8h.html',1,'']]],
-  ['platform_5fid_85',['PLATFORM_ID',['../d9/d4b/CMakeCCompilerId_8c.html#adbc5372f40838899018fadbc89bd588b',1,'CMakeCCompilerId.c']]],
-  ['post_5fstatement_86',['post_statement',['../dd/d01/execution_8h.html#a0a929dc81dde8a0c9acfac4cefe1f491',1,'post_statement(const int, VariableStore *):&#160;execution.c'],['../d0/dda/execution_8c.html#a90687a2f95d2cd25860de6fcc565dda2',1,'post_statement(const int return_status, VariableStore *variable_store):&#160;execution.c']]]
+  ['main_82',['main',['../d9/d4b/CMakeCCompilerId_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;CMakeCCompilerId.c'],['../d9/d97/source_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;source.c']]],
+  ['mfgets_83',['mfgets',['../d2/d72/parser_8c.html#a5f10adeedb7aff50bcbaadf7da94043a',1,'parser.c']]]
 ];
