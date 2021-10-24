@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['salih_5fshell_105',['salih_shell',['../index.html',1,'']]],
-  ['salih_5fshell_106',['salih_shell',['../d4/d4d/md_TODO.html',1,'']]],
-  ['set_5fdisplay_107',['set_display',['../d4/d68/display_8h.html#a829d0f39a5d1f61332cfedfc6bd77014',1,'set_display(const texture_t, const foreground_t, const background_t):&#160;display.c'],['../db/d85/display_8c.html#a033b8c305aa3dc1dd2d7737be4a6eceb',1,'set_display(const texture_t i_texture, const foreground_t i_foreground, const background_t i_background):&#160;display.c']]],
-  ['size_108',['size',['../d7/d21/structInputBuffer.html#a4385896d74789c460e6441e4f7947a57',1,'InputBuffer']]],
-  ['source_2ec_109',['source.c',['../d9/d97/source_8c.html',1,'']]],
-  ['src_110',['src',['../d7/d21/structInputBuffer.html#a2db43bf3f5945d9143178a663349df0f',1,'InputBuffer']]],
-  ['stringify_111',['STRINGIFY',['../d9/d4b/CMakeCCompilerId_8c.html#a43e1cad902b6477bec893cb6430bd6c8',1,'CMakeCCompilerId.c']]],
-  ['stringify_5fhelper_112',['STRINGIFY_HELPER',['../d9/d4b/CMakeCCompilerId_8c.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d',1,'CMakeCCompilerId.c']]],
-  ['substitute_5faliases_113',['substitute_aliases',['../d8/d7f/aliases_8h.html#a58e51dce763e7df30c546ddbc153d80b',1,'substitute_aliases(WordStore *, const AliasStore *):&#160;aliases.c'],['../d9/dfe/aliases_8c.html#afc195616079d25facd5234b1c8df3064',1,'substitute_aliases(WordStore *word_store, const AliasStore *alias_store):&#160;aliases.c']]],
-  ['substitute_5fvariables_114',['substitute_variables',['../de/dca/variables_8h.html#a8b78ee956e5d49052a630f2cd482105e',1,'substitute_variables(WordStore *, const VariableStore *):&#160;variables.c'],['../d5/de8/variables_8c.html#a9d7c600bb935b272a96aa3b9427d29dc',1,'substitute_variables(WordStore *word_store, const VariableStore *variable_store):&#160;variables.c']]]
+  ['texture_5fblink_114',['texture_blink',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07a02fb897694f5c1eb6a1e61d7c01d6c96',1,'display.h']]],
+  ['texture_5fbold_115',['texture_bold',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07addf55abf86b6692d7dbe57ab3cfd4f97',1,'display.h']]],
+  ['texture_5fdim_116',['texture_dim',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07a18f98a3dd0d230fd9fce5b9c1dc15ad0',1,'display.h']]],
+  ['texture_5fhidden_117',['texture_hidden',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07ad9e4be568426a9f5c572b0023c582c1e',1,'display.h']]],
+  ['texture_5finvert_118',['texture_invert',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07ac6fc36f7fd0779ad7ad33000b3ece0c9',1,'display.h']]],
+  ['texture_5ft_119',['texture_t',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07',1,'texture_t():&#160;display.h'],['../d4/d68/display_8h.html#aab87d264384d1808fa10810c470d2391',1,'texture_t():&#160;display.h']]],
+  ['texture_5funderline_120',['texture_underline',['../d4/d68/display_8h.html#a278cf816cfceded64fa4949ec1e32d07a2612b2483773609c194a5a2631c4b34e',1,'display.h']]],
+  ['todo_2emd_121',['TODO.md',['../dc/d6a/TODO_8md.html',1,'']]],
+  ['type_122',['type',['../d0/dd3/structVariable.html#aeef2cd2fb7af25533ea814a03f652f6c',1,'Variable']]]
 ];

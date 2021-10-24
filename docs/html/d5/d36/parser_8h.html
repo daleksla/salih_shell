@@ -135,8 +135,8 @@ Functions</h2></td></tr>
 <tr class="separator:a5ab1c1bc11ba37a39aea1d036c454e82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d44656bb62e934bbb1a07df04ce6fd7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a3d44656bb62e934bbb1a07df04ce6fd7">read_input</a> (<a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *)</td></tr>
 <tr class="separator:a3d44656bb62e934bbb1a07df04ce6fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4128600dca087682566ef8ea7da78a39"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a4128600dca087682566ef8ea7da78a39">read_manager</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, <a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *)</td></tr>
-<tr class="separator:a4128600dca087682566ef8ea7da78a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8e8363e6bd88fc27e58cd2047b74328"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#af8e8363e6bd88fc27e58cd2047b74328">read_manager</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, <a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *, const int)</td></tr>
+<tr class="separator:af8e8363e6bd88fc27e58cd2047b74328"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88b5b96f794abf291dd426bc9ff9b749"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a88b5b96f794abf291dd426bc9ff9b749">word_store_add</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, char *)</td></tr>
 <tr class="separator:a88b5b96f794abf291dd426bc9ff9b749"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a6e07f97598595eb5e64a6055b23b4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a0a6e07f97598595eb5e64a6055b23b4d">word_store_fini</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *)</td></tr>
@@ -482,8 +482,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4128600dca087682566ef8ea7da78a39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4128600dca087682566ef8ea7da78a39">&#9670;&nbsp;</a></span>read_manager()</h2>
+<a id="af8e8363e6bd88fc27e58cd2047b74328"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8e8363e6bd88fc27e58cd2047b74328">&#9670;&nbsp;</a></span>read_manager()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -498,6 +498,12 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -511,6 +517,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> struct to possibly modify </td></tr>
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct containing tape of input (in case we need to resize) </td></tr>
+    <tr><td class="paramname">const</td><td>int as to whether we are to add to current input stored (ie complete a statement) or just write from the start </td></tr>
   </table>
   </dd>
 </dl>

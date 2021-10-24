@@ -69,22 +69,18 @@ Alias* find_alias(const char* alias_name, const AliasStore* alias_store)
 	return NULL ;
 }
 
-void substitute_aliases(WordStore* word_store, const AliasStore* alias_store)
+void substitute_alias(WordStore* word_store, const AliasStore* alias_store)
 {
-	for(size_t i = 1 ; i <= word_store->word_count ; ++i)
+	Alias* alias = find_alias(word_store->words[0], alias_store) ;
+	if(alias) // if alias was found
 	{
-		Alias* alias = find_alias(word_store->words[i-1], alias_store) ;
-		if(alias) // if alias was found
+		word_store_replace(word_store, alias->value, 1) ;
+		
+		char* tmp = strchr(alias->value, '\0') + 1 ;
+		for(size_t j = 1 ; j < alias->word_count ; ++j)
 		{
-			word_store_replace(word_store, alias->value, i) ; // where j represents an offset
-			
-			char* tmp = strchr(alias->value, '\0') + 1 ;
-			for(size_t j = 1 ; j < alias->word_count ; ++j)
-			{
-				word_store_insert(word_store, tmp, i+j) ; // where j represents an offset
-				tmp = strchr(tmp, '\0') + 1 ; // go to end of single word, then go one char next
-				//++i ;	
-			}
+			word_store_insert(word_store, tmp, j+1) ; // where j represents an offset
+			tmp = strchr(tmp, '\0') + 1 ; // go to end of single word, then go one char next
 		}
 	}
 }

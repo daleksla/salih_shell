@@ -110,8 +110,8 @@ Functions</h2></td></tr>
 <tr class="separator:a9c2a28f7256fae4c8252e83128b1a9ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bbc9a0200e367e389c409adddff525c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d95/structAlias.html">Alias</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfe/aliases_8c.html#a3bbc9a0200e367e389c409adddff525c">find_alias</a> (const char *alias_name, const <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> *alias_store)</td></tr>
 <tr class="separator:a3bbc9a0200e367e389c409adddff525c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc195616079d25facd5234b1c8df3064"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfe/aliases_8c.html#afc195616079d25facd5234b1c8df3064">substitute_aliases</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, const <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> *alias_store)</td></tr>
-<tr class="separator:afc195616079d25facd5234b1c8df3064"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96bf72f60287329fedf48defe1b98e20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfe/aliases_8c.html#a96bf72f60287329fedf48defe1b98e20">substitute_alias</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *word_store, const <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> *alias_store)</td></tr>
+<tr class="separator:a96bf72f60287329fedf48defe1b98e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8649130e1c2cdefd906d4f0f89a99579"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfe/aliases_8c.html#a8649130e1c2cdefd906d4f0f89a99579">update_alias</a> (<a class="el" href="../../d8/d95/structAlias.html">Alias</a> *alias, const char *data)</td></tr>
 <tr class="separator:a8649130e1c2cdefd906d4f0f89a99579"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -256,14 +256,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="afc195616079d25facd5234b1c8df3064"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc195616079d25facd5234b1c8df3064">&#9670;&nbsp;</a></span>substitute_aliases()</h2>
+<a id="a96bf72f60287329fedf48defe1b98e20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96bf72f60287329fedf48defe1b98e20">&#9670;&nbsp;</a></span>substitute_alias()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void substitute_aliases </td>
+          <td class="memname">void substitute_alias </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
           <td class="paramname">, </td>
@@ -281,7 +281,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>substitute_aliases is a function which goes through every word parsed and see if the word matches a given alias </p><dl class="params"><dt>Parameters</dt><dd>
+<p>substitute_alias is a function which attempts to substitute the first word with an alias </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> </td></tr>
     <tr><td class="paramname">const</td><td>pointer to <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> </td></tr>

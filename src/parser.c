@@ -30,6 +30,28 @@ void input_buffer_refresh(InputBuffer* input_buffer)
 	input_buffer->current_end = input_buffer->buffer ;
 }
 
+static char* mfgets(char* s, const size_t n, FILE* stream)
+{
+	size_t i = 0 ;
+	char tmp = fgetc(stream) ;
+	if(tmp == EOF) return NULL ;
+	//else 
+	*s = tmp ;
+	for(i = 1 ; i < n - 1 ; ++i)
+	{
+		tmp = fgetc(stream) ;
+		s[i] = tmp ;
+		if(tmp == EOF || tmp == ';' || tmp == '\n')
+		{
+			break ;
+		}
+	}
+	
+	s[i+1] = '\0' ;
+	
+	return s ;
+}
+
 int read_input(InputBuffer* input_buffer)
 {
 	fflush(stdout) ;
@@ -37,13 +59,13 @@ int read_input(InputBuffer* input_buffer)
 	// initial read
 	char* temp_start = input_buffer->current_start ;
 	
-	int was_sucess = (int)fgets(temp_start, input_buffer->size - (temp_start - input_buffer->buffer), input_buffer->src) ;
+	int was_sucess = (int)mfgets(temp_start, input_buffer->size - (temp_start - input_buffer->buffer), input_buffer->src) ;
 	if(!was_sucess) // if we couldn't read anything even once
 	{
 		return -1 ;
 	}
 
-	while(strchr(temp_start, '\n') == NULL)  // if theres still text before user hit enter key / new line
+	while(strchr(temp_start, '\n') == NULL && strchr(temp_start, ';') == NULL)  // if theres still text before user hit enter key / new line
 	{
 		// increase and initialise buffer and adjust pointers
 		input_buffer->current_end = strchr(temp_start, '\0') ;
@@ -56,10 +78,18 @@ int read_input(InputBuffer* input_buffer)
 		input_buffer->current_end = input_buffer->buffer + ptr_diff_end ;
 		temp_start = input_buffer->current_end ; // set place to now start writing to
 		memset(temp_start, EOF, input_buffer->size / 2) ;
-		was_sucess = (int)fgets(temp_start, input_buffer->size / 2, input_buffer->src) ;
+		was_sucess = (int)mfgets(temp_start, input_buffer->size / 2, input_buffer->src) ;
 	}
 	
-	input_buffer->current_end = strchr(temp_start, '\n') ;
+	char* tmpN = strchr(temp_start, '\n') ;
+	char* tmpS = strchr(temp_start, ';') ;
+	
+	if(!tmpN) input_buffer->current_end = tmpS ;
+	else if(!tmpS) input_buffer->current_end = tmpN ;
+	else {
+		if(tmpN < tmpS) input_buffer->current_end = tmpN ;
+		else input_buffer->current_end = tmpS ;
+	}
 
 	return 0 ;
 }
@@ -229,7 +259,7 @@ int dissect(InputBuffer* input_buffer, WordStore* word_store)
 
 int is_whitespace(const char i)
 {
-	if(i == ' ' || i == '\t' || i == '\n' || i == EOF || i == '\0')
+	if(i == ' ' || i == '\t' || i == '\n' || i == EOF || i == '\0' || i == ';')
 	{
 		return 1 ;
 	}
@@ -299,15 +329,22 @@ int read_manager(WordStore* word_store, InputBuffer* input_buffer, int append_mo
 	/* Request input, tinker display */
 	if(input_buffer->src == stdin)
 	{
-		static const char* USER = NULL ;
-		if(!USER) USER = getenv("USER") ;
+		if(append_mode)
+		{
+			fprintf(stdout, "< ") ;
+			fflush(stdout) ; 
+		}
+		else {
+			static const char* USER = NULL ;
+			if(!USER) USER = getenv("USER") ;
 		
-		char dir[PATH_MAX] ;
-		getcwd(dir, PATH_MAX) ;
-		set_display(texture_bold, foreground_white, background_magenta) ;
-		fprintf(stdout, "%s%c%s", USER, ':', dir) ;
-		reset_display() ;
-		strcmp(USER, "root") == 0 ? fprintf(stdout, "%s", "# ") : fprintf(stdout, "%s", "$ ") ;
+			char dir[PATH_MAX] ;
+			getcwd(dir, PATH_MAX) ;
+			set_display(texture_bold, foreground_white, background_magenta) ;
+			fprintf(stdout, "%s%c%s", USER, ':', dir) ;
+			reset_display() ;
+			strcmp(USER, "root") == 0 ? fprintf(stdout, "%s", "# ") : fprintf(stdout, "%s", "$ ") ;
+		}
 	}
 	
 	/* Get, store & parse input */
@@ -327,6 +364,5 @@ int read_manager(WordStore* word_store, InputBuffer* input_buffer, int append_mo
 	//fprintf(stdout, "dissect ret: %d\n", rets) ;
 	if(pre_rets != 0) return -2 ; // load word_store up with parsed data
 				       // if no words were found, next line
-				       
 	return 0 ;
 }

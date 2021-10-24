@@ -71,9 +71,8 @@ to do list</h1>
 <h2><a class="anchor" id="autotoc_md4"></a>
 HIGH PRIORITY</h2>
 <ol type="1">
-<li>implement <code>if statement</code> functionality by creating function, which copies condition and implements body</li>
-<li>when implementing a full interpretter with controlled scopes (ifs, fors, while, etc.), the user must input the whole thing first <blockquote class="doxtable">
-<p>ie. keyword (eg. <code>if</code>) detected, after keyword (eg. <code>then</code>) store condition statement, store each command in an array, after endword (eg. <code>fi</code>) is detected, evaluate and run </p>
+<li>implement <code>if statement</code> functionality by creating function, which copies condition and implements body <blockquote class="doxtable">
+<p>save condition as local variable until keyword <code>then</code> then keep writing to the <code>input_buffer</code>, seperating each line of input with a <code>NULL</code> ptr once <code>fi</code> is detected, run condition </p>
 </blockquote>
 </li>
 <li>substitute variables and aliases for each statement, not for a whole block of text given</li>

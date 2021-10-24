@@ -53,10 +53,10 @@ int update_alias(Alias*, const char*) ;
   * @return pointer to a Alias struct (if found), else NULL **/ 
 Alias* find_alias(const char*, const AliasStore*) ; 
 
-/** substitute_aliases is a function which goes through every word parsed and see if the word matches a given alias
+/** substitute_alias is a function which attempts to substitute the first word with an alias
   * @param pointer to WordStore
   * @param const pointer to AliasStore **/ 
-void substitute_aliases(WordStore*, const AliasStore*) ;
+void substitute_alias(WordStore*, const AliasStore*) ;
 
 /** Deinitialises AliasStore structure
   * @param pointer to AliasStore struct variable **/ 

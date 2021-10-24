@@ -24,8 +24,6 @@ int run_manager(WordStore* word_store, VariableStore* variable_store, AliasStore
 		run_rets = run_if(word_store, variable_store, alias_store, input_buffer) ;
 	}
 	else {
-		substitute_variables(word_store, variable_store) ; // now replace any variables
-		substitute_aliases(word_store, alias_store) ; // replace with store aliases
 		run_rets = run_statement(word_store, variable_store, alias_store, input_buffer) ;
 	}
 	
@@ -41,8 +39,6 @@ int run_if(WordStore* word_store, VariableStore* variable_store, AliasStore* ali
 	--word_store->word_count ;
 	
 	// find 'then', indicating end-point of condition
-	substitute_variables(word_store, variable_store) ; // now replace any variables
-	substitute_aliases(word_store, alias_store) ; // replace with store aliases
 	size_t i ;
 	for(i = 0 ; i < word_store->word_count ; ++i)
 	{
@@ -51,8 +47,8 @@ int run_if(WordStore* word_store, VariableStore* variable_store, AliasStore* ali
 			break ;
 		}
 	}
-	fprintf(stdout, "%zu\n", i) ;
-	fprintf(stdout, "%zu\n", word_store->word_count) ;
+	//fprintf(stdout, "%zu\n", i) ;
+	//fprintf(stdout, "%zu\n", word_store->word_count) ;
 	if(i == word_store->word_count) 
 	{
 		int cond = 0 ;
@@ -69,14 +65,12 @@ int run_if(WordStore* word_store, VariableStore* variable_store, AliasStore* ali
 				continue ;
 			}
 			--i ;
-			fprintf(stdout, "on word: %s\n", word_store->words[i]) ;
-			substitute_variables(word_store, variable_store) ; // now replace any variables
-			substitute_aliases(word_store, alias_store) ; // replace with store aliases
+
 			for( ; i < word_store->word_count ; ++i)
 			{
 				if(strcmp(word_store->words[i], "then") == 0)
 				{
-					fprintf(stdout, "`%s` keyword detected\n", "then") ;
+					//fprintf(stdout, "`%s` keyword detected\n", "then") ;
 					cond = 1 ;
 					break ;
 				}
@@ -113,6 +107,7 @@ int run_if(WordStore* word_store, VariableStore* variable_store, AliasStore* ali
 			else if(rets == -1)
 			{
 				fprintf(stderr, "%s\n", "Error: EOF detected before valid delimeters / statements!") ;
+				return -1 ;
 			}
 			else { // if rets == 0
 				if(strcmp(word_store->words[0], "fi") == 0) break ; 
@@ -128,6 +123,7 @@ int run_if(WordStore* word_store, VariableStore* variable_store, AliasStore* ali
 			if(rets == -1)
 			{
 				fprintf(stderr, "%s\n", "Error: EOF detected before valid delimeters / statements!") ;
+				return -1 ;
 			}
 			else if(rets == 0)
 			{
@@ -136,22 +132,30 @@ int run_if(WordStore* word_store, VariableStore* variable_store, AliasStore* ali
 		}			
 	}
 	
+	if(word_store->word_count > 1)
+	{
+		fprintf(stderr, "Error: irrelevant token `%s` detected after `fi` delimeter\n", word_store->words[1]) ;
+		return -2 ;
+	}
+	
 	return rets ;
 }
 
 int run_statement(WordStore* word_store, VariableStore* variable_store, AliasStore* alias_store, InputBuffer* input_buffer)
 {
 	int return_status ;
-
 	/* check for special commands, which will change how we execute the statement (eg pipes) */
 	char* pipe_ptr = NULL ;
 	char* fs_ptr = NULL ;
+	char* and_ptr = NULL ;
+	char* or_ptr = NULL ;
 	size_t i ; // record where to split word input
 	for(i = 0 ; i < word_store->word_count ; ++i)
 	{
+		and_ptr = (word_store->words[i][0] == '&' ? word_store->words[i] : NULL) ;
 		pipe_ptr = (word_store->words[i][0] == '|' ? word_store->words[i] : NULL) ;
 		fs_ptr = (word_store->words[i][0] == '>' ? word_store->words[i] : NULL) ;
-		if(pipe_ptr || fs_ptr)
+		if(pipe_ptr || fs_ptr || and_ptr)
 		{
 			if(i == 0)
 			{
@@ -172,7 +176,13 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 					continue ;
 			}
 			pipe_ptr = (word_store->words[i][0] == '|' ? word_store->words[i] : NULL) ;
+			if(word_store->words[i][1]) // if its not pipe, but or ('|')
+			{
+			    or_ptr = pipe_ptr ;
+			    pipe_ptr = NULL ;
+			}
 			fs_ptr = (word_store->words[i][0] == '>' ? word_store->words[i] : NULL) ;
+			and_ptr = (word_store->words[i][0] == '&' ? word_store->words[i] : NULL) ;
 			break ; 
 		}
 	}
@@ -217,6 +227,50 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 		
 		*pipe_ptr = '|' ; // when all is said and done, restore pipe symbol
 		word_store->words[i] = pipe_ptr ;
+	}
+	else if(and_ptr) // if '&' symbol detected first
+	{
+		*and_ptr = '\0' ;
+		
+		WordStore half_store ;
+		half_store._size = 0 ;
+		half_store.words = word_store->words ;
+		for(half_store.word_count = 0 ; half_store.word_count != (const size_t)i ; ++half_store.word_count) ;
+		word_store->words[i] = NULL ;
+
+		return_status = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
+
+		half_store.words = word_store->words + i + 1 ;
+		half_store.word_count = 0 ;
+		for(size_t j = i+1 ; j != word_store->word_count ; ++j) ++half_store.word_count ;
+
+		int tmp = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
+		return_status = tmp && return_status ;
+		
+		*and_ptr = '&' ; // when all is said and done, restore & symbol
+		word_store->words[i] = and_ptr ;
+	}
+	else if(or_ptr) // if '&' symbol detected first
+	{
+		*or_ptr = '\0' ;
+		
+		WordStore half_store ;
+		half_store._size = 0 ;
+		half_store.words = word_store->words ;
+		for(half_store.word_count = 0 ; half_store.word_count != (const size_t)i ; ++half_store.word_count) ;
+		word_store->words[i] = NULL ;
+
+		return_status = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
+
+		half_store.words = word_store->words + i + 1 ;
+		half_store.word_count = 0 ;
+		for(size_t j = i+1 ; j != word_store->word_count ; ++j) ++half_store.word_count ;
+
+		int tmp = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
+		return_status = tmp || return_status ;
+		
+		*or_ptr = '|' ; // when all is said and done, restore & symbol
+		word_store->words[i] = or_ptr ;
 	}
 	else if(fs_ptr) // if '>' symbol detected first
 	{
@@ -268,7 +322,6 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 	}
 	else {	
 		return_status = exec_statement(word_store, variable_store, alias_store) ; // no need to create seperate wordstore containing seperate statement, just pass full statement
-		fprintf(stdout, "ret ses: %d\n", return_status) ;
 	}
 	
 	return return_status ;
@@ -386,7 +439,7 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store, AliasSt
 		char** i = environ ; // char** of all environmental variables
 		while(*i != NULL)
 		{
-			fprintf(stdout, "env iter: %s\n", *i) ;
+			//fprintf(stdout, "env iter: %s\n", *i) ;
 			char* point = strchr(*i, '=') ;
 			*point = '\0' ;
 			if(strcmp(*i, var_name) == 0)
@@ -522,6 +575,5 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store, AliasSt
 inline void post_statement(const int return_status, VariableStore* variable_store)
 {
 	/* set inherent shell variables recording execution information */
-			fprintf(stdout, "ret ses: %d\n", return_status) ;
 	update_variable_data(find_variable("?", variable_store), (const void*)&return_status) ; // store return_status
 }

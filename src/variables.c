@@ -103,6 +103,7 @@ void substitute_variables(WordStore* word_store, const VariableStore* variable_s
 {
 	for(size_t i = 0 ; i < word_store->word_count ; ++i)
 	{
+	    fprintf(stdout, "substitute_variables iter#%zu\n", i) ;
 		//char* point = strchr(word_store->words[i], '$') ;
 		char* point = word_store->words[i] ;
 		if(*point == '$' && !is_whitespace(point[1]) && point[1] != '(')
