@@ -323,7 +323,7 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 	else {	
 		return_status = exec_statement(word_store, variable_store, alias_store) ; // no need to create seperate wordstore containing seperate statement, just pass full statement
 	}
-	
+    post_statement(return_status, variable_store) ;
 	return return_status ;
 }
 
@@ -566,9 +566,7 @@ int exec_statement(WordStore* word_store, VariableStore* variable_store, AliasSt
 			wait(&return_status) ; // saves return status of child process
 		}
 	}
-	end: // i would like to make it clear whilst I hate gotos, I had no choice due to the nesting of the if statements
-	     // plus it makes the code look cleaner whilst making my bloody life easier
-	post_statement((const int)return_status, variable_store) ;
+	end:
 	return return_status ;
 }
 
