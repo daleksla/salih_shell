@@ -34,14 +34,6 @@ int run_if(WordStore*, VariableStore*, AliasStore*, InputBuffer*) ;
   * @return exit code of running of statement **/
 int run_statement(WordStore*, VariableStore*, AliasStore*, InputBuffer*) ;
 
-/** run_boolean function does a boolean comparison based on a given portion of code
-  * @param pointer to WordStore struct containing words amounting to statement to attempt to execute
-  * @param pointer to VariableStore struct to possibly modify
-  * @param pointer to AliasStore struct to possibly modify
-  * @param pointer to InputBuffer struct containing tape of input (in case we need to resize)
-  * @return exit code of running of statement (0 is true, 1 otherwise)**/
-int run_boolean(WordStore*, VariableStore*, AliasStore*, InputBuffer*) ;
-
 /** exec_statement function purely executes a statement based on given words
   * @param pointer to WordStore struct containing words amounting to statement to attempt to execute
   * @param pointer to VariableStore struct to possibly modify
