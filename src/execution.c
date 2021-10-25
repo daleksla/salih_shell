@@ -18,7 +18,8 @@
 int run_manager(WordStore* word_store, VariableStore* variable_store, AliasStore* alias_store, InputBuffer* input_buffer)
 {
 	int run_rets = 0 ;
-	
+	substitute_alias(word_store, alias_store) ;
+	substitute_variables(word_store, variable_store) ;
 	if(strcmp(word_store->words[0], "if") == 0)
 	{
 		run_rets = run_if(word_store, variable_store, alias_store, input_buffer) ;
@@ -116,7 +117,6 @@ int run_if(WordStore* word_store, VariableStore* variable_store, AliasStore* ali
 		}
 	}
 	else {
-		fprintf(stdout, "condition = %d\n", rets) ;
 		while(1)
 		{
 			rets = read_manager(word_store, input_buffer, 0) ;
@@ -279,7 +279,8 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 		const char* filename = word_store->words[word_store->word_count-1] ;
 		int fd = (fs_ptr[1] == '>' ? open(filename, O_APPEND | O_WRONLY | O_CREAT, 0777) : open(filename, O_WRONLY | O_CREAT, 0777)) ;
 		
-		int old_fd ;
+		int old_fd = -1 ;
+		int old_fd2 = -1 ;
 		int flag = 0 ;
 		int offset = 0 ;
 		if(strcmp(word_store->words[i-1], "2") == 0)
@@ -289,9 +290,17 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 			flag = 2 ;
 			offset = 1 ;
 		}
-		else {
+		else if(strcmp(word_store->words[i-1], "1") == 0)
+		{
 			old_fd = dup(fileno(stdout)) ;
 			dup2(fd, fileno(stdout)) ;
+		}
+		else if(strcmp(word_store->words[i-1], "&") == 0)
+		{
+			old_fd = dup(fileno(stdout)) ;
+			dup2(fd, fileno(stdout)) ;
+			old_fd2 = dup(fileno(stderr)) ;
+			dup2(fd, fileno(stderr)) ;
 		}
 		
 		if(flag == 0 && strcmp(word_store->words[i-1], "1") == 0)
@@ -308,17 +317,26 @@ int run_statement(WordStore* word_store, VariableStore* variable_store, AliasSto
 
 		return_status = run_statement(&half_store, variable_store, alias_store, input_buffer) ;
 		
-		if(flag == 2)
+		if(old_fd == 2)
 		{
 			dup2(old_fd, fileno(stderr)) ;
 		}
-		else {
-			dup2(old_fd, fileno(stdout)) ;
+		if(old_fd == 1)
+		{
+			dup2(old_fd, fileno(stderr)) ;		    
 		}
+		if(old_fd2 == 2)
+		{
+			dup2(old_fd2, fileno(stderr)) ;
+		}
+		if(old_fd2 == 1)
+		{
+			dup2(old_fd2, fileno(stderr)) ;		    
+		}		
 		
 		close(fd) ;
 		
-		*fs_ptr = '>' ; // when all is said and done, restore > symbol
+		*fs_ptr = '>' ; // when all is said and done, restore > symbol    
 	}
 	else {	
 		return_status = exec_statement(word_store, variable_store, alias_store) ; // no need to create seperate wordstore containing seperate statement, just pass full statement
