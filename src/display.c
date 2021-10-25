@@ -10,10 +10,12 @@
 
 void set_display(const texture_t i_texture, const foreground_t i_foreground, const background_t i_background)
 {
-	printf("\e[%d;%d;%dm", i_texture, i_foreground, i_background) ;
+	fprintf(stdout, "\e[%d;%d;%dm", i_texture, i_foreground, i_background) ;
+	fflush(stdout) ;
 }
 
 void reset_display(void)
 {
-	printf("\e[%d;m", reset_full) ;
+	fprintf(stdout, "\e[%d;m", reset_full) ;
+	fflush(stdout) ;
 }

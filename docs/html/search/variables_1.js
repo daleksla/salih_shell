@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['arg_5fcount_133',['arg_count',['../d5/d57/structCmdStore.html#a32e311bea2388237c4f9d78b52537f21',1,'CmdStore']]],
-  ['args_134',['args',['../d5/d57/structCmdStore.html#a365bd397b1ae100465dac9ddc4957c58',1,'CmdStore']]]
+  ['alias_5fcount_214',['alias_count',['../d7/de8/structAliasStore.html#aabaadb5666632fa77d64f893b850e508',1,'AliasStore']]],
+  ['aliases_215',['aliases',['../d7/de8/structAliasStore.html#a13b42301c95b215b8f7168d7a0c8303a',1,'AliasStore']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['user_139',['USER',['../d0/d3c/structEnvironment.html#a900c8e5b5837330ce0508bb81f25879c',1,'Environment']]]
+  ['current_5fend_217',['current_end',['../d7/d21/structInputBuffer.html#a445073e822a3bc385ccc558644d092cb',1,'InputBuffer']]],
+  ['current_5fstart_218',['current_start',['../d7/d21/structInputBuffer.html#a54321fec88f0be5f77e0abb51abe9105',1,'InputBuffer']]]
 ];

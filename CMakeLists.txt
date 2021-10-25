@@ -26,11 +26,13 @@ else()
 endif()
 
 # Output libname matches target name, with the usual extensions on your system
-add_library(environment src/environment.c)
-add_library(parser src/parser.c)
 add_library(display src/display.c)
+add_library(parser src/parser.c)
+add_library(variables src/variables.c)
+add_library(aliases src/aliases.c)
+add_library(execution src/execution.c)
 # Adding something we can run - Output name matches target name
 add_executable(salih_shell src/source.c)
 # Make sure you link your targets with this command. It can also link libraries and
 # even flags, so linking a target that does not exist will not give a configure-time error
-target_link_libraries(salih_shell environment parser display)
+target_link_libraries(salih_shell display parser aliases variables execution)

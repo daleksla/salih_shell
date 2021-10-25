@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['environment_39',['Environment',['../d0/d3c/structEnvironment.html',1,'']]],
-  ['environment_2ec_40',['environment.c',['../dc/d2c/environment_8c.html',1,'']]],
-  ['environment_2eh_41',['environment.h',['../de/d26/environment_8h.html',1,'']]],
-  ['environment_5ffini_42',['environment_fini',['../de/d26/environment_8h.html#adbd0cf07330c8644ca2c562bfa18c3c7',1,'environment_fini(Environment *):&#160;environment.c'],['../dc/d2c/environment_8c.html#a2a2f3e193138698f6d171d2ad702b68e',1,'environment_fini(Environment *env):&#160;environment.c']]],
-  ['environment_5finit_43',['environment_init',['../de/d26/environment_8h.html#aae8f4745cd018e34efdf760c70d5de26',1,'environment_init(Environment *):&#160;environment.c'],['../dc/d2c/environment_8c.html#a47c6ca05c0782a8c3174d6325c992645',1,'environment_init(Environment *env):&#160;environment.c']]]
+  ['exec_5fstatement_43',['exec_statement',['../dd/d01/execution_8h.html#aa889c6e0bbfa2171b1cc3a1595045c64',1,'exec_statement(WordStore *, VariableStore *, AliasStore *):&#160;execution.c'],['../d0/dda/execution_8c.html#a37a1cc4ba26c4c70a5cdf5e0c3da3459',1,'exec_statement(WordStore *word_store, VariableStore *variable_store, AliasStore *alias_store):&#160;execution.c']]],
+  ['execution_2ec_44',['execution.c',['../d0/dda/execution_8c.html',1,'']]],
+  ['execution_2eh_45',['execution.h',['../dd/d01/execution_8h.html',1,'']]]
 ];

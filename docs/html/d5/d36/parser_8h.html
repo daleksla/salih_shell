@@ -74,13 +74,15 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;stddef.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for parser.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/de2/parser_8h__incl.png" border="0" usemap="#include_2parser_8h" alt=""/></div>
 <map name="include_2parser_8h" id="include_2parser_8h">
-<area shape="rect" title=" " alt="" coords="5,5,131,32"/>
-<area shape="rect" title=" " alt="" coords="31,80,105,107"/>
+<area shape="rect" title=" " alt="" coords="27,5,152,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,80,107"/>
+<area shape="rect" title=" " alt="" coords="104,80,171,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -88,9 +90,15 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d0e/parser_8h__dep__incl.png" border="0" usemap="#include_2parser_8hdep" alt=""/></div>
 <map name="include_2parser_8hdep" id="include_2parser_8hdep">
-<area shape="rect" title=" " alt="" coords="51,5,176,32"/>
-<area shape="rect" href="../../d2/d72/parser_8c.html" title=" " alt="" coords="5,80,101,107"/>
-<area shape="rect" href="../../d9/d97/source_8c.html" title=" " alt="" coords="125,80,224,107"/>
+<area shape="rect" title=" " alt="" coords="271,5,396,32"/>
+<area shape="rect" href="../../d8/d7f/aliases_8h.html" title=" " alt="" coords="111,80,242,107"/>
+<area shape="rect" href="../../dd/d01/execution_8h.html" title=" " alt="" coords="201,155,349,181"/>
+<area shape="rect" href="../../d0/dda/execution_8c.html" title=" " alt="" coords="378,229,497,256"/>
+<area shape="rect" href="../../d9/d97/source_8c.html" title=" " alt="" coords="170,229,268,256"/>
+<area shape="rect" href="../../d9/dfe/aliases_8c.html" title=" " alt="" coords="22,155,125,181"/>
+<area shape="rect" href="../../de/dca/variables_8h.html" title=" " alt="" coords="317,80,462,107"/>
+<area shape="rect" href="../../d5/de8/variables_8c.html" title=" " alt="" coords="476,155,592,181"/>
+<area shape="rect" href="../../d2/d72/parser_8c.html" title=" " alt="" coords="667,80,763,107"/>
 </map>
 </div>
 </div>
@@ -98,98 +106,156 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d57/structCmdStore.html">CmdStore</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a57ebf438cacd63cbbf88c267f4cd1d9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a57ebf438cacd63cbbf88c267f4cd1d9a">cmd_store_fini</a> (<a class="el" href="../../d5/d57/structCmdStore.html">CmdStore</a> *)</td></tr>
-<tr class="separator:a57ebf438cacd63cbbf88c267f4cd1d9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa13551b4f4b2c9e84c177250f75ed175"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#aa13551b4f4b2c9e84c177250f75ed175">cmd_store_init</a> (<a class="el" href="../../d5/d57/structCmdStore.html">CmdStore</a> *)</td></tr>
-<tr class="separator:aa13551b4f4b2c9e84c177250f75ed175"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacd1e5ad37a34ca63cb71b3505f86155"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#aacd1e5ad37a34ca63cb71b3505f86155">cmd_store_refresh</a> (<a class="el" href="../../d5/d57/structCmdStore.html">CmdStore</a> *)</td></tr>
-<tr class="separator:aacd1e5ad37a34ca63cb71b3505f86155"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8df8aca529326f97b22afea037c3c594"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a8df8aca529326f97b22afea037c3c594">dissect</a> (<a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *, <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *)</td></tr>
+<tr class="separator:a8df8aca529326f97b22afea037c3c594"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae90d45fa08da44c5e661e222821e54df"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#ae90d45fa08da44c5e661e222821e54df">find_content</a> (const char *, const size_t)</td></tr>
+<tr class="separator:ae90d45fa08da44c5e661e222821e54df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97eed35d8ab7839859535106b31c205e"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a97eed35d8ab7839859535106b31c205e">find_special</a> (const char *, const size_t)</td></tr>
+<tr class="separator:a97eed35d8ab7839859535106b31c205e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a771f9dce444a86b9395e61fb344495"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a3a771f9dce444a86b9395e61fb344495">find_text</a> (const char *, const size_t)</td></tr>
 <tr class="separator:a3a771f9dce444a86b9395e61fb344495"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05d8b46af444d2f5715ac0e43104968f"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a05d8b46af444d2f5715ac0e43104968f">find_whitespace</a> (const char *, const size_t)</td></tr>
 <tr class="separator:a05d8b46af444d2f5715ac0e43104968f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d748e622caa40b26f22fde5b2bc73a9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a4d748e622caa40b26f22fde5b2bc73a9">parse</a> (char *, const size_t, <a class="el" href="../../d5/d57/structCmdStore.html">CmdStore</a> *)</td></tr>
-<tr class="separator:a4d748e622caa40b26f22fde5b2bc73a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cf66973c6721ee957e3a8b7fb057f1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a0cf66973c6721ee957e3a8b7fb057f1b">input_buffer_fini</a> (<a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *)</td></tr>
+<tr class="separator:a0cf66973c6721ee957e3a8b7fb057f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae23d5b4b82dd9ffedd5ab271d6d62dbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#ae23d5b4b82dd9ffedd5ab271d6d62dbf">input_buffer_init</a> (<a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *)</td></tr>
+<tr class="separator:ae23d5b4b82dd9ffedd5ab271d6d62dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b26f5fefb4559ed974e42bb9f8dcbbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a2b26f5fefb4559ed974e42bb9f8dcbbf">input_buffer_refresh</a> (<a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *)</td></tr>
+<tr class="separator:a2b26f5fefb4559ed974e42bb9f8dcbbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4efca5f22643c7cdd9ec55b13e09d0a9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a4efca5f22643c7cdd9ec55b13e09d0a9">is_special</a> (const char)</td></tr>
+<tr class="separator:a4efca5f22643c7cdd9ec55b13e09d0a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ab1c1bc11ba37a39aea1d036c454e82"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a5ab1c1bc11ba37a39aea1d036c454e82">is_whitespace</a> (const char)</td></tr>
+<tr class="separator:a5ab1c1bc11ba37a39aea1d036c454e82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d44656bb62e934bbb1a07df04ce6fd7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a3d44656bb62e934bbb1a07df04ce6fd7">read_input</a> (<a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *)</td></tr>
+<tr class="separator:a3d44656bb62e934bbb1a07df04ce6fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8e8363e6bd88fc27e58cd2047b74328"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#af8e8363e6bd88fc27e58cd2047b74328">read_manager</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, <a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *, const int)</td></tr>
+<tr class="separator:af8e8363e6bd88fc27e58cd2047b74328"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88b5b96f794abf291dd426bc9ff9b749"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a88b5b96f794abf291dd426bc9ff9b749">word_store_add</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, char *)</td></tr>
+<tr class="separator:a88b5b96f794abf291dd426bc9ff9b749"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a6e07f97598595eb5e64a6055b23b4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a0a6e07f97598595eb5e64a6055b23b4d">word_store_fini</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *)</td></tr>
+<tr class="separator:a0a6e07f97598595eb5e64a6055b23b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66997b1eddd1a5d708aa537b8b10ea9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#a66997b1eddd1a5d708aa537b8b10ea9a">word_store_init</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, const size_t)</td></tr>
+<tr class="separator:a66997b1eddd1a5d708aa537b8b10ea9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa33aef98e4ee6612cb05b6ef15a5102"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#afa33aef98e4ee6612cb05b6ef15a5102">word_store_insert</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, char *, const size_t)</td></tr>
+<tr class="separator:afa33aef98e4ee6612cb05b6ef15a5102"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaa73dc99c011d8f97ec066eab7e3ef8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#acaa73dc99c011d8f97ec066eab7e3ef8">word_store_refresh</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *)</td></tr>
+<tr class="separator:acaa73dc99c011d8f97ec066eab7e3ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6308dfb36131bf96d52c0487ddd7c62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d36/parser_8h.html#ae6308dfb36131bf96d52c0487ddd7c62">word_store_replace</a> (<a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *, char *, const size_t)</td></tr>
+<tr class="separator:ae6308dfb36131bf96d52c0487ddd7c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a57ebf438cacd63cbbf88c267f4cd1d9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57ebf438cacd63cbbf88c267f4cd1d9a">&#9670;&nbsp;</a></span>cmd_store_fini()</h2>
+<a id="a8df8aca529326f97b22afea037c3c594"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8df8aca529326f97b22afea037c3c594">&#9670;&nbsp;</a></span>dissect()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void cmd_store_fini </td>
+          <td class="memname">int dissect </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d5/d57/structCmdStore.html">CmdStore</a> *&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Deinitialises <a class="el" href="../../d5/d57/structCmdStore.html" title="Declarations relating to parsing user input.">CmdStore</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
+<p>dissect scans user input and splits relevant info it into commands, arguments etc. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d5/d57/structCmdStore.html" title="Declarations relating to parsing user input.">CmdStore</a> struct variable </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct containing start and end point to read in contained buffer </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct variable to load with information </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>int acting as boolean, to whether operation occured sucessfully </dd></dl>
 
 </div>
 </div>
-<a id="aa13551b4f4b2c9e84c177250f75ed175"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa13551b4f4b2c9e84c177250f75ed175">&#9670;&nbsp;</a></span>cmd_store_init()</h2>
+<a id="ae90d45fa08da44c5e661e222821e54df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae90d45fa08da44c5e661e222821e54df">&#9670;&nbsp;</a></span>find_content()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void cmd_store_init </td>
+          <td class="memname">char* find_content </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d5/d57/structCmdStore.html">CmdStore</a> *&#160;</td>
-          <td class="paramname"><em>cmd_store</em></td><td>)</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const&#160;</td>
+          <td class="paramname"><em>size_t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Functionality relating to parsing input. </p>
-<p>Initialises <a class="el" href="../../d5/d57/structCmdStore.html" title="Declarations relating to parsing user input.">CmdStore</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
+<p>find_special finds any type of non whitespace </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d5/d57/structCmdStore.html" title="Declarations relating to parsing user input.">CmdStore</a> struct variable</td></tr>
+    <tr><td class="paramname">const</td><td>char* being the string buffer we're searching through </td></tr>
+    <tr><td class="paramname">const</td><td>size_t relating to the maximum amount of bytes we can search through from the starting point </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section author"><dt>Author</dt><dd>Salih Ahmed </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>3 Aug 2021 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>pointer to byte storing first instance of text </dd></dl>
 
 </div>
 </div>
-<a id="aacd1e5ad37a34ca63cb71b3505f86155"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aacd1e5ad37a34ca63cb71b3505f86155">&#9670;&nbsp;</a></span>cmd_store_refresh()</h2>
+<a id="a97eed35d8ab7839859535106b31c205e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97eed35d8ab7839859535106b31c205e">&#9670;&nbsp;</a></span>find_special()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void cmd_store_refresh </td>
+          <td class="memname">char* find_special </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d5/d57/structCmdStore.html">CmdStore</a> *&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const&#160;</td>
+          <td class="paramname"><em>size_t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Resets <a class="el" href="../../d5/d57/structCmdStore.html" title="Declarations relating to parsing user input.">CmdStore</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
+<p>find_special finds first a special symbol, returns NULL if no special symbols are available </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d5/d57/structCmdStore.html" title="Declarations relating to parsing user input.">CmdStore</a> struct variable </td></tr>
+    <tr><td class="paramname">const</td><td>char* being the string buffer we're searching through </td></tr>
+    <tr><td class="paramname">const</td><td>size_t relating to the maximum amount of bytes we can search through from the starting point </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>pointer to byte storing first instance of text </dd></dl>
 
 </div>
 </div>
@@ -265,28 +331,179 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4d748e622caa40b26f22fde5b2bc73a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d748e622caa40b26f22fde5b2bc73a9">&#9670;&nbsp;</a></span>parse()</h2>
+<a id="a0cf66973c6721ee957e3a8b7fb057f1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cf66973c6721ee957e3a8b7fb057f1b">&#9670;&nbsp;</a></span>input_buffer_fini()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int parse </td>
+          <td class="memname">void input_buffer_fini </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Deinitialises <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct variable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae23d5b4b82dd9ffedd5ab271d6d62dbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae23d5b4b82dd9ffedd5ab271d6d62dbf">&#9670;&nbsp;</a></span>input_buffer_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void input_buffer_init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
+          <td class="paramname"><em>input_buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Functionality relating to parsing input (ie literally dissecting input aswell as understanding and running it) </p>
+<p>Initialises <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct variable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Salih Ahmed </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>3 Aug 2021 </dd></dl>
+
+</div>
+</div>
+<a id="a2b26f5fefb4559ed974e42bb9f8dcbbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b26f5fefb4559ed974e42bb9f8dcbbf">&#9670;&nbsp;</a></span>input_buffer_refresh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void input_buffer_refresh </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Resets <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct variable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4efca5f22643c7cdd9ec55b13e09d0a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4efca5f22643c7cdd9ec55b13e09d0a9">&#9670;&nbsp;</a></span>is_special()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_special </td>
+          <td>(</td>
+          <td class="paramtype">const char&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>is_special determines whether a given character is a 'special symbol' (ie not plain text, but a command) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">const</td><td>char to determine whether its a special character </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int storing boolean, where true means given char is a special symbol, else false </dd></dl>
+
+</div>
+</div>
+<a id="a5ab1c1bc11ba37a39aea1d036c454e82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ab1c1bc11ba37a39aea1d036c454e82">&#9670;&nbsp;</a></span>is_whitespace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_whitespace </td>
+          <td>(</td>
+          <td class="paramtype">const char&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>is_whitespace determines whether a given character is a 'whitespace char' </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">const</td><td>char to determine whether its a whitespace character </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int storing boolean, where true means given char is a whitespace, else false </dd></dl>
+
+</div>
+</div>
+<a id="a3d44656bb62e934bbb1a07df04ce6fd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d44656bb62e934bbb1a07df04ce6fd7">&#9670;&nbsp;</a></span>read_input()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int read_input </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Reads user input into <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> structure from a given FILE stream </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct variable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>exit code status (0 if success and something was read, -1 if EOF) </dd></dl>
+
+</div>
+</div>
+<a id="af8e8363e6bd88fc27e58cd2047b74328"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8e8363e6bd88fc27e58cd2047b74328">&#9670;&nbsp;</a></span>read_manager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int read_manager </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const&#160;</td>
-          <td class="paramname"><em>size_t</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d7/d21/structInputBuffer.html">InputBuffer</a> *&#160;</td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d5/d57/structCmdStore.html">CmdStore</a> *&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -296,15 +513,217 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>parse scans user input and splits relevant info it into commands, arguments etc. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>read_manager function facilitates function calls to receive input &amp; to parse it </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pointer</td><td>to input buffer </td></tr>
-    <tr><td class="paramname">const</td><td>size_t of input buffer </td></tr>
-    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d5/d57/structCmdStore.html" title="Declarations relating to parsing user input.">CmdStore</a> struct variable to load with information </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/de8/structAliasStore.html">AliasStore</a> struct to possibly modify </td></tr>
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d7/d21/structInputBuffer.html" title="Declarations relating to parsing user input (ie literally dissecting input aswell as understanding an...">InputBuffer</a> struct containing tape of input (in case we need to resize) </td></tr>
+    <tr><td class="paramname">const</td><td>int as to whether we are to add to current input stored (ie complete a statement) or just write from the start </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int acting as boolean, to whether operation occured sucessfully </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>exit code relating to outcome occured of reading </dd></dl>
+
+</div>
+</div>
+<a id="a88b5b96f794abf291dd426bc9ff9b749"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88b5b96f794abf291dd426bc9ff9b749">&#9670;&nbsp;</a></span>word_store_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void word_store_add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adds record of a detected word to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct variable </td></tr>
+    <tr><td class="paramname">char*</td><td>to first character of a word </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0a6e07f97598595eb5e64a6055b23b4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a6e07f97598595eb5e64a6055b23b4d">&#9670;&nbsp;</a></span>word_store_fini()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void word_store_fini </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Deinitialises <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct variable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a66997b1eddd1a5d708aa537b8b10ea9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66997b1eddd1a5d708aa537b8b10ea9a">&#9670;&nbsp;</a></span>word_store_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void word_store_init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const&#160;</td>
+          <td class="paramname"><em>size_t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Initialises <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct variable </td></tr>
+    <tr><td class="paramname">const</td><td>size_t specific amount of memory to allocate (if word count is known, 0 indicates to allocate arbitary amount) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afa33aef98e4ee6612cb05b6ef15a5102"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa33aef98e4ee6612cb05b6ef15a5102">&#9670;&nbsp;</a></span>word_store_insert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void word_store_insert </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const&#160;</td>
+          <td class="paramname"><em>size_t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Inserts record of a detected word to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> structure into specified position (to avoid word_store_add having unneeded runtime overhead) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct variable </td></tr>
+    <tr><td class="paramname">char*</td><td>to first character of a word </td></tr>
+    <tr><td class="paramname">const</td><td>size_t relating to position to enter word into </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acaa73dc99c011d8f97ec066eab7e3ef8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaa73dc99c011d8f97ec066eab7e3ef8">&#9670;&nbsp;</a></span>word_store_refresh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void word_store_refresh </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Resets <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> structure </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct variable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae6308dfb36131bf96d52c0487ddd7c62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6308dfb36131bf96d52c0487ddd7c62">&#9670;&nbsp;</a></span>word_store_replace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void word_store_replace </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const&#160;</td>
+          <td class="paramname"><em>size_t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Replace word stored in <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> structure with another </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>to <a class="el" href="../../d6/d38/structWordStore.html">WordStore</a> struct variable </td></tr>
+    <tr><td class="paramname">char*</td><td>to first character of a word </td></tr>
+    <tr><td class="paramname">const</td><td>size_t relating to position to enter word into </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

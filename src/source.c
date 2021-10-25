@@ -1,15 +1,14 @@
 #define _GNU_SOURCE
-#include <unistd.h> // working dir, symbolic constants, exec*
-#include <sys/wait.h> // wait
 #include <signal.h> // signal handling
-#include <stddef.h> // type aliases
 #include <stdio.h> // IO ops
-#include <stdlib.h> // environmental variables
-#include <string.h> // memset
+#include <stdlib.h> // environmental variables, fopen
+#include <unistd.h> // get_current_dir_name
 
-#include "environment.h" // custom environment setup
+#include "aliases.h" // access user-defined aliases
+#include "variables.h" // structs and functions to access local and env environments
 #include "parser.h" // useful functions to help parse string input
-#include "display.h" // functions, enums and typedef's to control how text is displayed
+#include "execution.h" // functions relating to executing variables
+#include "display.h"
 
 /** @brief Source code to manage shell
   * @author Salih Ahmed
@@ -18,102 +17,76 @@
 /** main control code
   * @param int correlating to number to arguments
   * @param arguments themselves
-  * @param environmental variables
   * @return int as exit code **/
-int main(int, char**, char**) ;
-
-int main(int argc, char** argv, char** envp)
+int main(int argc, char** argv)
 {
-	/* variable setup(s) & config */
-	Environment env ;
-	CmdStore cmd_store ;
+	/* setup */
+	InputBuffer input_buffer ;
+	WordStore word_store ;
+	VariableStore variable_store ;
+	AliasStore alias_store ;
 	
-	environment_init(&env) ;
-	cmd_store_init(&cmd_store) ;
+	input_buffer_init(&input_buffer) ;
+	word_store_init(&word_store, 0) ;
+	variable_store_init(&variable_store) ;
+	int init = 0 ;
+	declare_variable("?", (const void*)&init, 'i', &variable_store) ;
+	declare_variable("#", (const void*)&argc, 'i', &variable_store) ;
+	alias_store_init(&alias_store) ;
 	
-	/* main functionality */
-	while(1)
+	declare_alias("ls", "ls --color=auto", &alias_store) ;
+	declare_alias("~", "/home/salih/", &alias_store) ;
+	declare_alias("grep", "grep --color=auto", &alias_store) ;
+	
+	if(argc >= 2)
 	{
-		cmd_store_refresh(&cmd_store) ;
-	
-		// Initialise variables
-		char buffer[1024] ; // serves as input buffer
-		memset(buffer, EOF, 1024) ;
-		size_t available = 1024 ; // stores available size in buffer for input
-		
-		// Get input
-		set_display(texture_bold, foreground_white, background_magenta) ;
-		printf("%s%s%s", env.USER, ":", env.WORKING_DIRECTORY) ;
-		reset_display() ;
-		printf("%s", "$ ") ;
-		
-		// Parse input
-		if(!fgets(buffer, available, stdin)) // if read isn't sucessful
-		{				      // and if it fails ...
-			break ;                      // try again
-		}
-		
-		if(!parse(buffer, available, &cmd_store)) // load cmd_store up with parsed data
-		{				           // and if it fails ...
-			continue ;                        // restart loop
-		}
-
-		// Execute instructions
-		if(strcmp(cmd_store.args[0], "cd") == 0)
+		if(argv[1][0] != '-')
 		{
-		
-			if(cmd_store.arg_count > 1)
+			input_buffer.src = fopen(argv[1], "r") ;
+			if(!input_buffer.src)
 			{
-				printf("%s\n", "Too many arguments provided!") ;
+				fprintf(stdout, "File `%s` does not exist!\n", argv[1]) ;
+				return -1 ;
 			}
-			else if(!change_directory(&env, cmd_store.args[1]))
+		} 
+		else {
+			for(int i = 1 ; i < argc ; ++i) // from first actual arg
 			{
-				printf("%s\n", "Invalid directory!") ;
+				if(argv[i-1][0] != '-') 
+				{
+					fprintf(stderr, "Option `%s` is invalid! (see `man salih_shell`)\n", argv[i-1]) ;
+					return -1 ;
+				}
+				// here, use a bunch of if statements to determine what to do
 			}
-			
-		}
-		else if(strcmp(cmd_store.args[0], "echo") == 0)
-		{
-		
-			for(size_t i = 0 ; i < cmd_store.arg_count ; ++i)
-			{
-				printf("%s", cmd_store.args[i+1]) ;
-			}
-			
-			printf("%c", '\n') ; // flush buffer, end w newline
-			
-		}
-		else if(strcmp(cmd_store.args[0], "quit") == 0)
-		{
-		
-			break ; // quit loop, EOP
-			
-		}
-		else { // ie just execute a regular command
-		
-			int pid = fork() ;
-			if(pid == 0)
-			{
- 				if(execvpe(cmd_store.args[0], cmd_store.args+1, envp) == -1)
- 				{
- 					printf("%s%s%s\n", "Command `", cmd_store.args[0], "` could not be executed!") ;
- 					kill(getpid(), SIGTERM) ; // since process couldn't be taken over by executable, kill it manually 					
- 					// may want to implement a 'did you mean?' feature
- 				}
-			}
-			else {
-				wait(NULL) ;
-			}
-			
 		}
 	}
-	
+
+	/* main functionality */
+	int read_rets = 0, run_rets = 0 ;
+	while(read_rets != -1) // if no EOF
+	{
+		read_rets = read_manager(&word_store, &input_buffer, 0) ;
+		if(word_store.word_count)
+		{
+			run_rets = run_manager(&word_store, &variable_store, &alias_store, &input_buffer) ;
+			if(input_buffer.src != stdin && run_rets != 0)
+			{
+				break ;
+			}
+		}
+	}
+
 	/* EndOfProgram */
-	reset_display() ;
-	printf("%c", '\n') ;
-	
-	environment_fini(&env) ;
-	cmd_store_fini(&cmd_store) ;
+	if(input_buffer.src == stdin)
+	{
+		reset_display() ;
+		fprintf(stdout, "%s%c", "Exiting...", '\n') ;
+	}
+	input_buffer_fini(&input_buffer) ;
+	word_store_fini(&word_store) ;
+	variable_store_fini(&variable_store) ;
+	alias_store_fini(&alias_store) ;
 	return 0 ;
 }
   
