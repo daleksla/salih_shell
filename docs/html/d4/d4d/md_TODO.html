@@ -71,6 +71,14 @@ to do list</h1>
 <h2><a class="anchor" id="autotoc_md4"></a>
 HIGH PRIORITY</h2>
 <ol type="1">
+<li>implement boolean statements, which are identified by two opening square brackets, the statement, and two closing square brackets <blockquote class="doxtable">
+<p>the output of the functions should be hidden (ie redirect <code>stdout</code> to <code>/dev/null</code>) implement as part of <code>run_statement</code> </p>
+</blockquote>
+</li>
+<li>modify boolean statements to also do comparisons <blockquote class="doxtable">
+<p>valid operators: <code>!</code>, <code>==</code>, <code>!=</code> </p>
+</blockquote>
+</li>
 <li>implement <code>if statement</code> functionality by creating function, which copies condition and implements body <blockquote class="doxtable">
 <p>save condition as local variable until keyword <code>then</code> then keep writing to the <code>input_buffer</code>, seperating each line of input with a <code>NULL</code> ptr once <code>fi</code> is detected, run condition </p>
 </blockquote>
@@ -80,7 +88,6 @@ HIGH PRIORITY</h2>
 <p>only if the src is stdin should a &gt; (indicating for user to input) be displayed when requesting more input </p>
 </blockquote>
 </li>
-<li>add <code>if</code> statements wherever memory allocation functions are use - do an assert to make sure they return valid address</li>
 </ol>
 <h2><a class="anchor" id="autotoc_md5"></a>
 LOW PRIORITY</h2>
