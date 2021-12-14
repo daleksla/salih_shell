@@ -1,6 +1,12 @@
 var searchData=
 [
-  ['update_5falias_126',['update_alias',['../d8/d7f/aliases_8h.html#a73fb10038319de1e8820d08eb230d056',1,'update_alias(Alias *, const char *):&#160;aliases.c'],['../d9/dfe/aliases_8c.html#a8649130e1c2cdefd906d4f0f89a99579',1,'update_alias(Alias *alias, const char *data):&#160;aliases.c']]],
-  ['update_5fvariable_5fdata_127',['update_variable_data',['../de/dca/variables_8h.html#abeca1ebe26baabc268576ed25a898605',1,'update_variable_data(Variable *, const void *):&#160;variables.c'],['../d5/de8/variables_8c.html#a5f6011e52fb9d87fd6df7596241c0043',1,'update_variable_data(Variable *variable, const void *data):&#160;variables.c']]],
-  ['update_5fvariable_5ftype_128',['update_variable_type',['../de/dca/variables_8h.html#acc33d561aae2184983594e129fa510f5',1,'update_variable_type(Variable *, const char):&#160;variables.c'],['../d5/de8/variables_8c.html#a5bf1f83aaec016928f18194aba2759b3',1,'update_variable_type(Variable *variable, const char type):&#160;variables.c']]]
+  ['value_126',['value',['../d8/d95/structAlias.html#a25db61ef0f3c3d77d99c9b0cbda608d5',1,'Alias::value()'],['../d0/dd3/structVariable.html#ab40942d93adc7c5156ff6ee3f3ea4c20',1,'Variable::value()']]],
+  ['variable_127',['Variable',['../d0/dd3/structVariable.html',1,'']]],
+  ['variable_5fcount_128',['variable_count',['../df/d55/structVariableStore.html#a1b11d0b781ebf33981dbccc5a10fbe34',1,'VariableStore']]],
+  ['variable_5fstore_5ffini_129',['variable_store_fini',['../de/dca/variables_8h.html#a75aba09ebd049ea585bec0695f385baa',1,'variable_store_fini(VariableStore *):&#160;variables.c'],['../d5/de8/variables_8c.html#aae0f45dc681f13e5f8f3ef32fef93a35',1,'variable_store_fini(VariableStore *variable_store):&#160;variables.c']]],
+  ['variable_5fstore_5finit_130',['variable_store_init',['../de/dca/variables_8h.html#a451a5a98650812b4408695c28efc6ff1',1,'variable_store_init(VariableStore *):&#160;variables.c'],['../d5/de8/variables_8c.html#ab2d61879c6d14cf62a394c090999ca14',1,'variable_store_init(VariableStore *variable_store):&#160;variables.c']]],
+  ['variables_131',['variables',['../df/d55/structVariableStore.html#a58a80f3863478142098e22494232c77b',1,'VariableStore']]],
+  ['variables_2ec_132',['variables.c',['../d5/de8/variables_8c.html',1,'']]],
+  ['variables_2eh_133',['variables.h',['../de/dca/variables_8h.html',1,'']]],
+  ['variablestore_134',['VariableStore',['../df/d55/structVariableStore.html',1,'']]]
 ];

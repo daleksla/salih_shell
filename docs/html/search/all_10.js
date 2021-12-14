@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['value_129',['value',['../d8/d95/structAlias.html#a25db61ef0f3c3d77d99c9b0cbda608d5',1,'Alias::value()'],['../d0/dd3/structVariable.html#ab40942d93adc7c5156ff6ee3f3ea4c20',1,'Variable::value()']]],
-  ['variable_130',['Variable',['../d0/dd3/structVariable.html',1,'']]],
-  ['variable_5fcount_131',['variable_count',['../df/d55/structVariableStore.html#a1b11d0b781ebf33981dbccc5a10fbe34',1,'VariableStore']]],
-  ['variable_5fstore_5ffini_132',['variable_store_fini',['../de/dca/variables_8h.html#a75aba09ebd049ea585bec0695f385baa',1,'variable_store_fini(VariableStore *):&#160;variables.c'],['../d5/de8/variables_8c.html#aae0f45dc681f13e5f8f3ef32fef93a35',1,'variable_store_fini(VariableStore *variable_store):&#160;variables.c']]],
-  ['variable_5fstore_5finit_133',['variable_store_init',['../de/dca/variables_8h.html#a451a5a98650812b4408695c28efc6ff1',1,'variable_store_init(VariableStore *):&#160;variables.c'],['../d5/de8/variables_8c.html#ab2d61879c6d14cf62a394c090999ca14',1,'variable_store_init(VariableStore *variable_store):&#160;variables.c']]],
-  ['variables_134',['variables',['../df/d55/structVariableStore.html#a58a80f3863478142098e22494232c77b',1,'VariableStore']]],
-  ['variables_2ec_135',['variables.c',['../d5/de8/variables_8c.html',1,'']]],
-  ['variables_2eh_136',['variables.h',['../de/dca/variables_8h.html',1,'']]],
-  ['variablestore_137',['VariableStore',['../df/d55/structVariableStore.html',1,'']]]
+  ['word_5fcount_135',['word_count',['../d8/d95/structAlias.html#a5f2565d4e926fcd5222e74ae09d74424',1,'Alias::word_count()'],['../d6/d38/structWordStore.html#a9346709bc44fa84cfccb11bf21b96956',1,'WordStore::word_count()']]],
+  ['word_5fstore_5fadd_136',['word_store_add',['../d5/d36/parser_8h.html#a88b5b96f794abf291dd426bc9ff9b749',1,'word_store_add(WordStore *, char *):&#160;parser.c'],['../d2/d72/parser_8c.html#a9c72bd266b1f0c286705bc4ae74764c8',1,'word_store_add(WordStore *word_store, char *word):&#160;parser.c']]],
+  ['word_5fstore_5ffini_137',['word_store_fini',['../d5/d36/parser_8h.html#a0a6e07f97598595eb5e64a6055b23b4d',1,'word_store_fini(WordStore *):&#160;parser.c'],['../d2/d72/parser_8c.html#ac15775480689fe9d1b2fe577e022fad8',1,'word_store_fini(WordStore *word_store):&#160;parser.c']]],
+  ['word_5fstore_5finit_138',['word_store_init',['../d5/d36/parser_8h.html#a66997b1eddd1a5d708aa537b8b10ea9a',1,'word_store_init(WordStore *, const size_t):&#160;parser.c'],['../d2/d72/parser_8c.html#a415b4d1b0646e9d642cc038094d85c1b',1,'word_store_init(WordStore *word_store, const size_t sz):&#160;parser.c']]],
+  ['word_5fstore_5finsert_139',['word_store_insert',['../d5/d36/parser_8h.html#afa33aef98e4ee6612cb05b6ef15a5102',1,'word_store_insert(WordStore *, char *, const size_t):&#160;parser.c'],['../d2/d72/parser_8c.html#a071852662992467e4d4ed3089dbb1120',1,'word_store_insert(WordStore *word_store, char *word, const size_t pos):&#160;parser.c']]],
+  ['word_5fstore_5frefresh_140',['word_store_refresh',['../d5/d36/parser_8h.html#acaa73dc99c011d8f97ec066eab7e3ef8',1,'word_store_refresh(WordStore *):&#160;parser.c'],['../d2/d72/parser_8c.html#afd4098dfb72ff899028f21cc04e9074b',1,'word_store_refresh(WordStore *word_store):&#160;parser.c']]],
+  ['word_5fstore_5freplace_141',['word_store_replace',['../d5/d36/parser_8h.html#ae6308dfb36131bf96d52c0487ddd7c62',1,'word_store_replace(WordStore *, char *, const size_t):&#160;parser.c'],['../d2/d72/parser_8c.html#a834a2ccc4dc835eab30284df7f160ba6',1,'word_store_replace(WordStore *word_store, char *word, const size_t pos):&#160;parser.c']]],
+  ['words_142',['words',['../d6/d38/structWordStore.html#a9046be76ba2b5840b9158264451c10ae',1,'WordStore']]],
+  ['wordstore_143',['WordStore',['../d6/d38/structWordStore.html',1,'']]]
 ];
